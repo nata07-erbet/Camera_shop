@@ -30,4 +30,4 @@ function Banner () {
   );
 }
 
-export { Banner }
+export { Banner };
