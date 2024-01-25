@@ -1,7 +1,10 @@
+import { Header} from '../header/header';
+import { Footer } from '../footer/footer';
+
 function Catalog () {
   return (
     <>
-      
+      <Header />
       <main>
         <div className="banner">
           <picture>
@@ -84,7 +87,7 @@ function Catalog () {
                             <input
                               type="checkbox"
                               name="photocamera"
-                              defaultChecked=""
+                              defaultChecked
                             />
                             <span className="custom-checkbox__icon" />
                             <span className="custom-checkbox__label">
@@ -109,7 +112,7 @@ function Catalog () {
                             <input
                               type="checkbox"
                               name="digital"
-                              defaultChecked=""
+                              defaultChecked
                             />
                             <span className="custom-checkbox__icon" />
                             <span className="custom-checkbox__label">Цифровая</span>
@@ -117,7 +120,7 @@ function Catalog () {
                         </div>
                         <div className="custom-checkbox catalog-filter__item">
                           <label>
-                            <input type="checkbox" name="film" disabled="" />
+                            <input type="checkbox" name="film" disabled />
                             <span className="custom-checkbox__icon" />
                             <span className="custom-checkbox__label">
                               Плёночная
@@ -138,8 +141,8 @@ function Catalog () {
                             <input
                               type="checkbox"
                               name="collection"
-                              defaultChecked=""
-                              disabled=""
+                              defaultChecked
+                              disabled
                             />
                             <span className="custom-checkbox__icon" />
                             <span className="custom-checkbox__label">
@@ -152,7 +155,7 @@ function Catalog () {
                         <legend className="title title--h5">Уровень</legend>
                         <div className="custom-checkbox catalog-filter__item">
                           <label>
-                            <input type="checkbox" name="zero" defaultChecked="" />
+                            <input type="checkbox" name="zero" defaultChecked />
                             <span className="custom-checkbox__icon" />
                             <span className="custom-checkbox__label">Нулевой</span>
                           </label>
@@ -196,7 +199,7 @@ function Catalog () {
                               type="radio"
                               id="sortPrice"
                               name="sort"
-                              defaultChecked=""
+                              defaultChecked
                             />
                             <label htmlFor="sortPrice">по цене</label>
                           </div>
@@ -211,7 +214,7 @@ function Catalog () {
                               type="radio"
                               id="up"
                               name="sort-icon"
-                              defaultChecked=""
+                              defaultChecked
                               aria-label="По возрастанию"
                             />
                             <label htmlFor="up">
@@ -751,7 +754,7 @@ function Catalog () {
                       <li className="pagination__item">
                         <a
                           className="pagination__link pagination__link--active"
-                          ref={1}
+
                         >
                           1
                         </a>
@@ -782,121 +785,7 @@ function Catalog () {
           </section>
         </div>
       </main>
-      <footer className="footer">
-        <div className="container">
-          <div className="footer__info">
-            <a
-              className="footer__logo"
-              href="index.html"
-              aria-label="Переход на главную"
-            >
-              <svg width={100} height={36} aria-hidden="true">
-                <use xlinkHref="#icon-logo-mono" />
-              </svg>
-            </a>
-            <p className="footer__description">
-              Интернет-магазин фото- и видеотехники
-            </p>
-            <ul className="social">
-              <li className="social__item">
-                <a
-                  className="link"
-                  href="#"
-                  aria-label="Переход на страницу вконтатке"
-                >
-                  <svg width={20} height={20} aria-hidden="true">
-                    <use xlinkHref="#icon-vk" />
-                  </svg>
-                </a>
-              </li>
-              <li className="social__item">
-                <a
-                  className="link"
-                  href="#"
-                  aria-label="Переход на страницу pinterest"
-                >
-                  <svg width={20} height={20} aria-hidden="true">
-                    <use xlinkHref="#icon-pinterest" />
-                  </svg>
-                </a>
-              </li>
-              <li className="social__item">
-                <a
-                  className="link"
-                  href="#"
-                  aria-label="Переход на страницу reddit"
-                >
-                  <svg width={20} height={20} aria-hidden="true">
-                    <use xlinkHref="#icon-reddit" />
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <ul className="footer__nav">
-            <li className="footer__nav-item">
-              <p className="footer__title">Навигация</p>
-              <ul className="footer__list">
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Каталог
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Гарантии
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Доставка
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    О компании
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="footer__nav-item">
-              <p className="footer__title">Ресурсы</p>
-              <ul className="footer__list">
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Курсы операторов
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Блог
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Сообщество
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="footer__nav-item">
-              <p className="footer__title">Поддержка</p>
-              <ul className="footer__list">
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    FAQ
-                  </a>
-                </li>
-                <li className="footer__item">
-                  <a className="link" href="#">
-                    Задать вопрос
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

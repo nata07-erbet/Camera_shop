@@ -1,6 +1,6 @@
 function Header () {
   return (
-      <header className="header" id="header">
+    <header className="header" id="header">
         <div className="container">
           <a
             className="header__logo"
@@ -84,7 +84,7 @@ function Header () {
             </svg>
           </a>
         </div>
-      </header>
+    </header>
   );
 }
 export { Header };
