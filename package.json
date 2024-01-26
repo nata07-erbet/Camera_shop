@@ -379,8 +379,12 @@
     "yocto-queue": "0.1.0"
   },
   "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src --ext ts,tsx"
+    "lint": "eslint src --ext ts,tsx",
+    "preview": "vite preview"
+
   },
   "repository": {
     "type": "git",

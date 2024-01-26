@@ -1,5 +1,7 @@
-const mocksByJSON = `{
-  "products": [
+import { TProducts } from '../types/index';
+
+
+const mocksByJSON = `[
     {
       "id": 1,
       "name": "Ретрокамера Dus Auge lV",
@@ -640,9 +642,8 @@ const mocksByJSON = `{
       "rating": 3,
       "reviewCount": 6
     }
-  ]
-}`;
+  ]`;
 
-const productsMocks = JSON.parse(mocks);
+const productsMocks: TProducts = JSON.parse(mocksByJSON); //хз? в консоли - массив объектов
 
 export { productsMocks };

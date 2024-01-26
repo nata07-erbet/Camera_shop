@@ -1,6 +1,7 @@
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
+import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 
 function Product () {
   return (
@@ -8,33 +9,7 @@ function Product () {
       <Header />
       <main>
         <div className="page-content">
-          <div className="breadcrumbs">
-            <div className="container">
-              <ul className="breadcrumbs__list">
-                <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="index.html">
-                Главная
-                    <svg width={5} height={8} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow-mini" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="catalog.html">
-                Каталог
-                    <svg width={5} height={8} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow-mini" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="breadcrumbs__item">
-                  <span className="breadcrumbs__link breadcrumbs__link--active">
-                Ретрокамера Das Auge IV
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <BreadCrumbs />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -478,7 +453,7 @@ function Product () {
                     className="slider-controls slider-controls--prev"
                     type="button"
                     aria-label="Предыдущий слайд"
-                    disabled=""
+                    disabled
                   >
                     <svg width={7} height={12} aria-hidden="true">
                       <use xlinkHref="#icon-arrow" />
