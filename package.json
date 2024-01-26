@@ -5,6 +5,7 @@
   "main": "index.ts",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.19.1",
+    "@vitejs/plugin-react": "^4.2.1",
     "abab": "2.0.6",
     "acorn": "8.10.0",
     "acorn-jsx": "5.3.2",
@@ -384,7 +385,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext ts,tsx",
     "preview": "vite preview"
-
   },
   "repository": {
     "type": "git",
