@@ -1,8 +1,14 @@
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { Banner } from '../../components/banner/banner';
+import { TProducts } from '../../types/index';
 
-function Catalog () {
+type CatalogProps = {
+  mocks: TProducts;
+};
+
+function Catalog (mocks: CatalogProps) {
+  const { }
   return (
     <>
       <Header />
