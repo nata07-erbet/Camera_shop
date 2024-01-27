@@ -1,10 +1,23 @@
-import { TProduct } from '../../types/';
+import { TProductPreview } from '../../types/';
 
 type ProductCardProps = {
-  product: TProduct;
+  product: TProductPreview;
 }
+
+const isRetina = false;
+
 function ProductCard ({product}: ProductCardProps) {
-  const { name } = product;
+  const {
+    name,
+    previewImg,
+    previewImg2x,
+    previewImgWebp,
+    previewImgWebp2x,
+    rating,
+    reviewCount,
+    price
+
+  } = product;
 
   return (
     <div className="product-card is-active">
@@ -12,14 +25,16 @@ function ProductCard ({product}: ProductCardProps) {
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/fast-shot.webp, img/content/fast-shot@2x.webp 2x"
+            srcSet={
+              isRetina ? `${previewImgWebp}` : `${previewImgWebp2x}`
+            }
           />
           <img
-            src="img/content/fast-shot.jpg"
-            srcSet="img/content/fast-shot@2x.jpg 2x"
+            src={previewImg}
+            srcSet={previewImg2x}
             width={280}
             height={240}
-            alt="Фотоаппарат FastShot MR-5"
+            alt={name}
           />
         </picture>
       </div>
@@ -40,14 +55,14 @@ function ProductCard ({product}: ProductCardProps) {
           <svg width={17} height={16} aria-hidden="true">
             <use xlinkHref="#icon-star" />
           </svg>
-          <p className="visually-hidden">Рейтинг: 4</p>
+          <p className="visually-hidden">Рейтинг: {rating}</p>
           <p className="rate__count">
-            <span className="visually-hidden">Всего оценок:</span>12
+            <span className="visually-hidden">Всего оценок:</span>{reviewCount}
           </p>
         </div>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>18 970 ₽
+          <span className="visually-hidden">Цена:</span>{price} ₽
         </p>
       </div>
       <div className="product-card__buttons">
@@ -59,7 +74,6 @@ function ProductCard ({product}: ProductCardProps) {
         </a>
       </div>
     </div>
-
   );
 }
 

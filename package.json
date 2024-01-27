@@ -43,7 +43,7 @@
     "chalk": "4.1.2",
     "check-error": "1.0.2",
     "ci-info": "3.8.0",
-    "classnames": "2.3.2",
+    "classnames": "^2.3.2",
     "clean-regexp": "1.0.0",
     "color-convert": "2.0.1",
     "color-name": "1.1.4",
