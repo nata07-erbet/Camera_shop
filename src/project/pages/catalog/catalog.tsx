@@ -3,6 +3,7 @@ import { Footer } from '../../components/footer/footer';
 import { Banner } from '../../components/banner/banner';
 import { TProducts } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
+import { Pangination } from '../../components/pangination/pangination';
 
 type CatalogProps = {
   products: TProducts;
@@ -222,35 +223,7 @@ function Catalog ({products}: CatalogProps) {
                     </form>
                   </div>
                   <ProductCardList products={products} />
-                  <div className="pagination">
-                    <ul className="pagination__list">
-                      <li className="pagination__item">
-                        <a
-                          className="pagination__link pagination__link--active"
-
-                        >
-                          1
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a className="pagination__link">
-                          2
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a className="pagination__link">
-                          3
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a
-                          className="pagination__link pagination__link--text"
-                        >
-                          Далее
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  <Pangination />
                 </div>
               </div>
             </div>
