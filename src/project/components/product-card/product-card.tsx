@@ -1,4 +1,11 @@
-function ProductCard () {
+import { TProduct } from '../../types/';
+
+type ProductCardProps = {
+  product: TProduct;
+}
+function ProductCard ({product}: ProductCardProps) {
+  const { name } = product;
+
   return (
     <div className="product-card is-active">
       <div className="product-card__img">
@@ -38,7 +45,7 @@ function ProductCard () {
             <span className="visually-hidden">Всего оценок:</span>12
           </p>
         </div>
-        <p className="product-card__title">FastShot MR-5</p>
+        <p className="product-card__title">{name}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>18 970 ₽
         </p>

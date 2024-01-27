@@ -17,4 +17,4 @@ type TProduct ={
 
 type TProducts = TProduct[];
 
-export type { TProducts };
+export type { TProduct, TProducts };

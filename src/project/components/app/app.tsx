@@ -7,7 +7,7 @@ import { productsMocks } from '../../mocks/products-mock';
 function App () {
   return(
     <>
-      <Catalog mocks={ productsMocks } />
+      <Catalog products={ productsMocks } />
       <Product />
       <NotFoundPage />
       <Basket />
@@ -15,6 +15,5 @@ function App () {
   );
 }
 
-console.log(productsMocks);
 export { App};
 
