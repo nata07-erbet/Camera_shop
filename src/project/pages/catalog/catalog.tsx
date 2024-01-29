@@ -14,8 +14,10 @@ type CatalogProps = {
 
 function Catalog ({products}: CatalogProps) {
 
-  const isPaginationShow = (products: TProducts): boolean => {
-    products.length >=9 ? 'true' : 'false';
+  const isPaginationShow = () => {
+    if(products.length >= 9) {
+      return true;
+    }
   };
 
   return (
@@ -35,12 +37,7 @@ function Catalog ({products}: CatalogProps) {
                 <div className="catalog__content">
                   <Sorting />
                   <ProductCardList products={products} />
-                  {isPaginationShow(products) ? (
-                     <Pangination />
-                  ) : (
-                    ''
-                  )}
-
+                  {isPaginationShow() &&<Pangination />}
                 </div>
               </div>
             </div>
