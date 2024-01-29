@@ -2,15 +2,15 @@ import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
-import { SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
-import { TProductPreview, TProduct } from '../../types/index';
+import { SimilarList } from '../../components/similar-list/similar-list';
+import { TProducts } from '../../types/index';
 
-import { useParams } from 'react-router';
-import { number } from 'prop-types';
+// import { useParams } from 'react-router';
+// import { number } from 'prop-types';
 
 
 type ProductProps = {
-  products: TProductPreview[];
+  products: TProducts;
 }
 
 function Product ({products}: ProductProps) {
@@ -20,11 +20,24 @@ function Product ({products}: ProductProps) {
   // const id = Number(param);
 
   //для проверки корректности отбражения данных
-  const id = 24;
+  const id = 13;
 
-  const currentProduct = products.find((product) => product.id === id)
-   //подумать currentProduct
-  const { } = currentProduct;
+  const currentProduct = products.find((el) => el.id === id);
+
+  //потом будет спиннер
+  if(!currentProduct) {
+    return null;
+  }
+
+  const { name } = currentProduct;
+
+  const similarProds = [];
+  //для проверки корректности отбражения данных
+  for (const product of products) {
+    const similar = products.find((el)=> el.category === product.category);
+    similarProds.push(similar);
+  }
+
   return (
     <>
       <Header />
@@ -50,7 +63,7 @@ function Product ({products}: ProductProps) {
                   </picture>
                 </div>
                 <div className="product__content">
-                  <h1 className="title title--h3">Ретрокамера Das Auge IV</h1>
+                  <h1 className="title title--h3">{name}</h1>
                   <div className="rate product__rate">
                     <svg width={17} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-full-star" />
@@ -134,7 +147,7 @@ function Product ({products}: ProductProps) {
             </section>
           </div>
           <div className="page-content__section">
-            <SimilarSliderProducts />
+            <SimilarList similarProds={similarProds} />
           </div>
           <div className="page-content__section">
             <section className="review-block">
