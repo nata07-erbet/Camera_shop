@@ -1,6 +1,5 @@
 import { TProducts } from '../types/index';
 
-
 const mocksByJSON = `[
     {
       "id": 1,
@@ -644,6 +643,6 @@ const mocksByJSON = `[
     }
   ]`;
 
-const productsMocks: TProducts = JSON.parse(mocksByJSON); //хз? в консоли - массив объектов
+const productsMocks: TProducts = JSON.parse(mocksByJSON);
 
 export { productsMocks };

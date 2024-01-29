@@ -1,3 +1,3 @@
 const PRODUCT_VIEW_COUNT = 9;
 
-export { PRODUCT_VIEW_COUNT }
+export { PRODUCT_VIEW_COUNT };
