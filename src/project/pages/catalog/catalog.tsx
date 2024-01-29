@@ -1,7 +1,7 @@
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { Banner } from '../../components/banner/banner';
-import { TProducts } from '../../types/index';
+import { TProductPreview} from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pangination } from '../../components/pangination/pangination';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -9,7 +9,7 @@ import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 
 type CatalogProps = {
-  products: TProducts;
+  products: TProductPreview[];
 };
 
 function Catalog ({products}: CatalogProps) {
