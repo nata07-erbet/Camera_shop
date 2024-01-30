@@ -13,7 +13,7 @@ function App () {
       <Catalog products={productsMocks } />
       <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
       <NotFoundPage />
-      <Basket />
+      <Basket products={productsMocks}/>
     </>
   );
 }
