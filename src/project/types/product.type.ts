@@ -6,7 +6,7 @@ type TProductPreview = {
   previewImgWebp: string;
   price: number;
   previewImgWebp2x: string;
-  rating: number;
+  rating: 1 | 2 | 3 | 4 | 5;
   reviewCount: number;
 }
 

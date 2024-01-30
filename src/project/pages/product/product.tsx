@@ -6,6 +6,7 @@ import { SimilarList } from '../../components/similar-list/similar-list';
 import { TProducts } from '../../types/index';
 import classNames from 'classnames';
 import { useState } from 'react';
+import { Rating } from '../../components/rating/rating';
 
 // import { useParams } from 'react-router';
 // import { number } from 'prop-types';
@@ -46,7 +47,16 @@ function Product ({products}: ProductProps) {
     return null;
   }
 
-  const { name, previewImgWebp, previewImgWebp2x, previewImg, previewImg2x, price} = currentProduct;
+  const {
+    name,
+    previewImgWebp,
+    previewImgWebp2x,
+    previewImg,
+    previewImg2x,
+    price,
+    rating,
+    reviewCount
+  } = currentProduct;
 
   const similarProds = [];
   //для проверки корректности отбражения данных
@@ -81,29 +91,7 @@ function Product ({products}: ProductProps) {
                 </div>
                 <div className="product__content">
                   <h1 className="title title--h3">{name}</h1>
-                  {/* Rating */}
-                  <div className="rate product__rate">
-                    <svg width={17} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-full-star" />
-                    </svg>
-                    <svg width={17} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-full-star" />
-                    </svg>
-                    <svg width={17} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-full-star" />
-                    </svg>
-                    <svg width={17} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-full-star" />
-                    </svg>
-                    <svg width={17} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-star" />
-                    </svg>
-                    <p className="visually-hidden">Рейтинг: 4</p>
-                    <p className="rate__count">
-                      <span className="visually-hidden">Всего оценок:</span>12
-                    </p>
-                  </div>
-
+                  <Rating rating={rating} reviewCount={reviewCount}/>
                   <p className="product__price">
                     <span className="visually-hidden">Цена:</span>{price} &#8381;
                   </p>
