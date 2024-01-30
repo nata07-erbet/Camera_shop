@@ -1,5 +1,5 @@
 type TProductPreview = {
-  id: number;
+  id: string;
   name: string;
   previewImg: string;
   previewImg2x: string;

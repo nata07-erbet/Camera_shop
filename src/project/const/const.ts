@@ -7,4 +7,10 @@ const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT };
+const AppRoute = {
+  Main: '/',
+  Product: '/product',
+  Basket: '/basket',
+};
+
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute};

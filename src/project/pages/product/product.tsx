@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
@@ -7,11 +9,7 @@ import { TProduct, TGetRewiew } from '../../types/index';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
-import { MOCK_START, MOCK_END } from '../../const/const';
-import { getRandomInteger } from '../../utils/utils';
 import { Rewiews } from '../../components/rewiews/rewiews';
-
-// import { useParams } from 'react-router';
 
 type ProductProps = {
   products: TProduct[];
@@ -23,6 +21,7 @@ type ProductProps = {
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
+  const params = useParams();
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -40,13 +39,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     },
   );
 
-  // const param = useParams();
-  // const id = Number(param);
-
-  //для проверки корректности отбражения данных
-  const id = getRandomInteger(MOCK_START, MOCK_END);
-
-  const currentProduct = products.find((product) => product.id === id);
+  const currentProduct = products.find((product) => product.id === params.id);
 
   //потом будет спиннер
   if(!currentProduct) {
