@@ -18,7 +18,5 @@ type TProduct = TProductPreview & {
   level: 'Нулевой' | 'Любительский' | 'Профессиональный';
 }
 
-type TProducts = TProduct[];
 
-
-export type { TProductPreview, TProduct, TProducts };
+export type { TProduct };

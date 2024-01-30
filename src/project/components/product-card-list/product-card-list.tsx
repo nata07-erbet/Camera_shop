@@ -1,10 +1,10 @@
 import { ProductCard } from '../../components/product-card/product-card';
-import { TProducts } from '../../types/index';
+import { TProduct } from '../../types/index';
 import { PRODUCT_VIEW_COUNT } from '../../const/const';
 
 
 type ProductCardListProps = {
-  products: TProducts;
+  products: TProduct[];
 }
 
 const START_POSITION = 0;

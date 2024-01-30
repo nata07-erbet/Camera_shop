@@ -1,8 +1,8 @@
 import { SimilarList } from '../similar-list/similar-list';
-import { TProducts } from '../../types/index';
+import { TProduct } from '../../types/index';
 
 type SimilarSliderProductsProps = {
-  similarProducts: TProducts;
+  similarProducts: TProduct[];
 }
 
 function SimilarSliderProducts ({similarProducts}: SimilarSliderProductsProps) {

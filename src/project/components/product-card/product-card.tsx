@@ -1,7 +1,7 @@
-import { TProductPreview } from '../../types/';
+import { TProduct } from '../../types/';
 
 type ProductCardProps = {
-  product: TProductPreview;
+  product: TProduct;
 }
 
 const isRetina = false;

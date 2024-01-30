@@ -1,4 +1,4 @@
-import { TProducts } from '../types/index';
+import { TProduct } from '../types/index';
 
 const mocksByJSON = `[
     {
@@ -643,6 +643,6 @@ const mocksByJSON = `[
     }
   ]`;
 
-const productsMocks: TProducts = JSON.parse(mocksByJSON);
+const productsMocks: TProduct[] = JSON.parse(mocksByJSON);
 
 export { productsMocks };

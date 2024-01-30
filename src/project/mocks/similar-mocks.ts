@@ -1,4 +1,4 @@
-import { TProducts } from '../types/index';
+import { TProduct } from '../types/index';
 
 const similarJSON = `[
   {
@@ -147,6 +147,6 @@ const similarJSON = `[
   }
 ]`;
 
-const similarMocks: TProducts = JSON.parse(similarJSON);
+const similarMocks: TProduct[] = JSON.parse(similarJSON);
 
 export { similarMocks};

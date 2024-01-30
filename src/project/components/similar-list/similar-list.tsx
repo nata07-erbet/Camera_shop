@@ -1,8 +1,8 @@
-import { TProducts } from '../../types/index';
+import { TProduct } from '../../types/index';
 import { Rating } from '../../components/rating/rating';
 
 type SimilarListProps = {
-  similarProducts: TProducts;
+  similarProducts: TProduct[];
 };
 
 function SimilarList ({similarProducts}: SimilarListProps) {
