@@ -5,6 +5,7 @@ type SimilarListProps = {
 };
 
 function SimilarList ({similarProds}: SimilarListProps) {
+  const isRetina = true;
 
   return (
     <div className="product-similar__slider-list">
@@ -16,14 +17,14 @@ function SimilarList ({similarProds}: SimilarListProps) {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet="img/content/fast-shot.webp, img/content/fast-shot@2x.webp 2x"
+                  srcSet={!isRetina ? similar.previewImgWebp : similar.previewImgWebp2x}
                 />
                 <img
-                  src="img/content/fast-shot.jpg"
-                  srcSet="img/content/fast-shot@2x.jpg 2x"
+                  src={similar.previewImg}
+                  srcSet={similar.previewImg2x}
                   width={280}
                   height={240}
-                  alt="Фотоаппарат FastShot MR-5"
+                  alt={similar.name}
                 />
               </picture>
             </div>
@@ -51,7 +52,7 @@ function SimilarList ({similarProds}: SimilarListProps) {
               </div>
               <p className="product-card__title">{similar.name}</p>
               <p className="product-card__price">
-                <span className="visually-hidden">Цена:</span>18 970 &#8381
+                <span className="visually-hidden">Цена:</span>18 970₽
               </p>
             </div>
             <div className="product-card__buttons">
@@ -67,8 +68,6 @@ function SimilarList ({similarProds}: SimilarListProps) {
             </div>
           </div>
         ))}
-
-
     </div>
   );
 }

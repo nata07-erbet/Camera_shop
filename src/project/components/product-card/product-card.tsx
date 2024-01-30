@@ -62,7 +62,7 @@ function ProductCard ({product}: ProductCardProps) {
         </div>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>{price} &#8381
+          <span className="visually-hidden">Цена:</span>{price}₽
         </p>
       </div>
       <div className="product-card__buttons">

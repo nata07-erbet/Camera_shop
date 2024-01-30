@@ -4,7 +4,7 @@ function Filter () {
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
         <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Цена, &#8381</legend>
+          <legend className="title title--h5">Цена,₽</legend>
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>

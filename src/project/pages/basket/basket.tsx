@@ -70,7 +70,7 @@ function Basket () {
                     </ul>
                   </div>
                   <p className="basket-item__price">
-                    <span className="visually-hidden">Цена:</span>18 970 &#8381
+                    <span className="visually-hidden">Цена:</span>18 970₽
                   </p>
                   <div className="quantity">
                     <button
@@ -100,7 +100,7 @@ function Basket () {
                     </button>
                   </div>
                   <div className="basket-item__total-price">
-                    <span className="visually-hidden">Общая цена:</span>37 940 &#8381
+                    <span className="visually-hidden">Общая цена:</span>37 940₽
                   </div>
                   <button
                     className="cross-btn"
@@ -144,7 +144,7 @@ function Basket () {
                     </ul>
                   </div>
                   <p className="basket-item__price">
-                    <span className="visually-hidden">Цена:</span>73 450 &#8381
+                    <span className="visually-hidden">Цена:</span>73 450₽
                   </p>
                   <div className="quantity">
                     <button
@@ -175,7 +175,7 @@ function Basket () {
                     </button>
                   </div>
                   <div className="basket-item__total-price">
-                    <span className="visually-hidden">Общая цена:</span>73 450 &#8381
+                    <span className="visually-hidden">Общая цена:</span>73 450₽
                   </div>
                   <button
                     className="cross-btn"
@@ -216,12 +216,12 @@ function Basket () {
                 <div className="basket__summary-order">
                   <p className="basket__summary-item">
                     <span className="basket__summary-text">Всего:</span>
-                    <span className="basket__summary-value">111 390 &#8381</span>
+                    <span className="basket__summary-value">111 390₽</span>
                   </p>
                   <p className="basket__summary-item">
                     <span className="basket__summary-text">Скидка:</span>
                     <span className="basket__summary-value basket__summary-value--bonus">
-                      0 &#8381
+                      0₽
                     </span>
                   </p>
                   <p className="basket__summary-item">
@@ -229,7 +229,7 @@ function Basket () {
                       К оплате:
                     </span>
                     <span className="basket__summary-value basket__summary-value--total">
-                      111 390 &#8381
+                      111 390₽
                     </span>
                   </p>
                   <button className="btn btn--purple" type="submit">

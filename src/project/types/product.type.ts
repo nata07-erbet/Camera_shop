@@ -12,12 +12,13 @@ type TProductPreview = {
 
 type TProduct = TProductPreview & {
   vendorCode: string;
-  type: string;
-  category: string;
+  type: 'Коллекционная'|'Моментальная'|'Цифровая'|'Плёночная';
+  category: 'Видеокамера' |'Фотоаппарат';
   description: string;
-  level: string;
+  level: 'Нулевой' | 'Любительский' | 'Профессиональный';
 }
 
 type TProducts = TProduct[];
+
 
 export type { TProductPreview, TProduct, TProducts };

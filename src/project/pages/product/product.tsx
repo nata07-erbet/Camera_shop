@@ -2,11 +2,13 @@ import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
-import { SimilarList } from '../../components/similar-list/similar-list';
-import { TProducts } from '../../types/index';
+import {SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
+import { TProducts, TProduct} from '../../types/index';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
+import { MOCK_START, MOCK_END } from '../../const/const';
+import { getRandomInteger } from '../../utils/utils';
 
 // import { useParams } from 'react-router';
 // import { number } from 'prop-types';
@@ -39,8 +41,9 @@ function Product ({products}: ProductProps) {
   // const param = useParams();
   // const id = Number(param);
   //для проверки корректности отбражения данных
-  const id = 13;
-  const currentProduct = products.find((el) => el.id === id);
+  const id = getRandomInteger(MOCK_START, MOCK_END);
+
+  const currentProduct = products.find((product) => product.id === id);
 
   //потом будет спиннер
   if(!currentProduct) {
@@ -93,7 +96,7 @@ function Product ({products}: ProductProps) {
                   <h1 className="title title--h3">{name}</h1>
                   <Rating rating={rating} reviewCount={reviewCount}/>
                   <p className="product__price">
-                    <span className="visually-hidden">Цена:</span>{price} &#8381;
+                    <span className="visually-hidden">Цена:</span>{price}₽;
                   </p>
                   <button className="btn btn--purple" type="button">
                     <svg width={24} height={16} aria-hidden="true">
@@ -170,7 +173,7 @@ function Product ({products}: ProductProps) {
             </section>
           </div>
           <div className="page-content__section">
-            <SimilarList similarProds={similarProds} />
+            <SimilarSliderProducts similarProds={similarProds} />
           </div>
           <div className="page-content__section">
             <section className="review-block">
