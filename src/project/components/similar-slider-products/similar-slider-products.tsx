@@ -2,17 +2,17 @@ import { SimilarList } from '../similar-list/similar-list';
 import { TProducts } from '../../types/index';
 
 type SimilarSliderProductsProps = {
-  similarProds: TProducts;
+  similarProducts: TProducts;
 }
 
-function SimilarSliderProducts ({similarProds}: SimilarSliderProductsProps) {
+function SimilarSliderProducts ({similarProducts}: SimilarSliderProductsProps) {
   return(
     <section className="product-similar">
       <div className="container">
         <h2 className="title title--h3">Похожие товары</h2>
 
         <div className="product-similar__slider">
-          <SimilarList similarProds={similarProds}/>
+          <SimilarList similarProducts={similarProducts}/>
           <button
             className="slider-controls slider-controls--prev"
             type="button"

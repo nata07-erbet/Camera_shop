@@ -1,15 +1,16 @@
 import { TProducts } from '../../types/index';
+import { Rating } from '../../components/rating/rating';
 
 type SimilarListProps = {
-  similarProds: TProducts;
+  similarProducts: TProducts;
 };
 
-function SimilarList ({similarProds}: SimilarListProps) {
+function SimilarList ({similarProducts}: SimilarListProps) {
   const isRetina = true;
 
   return (
     <div className="product-similar__slider-list">
-      {similarProds
+      {similarProducts
         .slice(0, 3)
         .map((similar) => (
           <div className="product-card is-active" key={similar.id}>
@@ -29,30 +30,10 @@ function SimilarList ({similarProds}: SimilarListProps) {
               </picture>
             </div>
             <div className="product-card__info">
-              <div className="rate product-card__rate">
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-                <p className="visually-hidden">Рейтинг: 4</p>
-                <p className="rate__count">
-                  <span className="visually-hidden">Всего оценок:</span>12
-                </p>
-              </div>
+              <Rating rating={similar.rating} reviewCount={similar.reviewCount}/>
               <p className="product-card__title">{similar.name}</p>
               <p className="product-card__price">
-                <span className="visually-hidden">Цена:</span>18 970₽
+                <span className="visually-hidden">Цена:</span>{similar.price}₽
               </p>
             </div>
             <div className="product-card__buttons">

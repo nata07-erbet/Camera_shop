@@ -3,7 +3,7 @@ import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import {SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
-import { TProducts, TProduct} from '../../types/index';
+import { TProducts} from '../../types/index';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
@@ -15,10 +15,11 @@ import { getRandomInteger } from '../../utils/utils';
 
 type ProductProps = {
   products: TProducts;
+  similarProducts: TProducts;
 }
 
 
-function Product ({products}: ProductProps) {
+function Product ({products, similarProducts}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
 
@@ -173,7 +174,7 @@ function Product ({products}: ProductProps) {
             </section>
           </div>
           <div className="page-content__section">
-            <SimilarSliderProducts similarProds={similarProds} />
+            <SimilarSliderProducts similarProducts={similarProducts} />
           </div>
           <div className="page-content__section">
             <section className="review-block">
