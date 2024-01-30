@@ -32,7 +32,7 @@ function AddProductBasket () {
                 <li className="basket-item__list-item">Любительский уровень</li>
               </ul>
               <p className="basket-item__price">
-                <span className="visually-hidden">Цена:</span>18 970 ₽
+                <span className="visually-hidden">Цена:</span>18 970 &#8381
               </p>
             </div>
           </div>

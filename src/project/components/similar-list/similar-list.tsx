@@ -51,7 +51,7 @@ function SimilarList ({similarProds}: SimilarListProps) {
               </div>
               <p className="product-card__title">{similar.name}</p>
               <p className="product-card__price">
-                <span className="visually-hidden">Цена:</span>18 970 ₽
+                <span className="visually-hidden">Цена:</span>18 970 &#8381
               </p>
             </div>
             <div className="product-card__buttons">

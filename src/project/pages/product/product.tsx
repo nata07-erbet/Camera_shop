@@ -4,24 +4,41 @@ import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { SimilarList } from '../../components/similar-list/similar-list';
 import { TProducts } from '../../types/index';
+import classNames from 'classnames';
+import { useState } from 'react';
 
 // import { useParams } from 'react-router';
 // import { number } from 'prop-types';
-
 
 type ProductProps = {
   products: TProducts;
 }
 
-function Product ({products}: ProductProps) {
 
+function Product ({products}: ProductProps) {
+  const isRetina = true;
+  const [isActive, setIsActive] = useState(true);
+
+  const tabClassAct = classNames(
+    'tabs__element',
+    {
+      'is-active': isActive,
+      disabled: !isActive
+    },
+  );
+
+  const tabClassNoAct = classNames(
+    'tabs__element',
+    {
+      'is-active': !isActive,
+      disabled: !isActive
+    },
+  );
 
   // const param = useParams();
   // const id = Number(param);
-
   //для проверки корректности отбражения данных
   const id = 13;
-
   const currentProduct = products.find((el) => el.id === id);
 
   //потом будет спиннер
@@ -29,7 +46,7 @@ function Product ({products}: ProductProps) {
     return null;
   }
 
-  const { name } = currentProduct;
+  const { name, previewImgWebp, previewImgWebp2x, previewImg, previewImg2x, price} = currentProduct;
 
   const similarProds = [];
   //для проверки корректности отбражения данных
@@ -51,19 +68,20 @@ function Product ({products}: ProductProps) {
                   <picture>
                     <source
                       type="image/webp"
-                      srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x"
+                      srcSet={ isRetina ? previewImgWebp : previewImgWebp2x }
                     />
                     <img
-                      src="img/content/das-auge.jpg"
-                      srcSet="img/content/das-auge@2x.jpg 2x"
+                      src={previewImg}
+                      srcSet={previewImg2x}
                       width={560}
                       height={480}
-                      alt="Ретрокамера Das Auge IV"
+                      alt={name}
                     />
                   </picture>
                 </div>
                 <div className="product__content">
                   <h1 className="title title--h3">{name}</h1>
+                  {/* Rating */}
                   <div className="rate product__rate">
                     <svg width={17} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-full-star" />
@@ -85,8 +103,9 @@ function Product ({products}: ProductProps) {
                       <span className="visually-hidden">Всего оценок:</span>12
                     </p>
                   </div>
+
                   <p className="product__price">
-                    <span className="visually-hidden">Цена:</span>73 450 ₽
+                    <span className="visually-hidden">Цена:</span>{price} &#8381;
                   </p>
                   <button className="btn btn--purple" type="button">
                     <svg width={24} height={16} aria-hidden="true">
@@ -96,15 +115,31 @@ function Product ({products}: ProductProps) {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button className="tabs__control" type="button">
-                    Характеристики
+                      <button
+                        className={classNames(
+                          'tabs__control',
+                          {'is-active': !isActive}
+                        )}
+                        type="button"
+                        onClick={() => setIsActive(true)} // хз не меняет состояние
+                      >
+                        Характеристики
                       </button>
-                      <button className="tabs__control is-active" type="button">
+
+                      <button
+                        className={classNames(
+                          'tabs__control',
+                          {'is-active': isActive}
+                        )}
+                        type="button"
+                        onClick={() => setIsActive(false)} // хз не меняет состояние
+                      >
                     Описание
                       </button>
                     </div>
+
                     <div className="tabs__content">
-                      <div className="tabs__element">
+                      <div className={tabClassNoAct}>
                         <ul className="product__tabs-list">
                           <li className="item-list">
                             <span className="item-list__title">Артикул:</span>
@@ -124,7 +159,7 @@ function Product ({products}: ProductProps) {
                           </li>
                         </ul>
                       </div>
-                      <div className="tabs__element is-active">
+                      <div className={tabClassAct}>
                         <div className="product__tabs-text">
                           <p>
                         Немецкий концерн BRW разработал видеокамеру Das Auge IV
