@@ -1,7 +1,7 @@
 
 type RatingProps ={
   rating: 1 | 2 | 3 | 4 | 5;
-  reviewCount: number;
+  reviewCount?: number;
 }
 
 
