@@ -954,4 +954,6 @@ const getRewiewsJSON = `
   }
 ]`;
 
-const rewiewsMock : TGetRewiew = JSON.parse(getRewiewsJSON);
+const getRewiewsMock: TGetRewiew[] = JSON.parse(getRewiewsJSON);
+
+export { getRewiewsMock };

@@ -1,6 +1,11 @@
+import { TGetRewiew } from '../../types';
 import { RewiewList } from '../rewiew-list/rewiew-list';
 
-function Rewiews () {
+type RewiewsProps ={
+  rewiews: TGetRewiew[];
+}
+
+function Rewiews ({rewiews}: RewiewsProps) {
   return (
     <section className="review-block">
       <div className="container">
@@ -10,7 +15,7 @@ function Rewiews () {
             Оставить свой отзыв
           </button>
         </div>
-        <RewiewList />
+        <RewiewList rewiews={rewiews}/>
         <div className="review-block__buttons">
           <button className="btn btn--purple" type="button">
                 Показать больше отзывов

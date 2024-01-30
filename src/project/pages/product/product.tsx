@@ -3,7 +3,7 @@ import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import {SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
-import { TProduct } from '../../types/index';
+import { TProduct, TGetRewiew } from '../../types/index';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
@@ -12,15 +12,15 @@ import { getRandomInteger } from '../../utils/utils';
 import { Rewiews } from '../../components/rewiews/rewiews';
 
 // import { useParams } from 'react-router';
-// import { number } from 'prop-types';
 
 type ProductProps = {
   products: TProduct[];
   similarProducts: TProduct[];
+  rewiews: TGetRewiew[];
 }
 
 
-function Product ({products, similarProducts}: ProductProps) {
+function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
 
@@ -42,6 +42,7 @@ function Product ({products, similarProducts}: ProductProps) {
 
   // const param = useParams();
   // const id = Number(param);
+
   //для проверки корректности отбражения данных
   const id = getRandomInteger(MOCK_START, MOCK_END);
 
@@ -171,7 +172,7 @@ function Product ({products, similarProducts}: ProductProps) {
             <SimilarSliderProducts similarProducts={similarProducts} />
           </div>
           <div className="page-content__section">
-            <Rewiews />
+            <Rewiews rewiews={rewiews}/>
           </div>
         </div>
       </main>

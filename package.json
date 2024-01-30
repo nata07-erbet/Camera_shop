@@ -57,6 +57,7 @@
     "csstype": "3.1.2",
     "data-urls": "4.0.0",
     "date-time": "3.1.0",
+    "dayjs": "1.11.10",
     "debug": "4.3.4",
     "decimal.js": "10.4.3",
     "deep-eql": "4.1.3",

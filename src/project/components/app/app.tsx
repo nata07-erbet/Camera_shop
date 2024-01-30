@@ -4,13 +4,14 @@ import { NotFoundPage } from '../../pages/404/404';
 import { Basket } from '../../pages/basket/basket';
 import { productsMocks } from '../../mocks/products-mock';
 import { similarMocks } from '../../mocks/similar-mocks';
+import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
 
 function App () {
 
   return(
     <>
       <Catalog products={productsMocks } />
-      <Product products={productsMocks} similarProducts={similarMocks} />
+      <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
       <NotFoundPage />
       <Basket />
     </>
