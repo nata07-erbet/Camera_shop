@@ -1,7 +1,7 @@
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { Banner } from '../../components/banner/banner';
-import { TProduct} from '../../types/index';
+import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pangination } from '../../components/pangination/pangination';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -10,9 +10,10 @@ import { Sorting } from '../../components/sorting/sorting';
 
 type CatalogProps = {
   products: TProduct[];
+  banners: TBanner[];
 };
 
-function Catalog ({products}: CatalogProps) {
+function Catalog ({products, banners}: CatalogProps) {
 
   const isPaginationShow = () => {
     if(products.length >= 9) {
@@ -24,7 +25,7 @@ function Catalog ({products}: CatalogProps) {
     <>
       <Header />
       <main>
-        <Banner />
+        <Banner banners={banners} />
         <div className="page-content">
           <BreadCrumbs />
           <section className="catalog">

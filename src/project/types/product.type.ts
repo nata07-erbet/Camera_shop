@@ -18,5 +18,6 @@ type TProduct = TProductPreview & {
   level: 'Нулевой' | 'Любительский' | 'Профессиональный';
 }
 
+type TBanner = Omit <TProductPreview , 'price' | 'rating' | 'reviewCount' >;
 
-export type { TProduct };
+export type { TProduct, TBanner };
