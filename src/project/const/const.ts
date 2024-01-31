@@ -13,4 +13,10 @@ const AppRoute = {
   Basket: '/basket',
 };
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute};
+const PanginationStep = {
+  First: 1,
+  Second: 2,
+  Third: 3,
+};
+
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep };
