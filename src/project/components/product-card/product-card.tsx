@@ -1,5 +1,7 @@
 import { TProduct } from '../../types/';
-
+import { Rating } from '../../components/rating/rating';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
 type ProductCardProps = {
   product: TProduct;
 }
@@ -18,6 +20,13 @@ function ProductCard ({product}: ProductCardProps) {
     price
 
   } = product;
+
+  const navigate = useNavigate();
+
+  const hanleButtonClick = () => {
+    //тут должен быть роут для попапа
+    navigate(AppRoute.Basket);
+  };
 
   return (
     <div className="product-card is-active">
@@ -39,39 +48,23 @@ function ProductCard ({product}: ProductCardProps) {
         </picture>
       </div>
       <div className="product-card__info">
-        <div className="rate product-card__rate">
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star" />
-          </svg>
-          <p className="visually-hidden">Рейтинг: {rating}</p>
-          <p className="rate__count">
-            <span className="visually-hidden">Всего оценок:</span>{reviewCount}
-          </p>
-        </div>
+        <Rating rating={rating} reviewCount={reviewCount}/>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>{price}₽
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">
-      Купить
+        <button
+          className="btn btn--purple product-card__btn"
+          type="button"
+          onClick={hanleButtonClick}
+        >
+          Купить
         </button>
-        <a className="btn btn--transparent" href="#">
-      Подробнее
-        </a>
+        <Link className="btn btn--transparent" to={AppRoute.Product}>
+          Подробнее
+        </Link>
       </div>
     </div>
   );

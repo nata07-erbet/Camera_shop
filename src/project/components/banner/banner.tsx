@@ -1,4 +1,6 @@
 import { TBanner } from '../../types/index';
+import { Link} from 'react-router-dom';
+import { AppRoute } from '../../const/const';
 
 type BannerProps = {
   banners: TBanner[];
@@ -32,9 +34,9 @@ function Banner ({banners}: BannerProps) {
             <span className="banner__text">
               Профессиональная камера от&nbsp;известного производителя
             </span>
-            <a className="btn" href="#">
+            <Link className="btn" to={AppRoute.Product}>
              Подробнее
-            </a>
+            </Link>
           </p>
         </>
       ))}
