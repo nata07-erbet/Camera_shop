@@ -15,6 +15,7 @@ const router = createBrowserRouter([
     path: AppRoute.Main,
     element:<Catalog products={productsMocks } banners={bannersMock} />
   },
+  // добавить модалки через  children
 
   {
     path: `${AppRoute.Product}/:id`,

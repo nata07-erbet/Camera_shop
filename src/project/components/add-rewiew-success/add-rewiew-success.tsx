@@ -1,4 +1,13 @@
+import { AppRoute } from '../../const/const';
+import { useNavigate } from 'react-router-dom';
+
 function AddRewiewSuccess () {
+  const navigation = useNavigate();
+
+  const handleClickButton = () => {
+    navigation(AppRoute.Main);
+  };
+
   return (
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
@@ -12,8 +21,9 @@ function AddRewiewSuccess () {
             <button
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
+              onClick={handleClickButton}
             >
-          Вернуться к покупкам
+              Вернуться к покупкам
             </button>
           </div>
           <button className="cross-btn" type="button" aria-label="Закрыть попап">

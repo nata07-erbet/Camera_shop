@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
+
 function RemoveFromBasket () {
   return (
     <div className="modal is-active">
@@ -40,12 +43,12 @@ function RemoveFromBasket () {
             >
           Удалить
             </button>
-            <a
+            <Link
               className="btn btn--transparent modal__btn modal__btn--half-width"
-              href="#"
+              to={AppRoute.Main}
             >
-          Продолжить покупки
-            </a>
+            Продолжить покупки
+            </Link>
           </div>
           <button className="cross-btn" type="button" aria-label="Закрыть попап">
             <svg width={10} height={10} aria-hidden="true">

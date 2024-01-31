@@ -1,4 +1,14 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
+import { useNavigate } from 'react-router-dom';
+
 function AddProductSuccess () {
+  const navigation = useNavigate();
+
+  const handleClickButton = () => {
+    navigation(AppRoute.Basket);
+  };
+
   return (
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
@@ -9,11 +19,14 @@ function AddProductSuccess () {
             <use xlinkHref="#icon-success" />
           </svg>
           <div className="modal__buttons">
-            <a className="btn btn--transparent modal__btn" href="#">
-          Продолжить покупки
-            </a>
-            <button className="btn btn--purple modal__btn modal__btn--fit-width">
-          Перейти в корзину
+            <Link className="btn btn--transparent modal__btn" to={AppRoute.Main}>
+              Продолжить покупки
+            </Link>
+            <button
+              className="btn btn--purple modal__btn modal__btn--fit-width"
+              onClick={handleClickButton}
+            >
+              Перейти в корзину
             </button>
           </div>
           <button className="cross-btn" type="button" aria-label="Закрыть попап">
@@ -26,6 +39,5 @@ function AddProductSuccess () {
     </div>
   );
 }
-
 
 export { AddProductSuccess };

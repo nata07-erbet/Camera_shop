@@ -10,7 +10,7 @@ function AddRewiewccess () {
               <div className="form-review__rate">
                 <fieldset className="rate form-review__item">
                   <legend className="rate__caption">
-                  Рейтинг
+                    Рейтинг
                     <svg width={9} height={9} aria-hidden="true">
                       <use xlinkHref="#icon-snowflake" />
                     </svg>
@@ -88,7 +88,7 @@ function AddRewiewccess () {
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">
-                    Ваше имя
+                      Ваше имя
                       <svg width={9} height={9} aria-hidden="true">
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
@@ -105,7 +105,7 @@ function AddRewiewccess () {
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">
-                    Достоинства
+                      Достоинства
                       <svg width={9} height={9} aria-hidden="true">
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
@@ -122,7 +122,7 @@ function AddRewiewccess () {
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">
-                    Недостатки
+                      Недостатки
                       <svg width={9} height={9} aria-hidden="true">
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
