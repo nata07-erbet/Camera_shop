@@ -3,7 +3,7 @@ import { Footer } from '../../components/footer/footer';
 import { Banner } from '../../components/banner/banner';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
-import { Pangination } from '../../components/pangination/pangination';
+import { Pangination } from '../../components/pangination/pangination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
