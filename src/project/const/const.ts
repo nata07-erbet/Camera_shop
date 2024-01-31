@@ -19,4 +19,6 @@ const PanginationStep = {
   Third: 3,
 };
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep };
+const INITAL_PAGE_BY_PANGINATION = 1;
+
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION };

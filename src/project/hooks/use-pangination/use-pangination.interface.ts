@@ -1,19 +1,12 @@
-import { NetworkInterfaceInfoIPv4 } from "os";
-
-type UsePanginationProps = {
-  productsPerPage: number;
-  countOfMocks: number;
-}
-
-type UsePanginationReturn ={
-  currentPage: number;
+type TUsePangination ={
+  page: number;
   totalPages: number;
   firstContentIndex: number;
   lastContentIndex: number;
   prevPage: () => void;
+  nextPage: () => void;
   setPage: () => void;
 }
 
-type usePangination = (T: UsePanginationProps) => UsePanginationReturn;
 
-export type { usePangination }
+export type { TUsePangination };
