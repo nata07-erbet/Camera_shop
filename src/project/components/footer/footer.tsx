@@ -1,53 +1,56 @@
+import { Link, NavLink } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
+
 function Footer () {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__info">
-          <a
+          <Link
             className="footer__logo"
-            href="index.html"
+            to={AppRoute.Main}
             aria-label="Переход на главную"
           >
             <svg width={100} height={36} aria-hidden="true">
               <use xlinkHref="#icon-logo-mono" />
             </svg>
-          </a>
+          </Link>
           <p className="footer__description">
               Интернет-магазин фото- и видеотехники
           </p>
           <ul className="social">
             <li className="social__item">
-              <a
+              <Link
                 className="link"
-                href="#"
+                to="#"
                 aria-label="Переход на страницу вконтатке"
               >
                 <svg width={20} height={20} aria-hidden="true">
                   <use xlinkHref="#icon-vk" />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="social__item">
-              <a
+              <Link
                 className="link"
-                href="#"
+                to="#"
                 aria-label="Переход на страницу pinterest"
               >
                 <svg width={20} height={20} aria-hidden="true">
                   <use xlinkHref="#icon-pinterest" />
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="social__item">
-              <a
+              <Link
                 className="link"
-                href="#"
+                to="#"
                 aria-label="Переход на страницу reddit"
               >
                 <svg width={20} height={20} aria-hidden="true">
                   <use xlinkHref="#icon-reddit" />
                 </svg>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -56,24 +59,24 @@ function Footer () {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to={AppRoute.Main}>
                     Каталог
-                </a>
+                </NavLink>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     Гарантии
-                </a>
+                </NavLink>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     Доставка
-                </a>
+                </NavLink>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     О компании
-                </a>
+                </NavLink>
               </li>
             </ul>
           </li>
@@ -81,9 +84,9 @@ function Footer () {
             <p className="footer__title">Ресурсы</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     Курсы операторов
-                </a>
+                </NavLink>
               </li>
               <li className="footer__item">
                 <a className="link" href="#">
@@ -91,9 +94,9 @@ function Footer () {
                 </a>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     Сообщество
-                </a>
+                </NavLink>
               </li>
             </ul>
           </li>
@@ -101,14 +104,14 @@ function Footer () {
             <p className="footer__title">Поддержка</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     FAQ
-                </a>
+                </NavLink>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">
+                <NavLink className="link" to="#">
                     Задать вопрос
-                </a>
+                </NavLink>
               </li>
             </ul>
           </li>
