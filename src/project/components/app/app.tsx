@@ -9,13 +9,26 @@ import { similarMocks } from '../../mocks/similar-mocks';
 import { bannersMock } from '../../mocks/banners-mock';
 import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
 import { AppRoute } from '../../const/const';
+import { AddProductBasket } from '../pop-up/popup-product-basket';
+import { AddProductSuccess } from '../pop-up/popup-product-basket-success';
 
 const router = createBrowserRouter([
   {
     path: AppRoute.Main,
     element:<Catalog products={productsMocks } banners={bannersMock} />
   },
-  // добавить модалки через  children
+  {
+    children: [
+      {
+        path: AppRoute.AddBasket,
+        element: <AddProductBasket />
+      },
+      {
+        path: AppRoute.AddBasketSuccess,
+        element: <AddProductSuccess />
+      }
+    ]
+  },
 
   {
     path: `${AppRoute.Product}/:id`,

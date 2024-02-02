@@ -11,7 +11,12 @@ const AppRoute = {
   Main: '/',
   Product: '/product',
   Basket: '/basket',
-};
+  AddBasket: 'add-basket',
+  AddBasketSuccess: '/add-basket-success',
+  AddRewiew: '/add-rewiew',
+  AddRewiewSuccess: '/add-rewiew-success',
+  AddRewiewError: '/add-rewiew-error'
+} as const;
 
 const PanginationStep = {
   First: 1,

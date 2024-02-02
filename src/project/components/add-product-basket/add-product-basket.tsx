@@ -1,72 +1,55 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const/const';
+import { Header} from '../../components/header/header';
+import { Footer } from '../../components/footer/footer';
+import { Banner } from '../../components/banner/banner';
+import { TProduct, TBanner } from '../../types/index';
+import { ProductCardList } from '../../components/product-card-list/product-card-list';
+import { Pangination } from '../../components/pangination/pangination-component';
+import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
+import { Filter } from '../../components/filter/filter';
+import { Sorting } from '../../components/sorting/sorting';
+import { AddProductBasket } from '../pop-up/popup-product-basket';
 
-function AddProductBasket () {
-  const navigate = useNavigate();
+type CatalogProps = {
+  products: TProduct[];
+  banners: TBanner[];
+};
 
-  const handleButtonClick = () => {
-    navigate(AppRoute.Basket);
+function Catalog ({products, banners}: CatalogProps) {
+
+  const isPaginationShow = () => {
+    if(products.length >= 9) {
+      return true;
+    }
   };
 
   return (
-    <div className="modal is-active">
-      <div className="modal__wrapper">
-        <div className="modal__overlay" />
-        <div className="modal__content">
-          <p className="title title--h4">Добавить товар в корзину</p>
-          <div className="basket-item basket-item--short">
-            <div className="basket-item__img">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="img/content/orlenok.webp, img/content/orlenok@2x.webp 2x"
-                />
-                <img
-                  src="img/content/orlenok.jpg"
-                  srcSet="img/content/orlenok@2x.jpg 2x"
-                  width={140}
-                  height={120}
-                  alt="Фотоаппарат «Орлёнок»"
-                />
-              </picture>
+    <>
+      <Header />
+      <main>
+        <Banner banners={banners} />
+        <div className="page-content">
+          <BreadCrumbs />
+          <section className="catalog">
+            <div className="container">
+              <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
+              <div className="page-content__columns">
+                <div className="catalog__aside">
+                  <Filter />
+                </div>
+                <div className="catalog__content">
+                  <Sorting />
+                  <ProductCardList products={products} />
+                  {isPaginationShow() && <Pangination />}
+                </div>
+              </div>
             </div>
-            <div className="basket-item__description">
-              <p className="basket-item__title">Орлёнок</p>
-              <ul className="basket-item__list">
-                <li className="basket-item__list-item">
-                  <span className="basket-item__article">Артикул:</span>{' '}
-                  <span className="basket-item__number">O78DFGSD832</span>
-                </li>
-                <li className="basket-item__list-item">Плёночная фотокамера</li>
-                <li className="basket-item__list-item">Любительский уровень</li>
-              </ul>
-              <p className="basket-item__price">
-                <span className="visually-hidden">Цена:</span>18 970₽
-              </p>
-            </div>
-          </div>
-          <div className="modal__buttons">
-            <button
-              className="btn btn--purple modal__btn modal__btn--fit-width"
-              type="button"
-              onClick={handleButtonClick}
-            >
-              <svg width={24} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-add-basket" />
-              </svg>
-                Добавить в корзину
-            </button>
-          </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
-            <svg width={10} height={10} aria-hidden="true">
-              <use xlinkHref="#icon-close" />
-            </svg>
-          </button>
+          </section>
         </div>
-      </div>
-    </div>
-
+        <AddProductBasket />
+      </main>
+      <Footer />
+    </>
   );
 }
 
-export { AddProductBasket };
+export { Catalog };
