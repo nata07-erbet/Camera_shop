@@ -4,7 +4,7 @@ import { Banner } from '../../components/banner/banner';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pangination } from '../../components/pangination/pangination-component';
-import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
+import { BreadCrumbsMain } from '../../components/breadcrumbs/breadcrumbs-main';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 import { useState } from 'react';
@@ -30,7 +30,7 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
     setSelectedId(productId); //id =2
   };
-  const buyingProduct = products.find((product) => product.id === selectedId);
+  const buyingProduct: TProduct | undefined = products.find((product) => product.id === selectedId);
 
   return (
     <>
@@ -38,7 +38,7 @@ function Catalog ({products, banners}: CatalogProps) {
       <main>
         <Banner banners={banners} />
         <div className="page-content">
-          <BreadCrumbs />
+          <BreadCrumbsMain />
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

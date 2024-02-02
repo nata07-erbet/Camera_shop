@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
@@ -21,7 +21,9 @@ type ProductProps = {
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
-  const { productId } = useParams();
+  const params = useParams();
+  const productId = params.id;
+  console.log(productId);
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -39,7 +41,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     },
   );
 
+
   const currentProduct = products.find((product) => product.id === productId);
+
 
   //потом будет спиннер
   if(!currentProduct) {
@@ -62,7 +66,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       <Header />
       <main>
         <div className="page-content">
-          <BreadCrumbs product={currentProduct} />
+          <BreadCrumbs currentProduct={currentProduct} />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -91,7 +95,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                     <svg width={24} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-add-basket" />
                     </svg>
-                Добавить в корзину
+                    Добавить в корзину
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
@@ -101,7 +105,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': !isActive}
                         )}
                         type="button"
-                        onClick={() => setIsActive(true)} // хз не меняет состояние
+                        onClick={() => setIsActive((prevState) => !prevState)} // хз не меняет состояние
                       >
                         Характеристики
                       </button>
@@ -112,9 +116,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': isActive}
                         )}
                         type="button"
-                        onClick={() => setIsActive(false)} // хз не меняет состояние
+                        onClick={() => setIsActive((prevState) => !prevState)} // хз не меняет состояние
                       >
-                    Описание
+                        Описание
                       </button>
                     </div>
 

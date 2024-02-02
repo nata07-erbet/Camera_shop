@@ -9,13 +9,13 @@ const REWIEWS_COUNT = 3;
 
 const AppRoute = {
   Main: '/',
-  Product: '/product',
+  Product: '/product/:productId',
   Basket: '/basket',
   AddBasket: 'add-basket',
   AddBasketSuccess: '/add-basket-success',
   AddRewiew: '/add-rewiew',
   AddRewiewSuccess: '/add-rewiew-success',
-  AddRewiewError: '/add-rewiew-error'
+  AddRewiewError: '/add-rewiew-error',
 } as const;
 
 const PanginationStep = {

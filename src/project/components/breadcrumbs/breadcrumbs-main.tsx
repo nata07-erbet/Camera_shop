@@ -1,14 +1,10 @@
-import { TProduct } from '../../types/';
+
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 
-type BreadCrumbsProps = {
-  currentProduct: TProduct;
-}
 
-function BreadCrumbs ({currentProduct}: BreadCrumbsProps) {
+function BreadCrumbsMain () {
 
-  const isShow = true; // подумать над реализацией
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -29,18 +25,10 @@ function BreadCrumbs ({currentProduct}: BreadCrumbsProps) {
               </svg>
             </Link>
           </li>
-          {isShow && (
-            <li className="breadcrumbs__item">
-              <span className="breadcrumbs__link breadcrumbs__link--active">
-                {currentProduct.name}
-              </span>
-            </li>
-          )}
-
         </ul>
       </div>
     </div>
   );
 }
 
-export { BreadCrumbs };
+export { BreadCrumbsMain };

@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     path: AppRoute.Main,
     element:<Catalog products={productsMocks } banners={bannersMock} />
   },
+
   {
     children: [
       {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: `${AppRoute.Product}/:productId`,
+    path: `${AppRoute.Product}`,
     element: <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
   },
 
