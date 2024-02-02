@@ -1,15 +1,19 @@
 import { TProduct } from '../../types/';
 import { Rating } from '../../components/rating/rating';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+
+
 type ProductCardProps = {
   product: TProduct;
+  onClickButton: (id: TProduct['id']) => void;
 }
 
 const isRetina = false;
 
-function ProductCard ({product}: ProductCardProps) {
+function ProductCard ({ product, onClickButton }: ProductCardProps) {
   const {
+    id,
     name,
     previewImg,
     previewImg2x,
@@ -18,14 +22,10 @@ function ProductCard ({product}: ProductCardProps) {
     rating,
     reviewCount,
     price
-
   } = product;
 
-  const navigate = useNavigate();
-
-  const hanleButtonClick = () => {
-    //тут должен быть роут для попапа
-    navigate(AppRoute.Basket);
+  const handleButtonClickBuy = () => {
+    onClickButton(id);
   };
 
   return (
@@ -58,7 +58,7 @@ function ProductCard ({product}: ProductCardProps) {
         <button
           className="btn btn--purple product-card__btn"
           type="button"
-          onClick={hanleButtonClick}
+          onClick={handleButtonClickBuy}
         >
           Купить
         </button>

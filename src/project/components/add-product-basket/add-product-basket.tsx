@@ -7,14 +7,14 @@ import { Pangination } from '../../components/pangination/pangination-component'
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
-import { AddProductBasket } from '../pop-up/popup-product-basket';
+import { AddProductBasketPop } from '../pop-up/popup-product-basket';
 
 type CatalogProps = {
   products: TProduct[];
   banners: TBanner[];
 };
 
-function Catalog ({products, banners}: CatalogProps) {
+function AddProductBasketPage ({products, banners}: CatalogProps) {
 
   const isPaginationShow = () => {
     if(products.length >= 9) {
@@ -45,11 +45,11 @@ function Catalog ({products, banners}: CatalogProps) {
             </div>
           </section>
         </div>
-        <AddProductBasket />
+        <AddProductBasketPop />
       </main>
       <Footer />
     </>
   );
 }
 
-export { Catalog };
+export { AddProductBasketPage };

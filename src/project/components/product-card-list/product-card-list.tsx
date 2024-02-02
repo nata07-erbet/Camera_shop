@@ -5,11 +5,12 @@ import { PRODUCT_VIEW_COUNT } from '../../const/const';
 
 type ProductCardListProps = {
   products: TProduct[];
+  onClickButton: (id: TProduct['id']) => void;
 }
 
 const START_POSITION = 0;
 
-function ProductCardList ({products}: ProductCardListProps) {
+function ProductCardList ({products, onClickButton}: ProductCardListProps) {
   return (
     <div className="cards catalog__cards">
       {products
@@ -18,6 +19,7 @@ function ProductCardList ({products}: ProductCardListProps) {
           <ProductCard
             key={product.id}
             product={product}
+            onClickButton={onClickButton}
           />))}
     </div>
   );

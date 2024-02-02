@@ -9,7 +9,7 @@ import { similarMocks } from '../../mocks/similar-mocks';
 import { bannersMock } from '../../mocks/banners-mock';
 import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
 import { AppRoute } from '../../const/const';
-import { AddProductBasket } from '../pop-up/popup-product-basket';
+import { AddProductBasketPage } from '../add-product-basket/add-product-basket';
 import { AddProductSuccess } from '../pop-up/popup-product-basket-success';
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: AppRoute.AddBasket,
-        element: <AddProductBasket />
+        element: <AddProductBasketPage products={productsMocks } banners={bannersMock}/>
       },
       {
         path: AppRoute.AddBasketSuccess,

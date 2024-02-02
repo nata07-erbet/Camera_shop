@@ -7,11 +7,14 @@ import { Pangination } from '../../components/pangination/pangination-component'
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
+import { useState } from 'react';
+import { AddProductBasketPop } from '../../components/pop-up/popup-product-basket';
 
 type CatalogProps = {
   products: TProduct[];
   banners: TBanner[];
 };
+
 
 function Catalog ({products, banners}: CatalogProps) {
 
@@ -20,6 +23,14 @@ function Catalog ({products, banners}: CatalogProps) {
       return true;
     }
   };
+  const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
+  const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
+
+  const handleClickButton = (productId: TProduct['id']) => {
+    setIsModalAddProductShow((prevState) => !prevState);
+    setSelectedId(productId); //id =2
+  };
+  const buyingProduct = products.find((product) => product.id === selectedId);
 
   return (
     <>
@@ -37,13 +48,17 @@ function Catalog ({products, banners}: CatalogProps) {
                 </div>
                 <div className="catalog__content">
                   <Sorting />
-                  <ProductCardList products={products} />
+                  <ProductCardList
+                    products={products}
+                    onClickButton={handleClickButton}
+                  />
                   {isPaginationShow() && <Pangination />}
                 </div>
               </div>
             </div>
           </section>
         </div>
+        { isModalAddProductShow && < AddProductBasketPop product={buyingProduct}/>}
       </main>
       <Footer />
     </>
