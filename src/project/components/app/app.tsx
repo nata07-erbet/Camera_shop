@@ -31,7 +31,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: `${AppRoute.Product}/:id`,
+    path: `${AppRoute.Product}/:productId`,
     element: <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
   },
 

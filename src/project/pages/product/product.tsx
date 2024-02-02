@@ -21,7 +21,7 @@ type ProductProps = {
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
-  const params = useParams();
+  const { productId } = useParams();
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -39,7 +39,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     },
   );
 
-  const currentProduct = products.find((product) => product.id === params.id);
+  const currentProduct = products.find((product) => product.id === productId);
 
   //потом будет спиннер
   if(!currentProduct) {
@@ -62,7 +62,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       <Header />
       <main>
         <div className="page-content">
-          <BreadCrumbs />
+          <BreadCrumbs product={currentProduct} />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
