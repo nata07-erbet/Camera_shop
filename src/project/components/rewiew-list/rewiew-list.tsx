@@ -7,11 +7,21 @@ type RewiewListProps ={
   rewiewCount: number;
 }
 
+const compare = (a: TGetRewiew, b: TGetRewiew) => {
+  const dateA = new Date(a.createAt);
+  const dateB = new Date(b.createAt);
+
+  return (dateA - dateB);
+};
+
+
 function RewiewList ({rewiews, rewiewCount}: RewiewListProps) {
 
   return (
     <ul className="review-block__list">
       {rewiews
+        .sort(compare)
+        .reverse()
         .slice(0, rewiewCount)
         .map((rewiew) => (
           <li className="review-card" key={rewiew.id}>

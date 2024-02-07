@@ -26,13 +26,16 @@ function Rewiews ({rewiews}: RewiewsProps) {
         </div>
         <RewiewList rewiews={rewiews} rewiewCount={rewiewCount}/>
         <div className="review-block__buttons">
-          <button
-            className="btn btn--purple"
-            type="button"
-            onClick={handleButtonClick}
-          >
-                Показать больше отзывов
-          </button>
+          {(rewiewCount !== rewiews.length) ? (
+            <button
+              className="btn btn--purple"
+              type="button"
+              onClick={handleButtonClick}
+            >
+            Показать больше отзывов
+            </button>
+          ) : '' }
+
         </div>
       </div>
     </section>

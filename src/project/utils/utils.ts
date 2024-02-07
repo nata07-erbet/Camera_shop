@@ -5,10 +5,12 @@ function getRandomInteger(min: number, max: number): number {
   return Math.floor(rand);
 }
 
-function FormattedDate(date: string): string {
-  const formatDate = dayjs(date).format('DD MMMM');
+function FormattedDate(date: string) {
+  const dateObj = new Date(date);
+  const formatDate = dateObj.toLocaleDateString('ru', {day: 'numeric', month: 'long'});
+
+  // const formatDate = dayjs(date).format('DD MMMM');
   return formatDate;
 }
-
 
 export { getRandomInteger, FormattedDate };
