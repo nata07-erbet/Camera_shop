@@ -68,6 +68,14 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     setIsActive((prevState) => !prevState);
   };
 
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <>
       <Header />
@@ -184,7 +192,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
         </div>
         { isAdded && <PopupBasketSuccess/>}
       </main>
-      <UpBtn />
+      <UpBtn onScrollTop ={handleScrollToTop}/>
       <Footer />
     </>
   );
