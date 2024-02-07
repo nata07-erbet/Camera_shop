@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import { Rating } from '../../components/rating/rating';
+import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
 type PopupAddRewiewProp = {
   onButtonClickPostRewiew: () => void;
 }
 
 function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiewProp) {
-  const[ratingRewiew, setRatingRewiew] = useState(0);
+  const[initalRating, setRating] = useState(0);
 
   const handleButtonClick = () => {
     onButtonClickPostRewiew();
+  };
+
+  const handleInputChangeRating = () => {
+    setRating((prevState) => prevState + 1);
   };
 
   return(
@@ -22,86 +26,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiewProp) {
 
             <form method="post">
               <div className="form-review__rate">
-              <Rating rating={ratingRewiew} />
-
-                {/* <fieldset className="rate form-review__item">
-                  <legend className="rate__caption">
-                    Рейтинг
-                    <svg width={9} height={9} aria-hidden="true">
-                      <use xlinkHref="#icon-snowflake" />
-                    </svg>
-                  </legend>
-                  <div className="rate__bar">
-                    <div className="rate__group">
-                      <input
-                        className="visually-hidden"
-                        id="star-5"
-                        name="rate"
-                        type="radio"
-                        defaultValue={5}
-                      />
-                      <label
-                        className="rate__label"
-                        htmlFor="star-5"
-                        title="Отлично"
-                      />
-                      <input
-                        className="visually-hidden"
-                        id="star-4"
-                        name="rate"
-                        type="radio"
-                        defaultValue={4}
-                      />
-                      <label
-                        className="rate__label"
-                        htmlFor="star-4"
-                        title="Хорошо"
-                      />
-                      <input
-                        className="visually-hidden"
-                        id="star-3"
-                        name="rate"
-                        type="radio"
-                        defaultValue={3}
-                      />
-                      <label
-                        className="rate__label"
-                        htmlFor="star-3"
-                        title="Нормально"
-                      />
-                      <input
-                        className="visually-hidden"
-                        id="star-2"
-                        name="rate"
-                        type="radio"
-                        defaultValue={2}
-                      />
-                      <label
-                        className="rate__label"
-                        htmlFor="star-2"
-                        title="Плохо"
-                      />
-                      <input
-                        className="visually-hidden"
-                        id="star-1"
-                        name="rate"
-                        type="radio"
-                        defaultValue={1}
-                      />
-                      <label
-                        className="rate__label"
-                        htmlFor="star-1"
-                        title="Ужасно"
-                      />
-                    </div>
-                    <div className="rate__progress">
-                      <span className="rate__stars">0</span> <span>/</span>{' '}
-                      <span className="rate__all-stars">5</span>
-                    </div>
-                  </div>
-                  <p className="rate__message">Нужно оценить товар</p>
-                </fieldset> */}
-
+                <RatingRewiew onInputChange={handleInputChangeRating} rating={initalRating}/>
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">

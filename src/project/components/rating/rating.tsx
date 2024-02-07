@@ -8,7 +8,7 @@ type RatingProps ={
 function Rating ({rating, reviewCount}: RatingProps) {
   const MAX_RATING = 5;
   const starsFull = Array.from({length: rating}, () => '');
-  const statsEmpty = Array.from({length: MAX_RATING - rating}, () => '');
+  const statsEmpty = Array.from({length: MAX_RATING - rating }, () => '');
 
   return (
     <div className="rate product__rate">
