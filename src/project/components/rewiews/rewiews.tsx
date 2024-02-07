@@ -6,13 +6,18 @@ import { REWIEWS_COUNT } from '../../const/const';
 
 type RewiewsProps ={
   rewiews: TGetRewiew[];
+  onButtonAddRewiewClick: () => void;
 }
 
-function Rewiews ({rewiews}: RewiewsProps) {
+function Rewiews ({rewiews, onButtonAddRewiewClick}: RewiewsProps) {
   const [ rewiewCount, setRewiewCount ] = useState(3);
 
   const handleButtonClick = () => {
     setRewiewCount((prevState) => prevState + REWIEWS_COUNT);
+  };
+
+  const handleButtonAddRewiewClick = () => {
+    onButtonAddRewiewClick();
   };
 
   return (
@@ -20,7 +25,11 @@ function Rewiews ({rewiews}: RewiewsProps) {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">
+          <button
+            className="btn"
+            type="button"
+            onClick={handleButtonAddRewiewClick}
+          >
             Оставить свой отзыв
           </button>
         </div>
