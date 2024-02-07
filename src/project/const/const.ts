@@ -9,7 +9,7 @@ const REWIEWS_COUNT = 3;
 
 const AppRoute = {
   Main: '/',
-  Product: '/product/:productId',
+  Product: '/product',
   Basket: '/basket',
   AddBasket: 'add-basket',
   AddBasketSuccess: '/add-basket-success',
@@ -24,6 +24,12 @@ const PanginationStep = {
   Third: 3,
 };
 
+const PagesMap = {
+  Main: 'Главная',
+  Catalog:  'Каталог',
+  Basket: 'Корзина'
+};
+
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION };
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap };

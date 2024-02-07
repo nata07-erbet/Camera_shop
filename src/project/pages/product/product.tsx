@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
+import { PopupAddBasket, PopupBasketSuccess } from '../../components/pop-up/index';
 
 type ProductProps = {
   products: TProduct[];
@@ -21,9 +22,10 @@ type ProductProps = {
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
   const [isActive, setIsActive] = useState(true);
-  const params = useParams();
-  const productId = params.id;
-  console.log(productId);
+  const { productId } = useParams<{productId: string}>();
+
+  const [isAdded , setIsAdded] = useState(false);
+  const currentProduct = products.find((product) => product.id === Number(productId));
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -42,9 +44,6 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
   );
 
 
-  const currentProduct = products.find((product) => product.id === productId);
-
-
   //потом будет спиннер
   if(!currentProduct) {
     return null;
@@ -61,6 +60,14 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     reviewCount
   } = currentProduct;
 
+  const handleClickButtonAddbasket = () => {
+    setIsAdded((prevState) => !prevState);
+  };
+
+  const handleChangeTab = () => {
+    setIsActive((prevState) => !prevState);
+  };
+
   return (
     <>
       <Header />
@@ -74,11 +81,11 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                   <picture>
                     <source
                       type="image/webp"
-                      srcSet={ isRetina ? previewImgWebp : previewImgWebp2x }
+                      srcSet={ isRetina ? `/${previewImgWebp}` : `/${previewImgWebp2x}` }
                     />
                     <img
-                      src={previewImg}
-                      srcSet={previewImg2x}
+                      src={`/${previewImg}`}
+                      srcSet={`/${previewImg2x}`}
                       width={560}
                       height={480}
                       alt={name}
@@ -91,7 +98,10 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                   <p className="product__price">
                     <span className="visually-hidden">Цена:</span>{price}₽;
                   </p>
-                  <button className="btn btn--purple" type="button">
+                  <button
+                    className="btn btn--purple" type="button"
+                    onClick={handleClickButtonAddbasket}
+                  >
                     <svg width={24} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-add-basket" />
                     </svg>
@@ -105,7 +115,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': !isActive}
                         )}
                         type="button"
-                        onClick={() => setIsActive((prevState) => !prevState)} // хз не меняет состояние
+                        onClick={handleChangeTab}
                       >
                         Характеристики
                       </button>
@@ -116,7 +126,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': isActive}
                         )}
                         type="button"
-                        onClick={() => setIsActive((prevState) => !prevState)} // хз не меняет состояние
+                        onClick={() => setIsActive((prevState) => !prevState)}
                       >
                         Описание
                       </button>
@@ -172,6 +182,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
             <Rewiews rewiews={rewiews}/>
           </div>
         </div>
+        { isAdded && <PopupBasketSuccess/>}
       </main>
       <UpBtn />
       <Footer />

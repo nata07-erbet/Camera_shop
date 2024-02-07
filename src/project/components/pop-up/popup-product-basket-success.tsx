@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { useNavigate } from 'react-router-dom';
 
-function AddProductSuccess () {
+
+function PopupBasketSuccess () {
   const navigation = useNavigate();
 
   const handleClickButton = () => {
@@ -40,4 +41,4 @@ function AddProductSuccess () {
   );
 }
 
-export { AddProductSuccess };
+export { PopupBasketSuccess };

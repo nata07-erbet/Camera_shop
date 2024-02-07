@@ -4,11 +4,11 @@ import { Banner } from '../../components/banner/banner';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pangination } from '../../components/pangination/pangination-component';
-import { BreadCrumbsMain } from '../../components/breadcrumbs/breadcrumbs-main';
+import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 import { useState } from 'react';
-import { AddProductBasketPop } from '../../components/pop-up/popup-product-basket';
+import { PopupAddBasket } from '../../components/pop-up/index';
 
 type CatalogProps = {
   products: TProduct[];
@@ -30,7 +30,8 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
     setSelectedId(productId); //id =2
   };
-  const buyingProduct: TProduct | undefined = products.find((product) => product.id === selectedId);
+  const buyingProduct = products.find((product) => product.id === selectedId);
+  const [isActivePage, setActivePage] = useState(true);
 
   return (
     <>
@@ -38,7 +39,7 @@ function Catalog ({products, banners}: CatalogProps) {
       <main>
         <Banner banners={banners} />
         <div className="page-content">
-          <BreadCrumbsMain />
+          <BreadCrumbs isActivePage={isActivePage}/>
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
@@ -58,7 +59,7 @@ function Catalog ({products, banners}: CatalogProps) {
             </div>
           </section>
         </div>
-        { isModalAddProductShow && < AddProductBasketPop product={buyingProduct}/>}
+        { isModalAddProductShow && < PopupAddBasket product={buyingProduct}/>}
       </main>
       <Footer />
     </>

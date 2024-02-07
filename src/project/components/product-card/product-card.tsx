@@ -1,6 +1,6 @@
 import { TProduct } from '../../types/';
 import { Rating } from '../../components/rating/rating';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 
 
@@ -62,7 +62,10 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={AppRoute.Product}>
+        <Link
+          className="btn btn--transparent"
+          to={generatePath(`${AppRoute.Product}/:productId`, { productId: id.toString() })}
+        >
           Подробнее
         </Link>
       </div>

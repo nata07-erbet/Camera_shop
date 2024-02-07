@@ -1,42 +1,56 @@
 import { TProduct } from '../../types/';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+import { PagesMap } from '../../const/const';
 
 type BreadCrumbsProps = {
-  currentProduct: TProduct;
+  isActivePage?: boolean;
+  isActiveBasketPage: boolean;
+  currentProduct?: TProduct | undefined;
 }
 
-function BreadCrumbs ({currentProduct}: BreadCrumbsProps) {
+function BreadCrumbs ({isActiveMainPage, isActiveBasketPage, currentProduct}: BreadCrumbsProps) {
 
-  const isShow = true; // подумать над реализацией
   return (
     <div className="breadcrumbs">
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
             <Link className="breadcrumbs__link" to={AppRoute.Main}>
-              Главная
+              {PagesMap.Main}
               <svg width={5} height={8} aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini" />
               </svg>
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <Link className="breadcrumbs__link" to={AppRoute.Main}>
-              Каталог
-              <svg width={5} height={8} aria-hidden="true">
-                <use xlinkHref="#icon-arrow-mini" />
-              </svg>
-            </Link>
+            {!isActiveMainPage ? (
+              <Link className= "breadcrumbs__link" to={AppRoute.Main}>
+                {PagesMap.Catalog}
+                <svg width={5} height={8} aria-hidden="true">
+                  <use xlinkHref="#icon-arrow-mini" />
+                </svg>
+              </Link>
+            ) : (
+              <span className="breadcrumbs__link breadcrumbs__link--active">
+                {PagesMap.Catalog}
+              </span>
+            )}
           </li>
-          {isShow && (
+          {currentProduct && (
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">
                 {currentProduct.name}
               </span>
             </li>
           )}
-
+          {isActiveBasketPage && !isActiveMainPage && (
+            <li className="breadcrumbs__item">
+              <span className="breadcrumbs__link breadcrumbs__link--active">
+                {PagesMap.Basket}
+              </span>
+            </li>
+          )}
         </ul>
       </div>
     </div>

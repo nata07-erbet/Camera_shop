@@ -8,12 +8,13 @@ type BasketProps ={
   products: TProduct[];
 }
 function Basket ({products}: BasketProps) {
+  const activeBasketPage = true;
   return (
     <>
       <Header />
       <main>
         <div className="page-content">
-          <BreadCrumbs />
+          <BreadCrumbs isActiveBasketPage ={activeBasketPage}/>
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>

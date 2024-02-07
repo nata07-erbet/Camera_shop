@@ -9,8 +9,6 @@ import { similarMocks } from '../../mocks/similar-mocks';
 import { bannersMock } from '../../mocks/banners-mock';
 import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
 import { AppRoute } from '../../const/const';
-import { AddProductBasketPage } from '../add-product-basket/add-product-basket';
-import { AddProductSuccess } from '../pop-up/popup-product-basket-success';
 
 const router = createBrowserRouter([
   {
@@ -19,20 +17,7 @@ const router = createBrowserRouter([
   },
 
   {
-    children: [
-      {
-        path: AppRoute.AddBasket,
-        element: <AddProductBasketPage products={productsMocks } banners={bannersMock}/>
-      },
-      {
-        path: AppRoute.AddBasketSuccess,
-        element: <AddProductSuccess />
-      }
-    ]
-  },
-
-  {
-    path: `${AppRoute.Product}`,
+    path: `${AppRoute.Product}/:productId`,
     element: <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
   },
 

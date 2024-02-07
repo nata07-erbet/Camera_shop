@@ -6,13 +6,12 @@ type AddProductBasketPopProps = {
   product: TProduct;
 };
 
-function AddProductBasketPop ({product}: AddProductBasketPopProps) {
+function PopupAddBasket ({product}: AddProductBasketPopProps) {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate(AppRoute.Basket);
   };
-
 
   return (
     <div className="modal is-active">
@@ -75,4 +74,4 @@ function AddProductBasketPop ({product}: AddProductBasketPopProps) {
   );
 }
 
-export { AddProductBasketPop };
+export { PopupAddBasket };

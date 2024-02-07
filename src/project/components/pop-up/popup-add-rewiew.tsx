@@ -1,4 +1,4 @@
-function AddRewiewccess () {
+function PopupAddRewiew () {
   return(
     <div className="modal is-active">
       <div className="modal__wrapper">
@@ -173,4 +173,4 @@ function AddRewiewccess () {
   );
 }
 
-export { AddRewiewccess };
+export { PopupAddRewiew };
