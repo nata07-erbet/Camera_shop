@@ -4,8 +4,8 @@ import { AppRoute } from '../../const/const';
 import { PagesMap } from '../../const/const';
 
 type BreadCrumbsProps = {
-  isActivePage?: boolean;
-  isActiveBasketPage: boolean;
+  isActiveMainPage?: boolean;
+  isActiveBasketPage?: boolean;
   currentProduct?: TProduct | undefined;
 }
 

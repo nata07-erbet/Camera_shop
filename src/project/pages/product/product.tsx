@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
-import { PopupAddBasket, PopupBasketSuccess } from '../../components/pop-up/index';
+import { PopupBasketSuccess } from '../../components/pop-up/index';
 
 type ProductProps = {
   products: TProduct[];

@@ -31,7 +31,7 @@ function Catalog ({products, banners}: CatalogProps) {
     setSelectedId(productId); //id =2
   };
   const buyingProduct = products.find((product) => product.id === selectedId);
-  const [isActivePage, setActivePage] = useState(true);
+  const isActiveMainPage = true;
 
   return (
     <>
@@ -39,7 +39,7 @@ function Catalog ({products, banners}: CatalogProps) {
       <main>
         <Banner banners={banners} />
         <div className="page-content">
-          <BreadCrumbs isActivePage={isActivePage}/>
+          <BreadCrumbs isActiveMainPage={isActiveMainPage}/>
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
