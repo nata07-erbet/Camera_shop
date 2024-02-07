@@ -1,7 +1,7 @@
 import { AppRoute } from '../../const/const';
 import { useNavigate } from 'react-router-dom';
 
-function AddRewiewSuccess () {
+function PopRewiewSuccess () {
   const navigation = useNavigate();
 
   const handleClickButton = () => {
@@ -37,4 +37,4 @@ function AddRewiewSuccess () {
   );
 }
 
-export { AddRewiewSuccess };
+export { PopRewiewSuccess };

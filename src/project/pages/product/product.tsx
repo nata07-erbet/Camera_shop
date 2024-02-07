@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
-import { PopupBasketSuccess, PopupAddRewiew } from '../../components/pop-up/index';
+import { PopupBasketSuccess, PopupAddRewiew, PopRewiewSuccess } from '../../components/pop-up/index';
 
 
 type ProductProps = {
@@ -22,9 +22,11 @@ type ProductProps = {
 
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const isRetina = true;
+
   const [isActive, setIsActive] = useState(true);
   const { productId } = useParams<{productId: string}>();
   const [isShowModal, setIsShowModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const [isAdded , setIsAdded] = useState(false);
   const currentProduct = products.find((product) => product.id === Number(productId));
@@ -83,6 +85,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     setIsShowModal((prevState) => !prevState);
   };
 
+  const handleButtonClickPostRewiew = () => {
+    setIsSuccess((prevState) => !prevState);
+  };
 
   return (
     <>
@@ -201,7 +206,8 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
         { isAdded && <PopupBasketSuccess/>}
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
-      {isShowModal && <PopupAddRewiew />}
+      {isShowModal && <PopupAddRewiew onButtonClickPostRewiew={handleButtonClickPostRewiew} />}
+      {isSuccess && <PopRewiewSuccess />}
       <Footer />
     </>
   );

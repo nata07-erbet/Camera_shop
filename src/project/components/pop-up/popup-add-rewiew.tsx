@@ -1,4 +1,17 @@
-function PopupAddRewiew () {
+import { useState } from 'react';
+import { Rating } from '../../components/rating/rating';
+
+type PopupAddRewiewProp = {
+  onButtonClickPostRewiew: () => void;
+}
+
+function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiewProp) {
+  const[ratingRewiew, setRatingRewiew] = useState(0);
+
+  const handleButtonClick = () => {
+    onButtonClickPostRewiew();
+  };
+
   return(
     <div className="modal is-active">
       <div className="modal__wrapper">
@@ -6,9 +19,12 @@ function PopupAddRewiew () {
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="form-review">
+
             <form method="post">
               <div className="form-review__rate">
-                <fieldset className="rate form-review__item">
+              <Rating rating={ratingRewiew} />
+
+                {/* <fieldset className="rate form-review__item">
                   <legend className="rate__caption">
                     Рейтинг
                     <svg width={9} height={9} aria-hidden="true">
@@ -84,7 +100,8 @@ function PopupAddRewiew () {
                     </div>
                   </div>
                   <p className="rate__message">Нужно оценить товар</p>
-                </fieldset>
+                </fieldset> */}
+
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">
@@ -139,7 +156,7 @@ function PopupAddRewiew () {
                 <div className="custom-textarea form-review__item">
                   <label>
                     <span className="custom-textarea__label">
-                    Комментарий
+                      Комментарий
                       <svg width={9} height={9} aria-hidden="true">
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
@@ -156,10 +173,15 @@ function PopupAddRewiew () {
                   </div>
                 </div>
               </div>
-              <button className="btn btn--purple form-review__btn" type="submit">
-              Отправить отзыв
+              <button
+                className="btn btn--purple form-review__btn"
+                type="submit"
+                onClick={handleButtonClick}
+              >
+                Отправить отзыв
               </button>
             </form>
+
           </div>
           <button className="cross-btn" type="button" aria-label="Закрыть попап">
             <svg width={10} height={10} aria-hidden="true">
