@@ -18,11 +18,11 @@ function SimilarList ({similarProducts}: SimilarListProps) {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet={!isRetina ? similar.previewImgWebp : similar.previewImgWebp2x}
+                  srcSet={!isRetina ? `/${similar.previewImgWebp}` : `/${similar.previewImgWebp2x}`}
                 />
                 <img
-                  src={similar.previewImg}
-                  srcSet={similar.previewImg2x}
+                  src={`/${similar.previewImg}`}
+                  srcSet={`/${similar.previewImg2x}`}
                   width={280}
                   height={240}
                   alt={similar.name}

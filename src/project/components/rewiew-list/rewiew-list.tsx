@@ -1,18 +1,18 @@
 import { TGetRewiew } from '../../types/index';
 import { FormattedDate } from '../../utils/utils';
 import { Rating } from '../rating/rating';
-import { REWIEWS_COUNT } from '../../const/const';
 
 type RewiewListProps ={
   rewiews: TGetRewiew[];
+  rewiewCount: number;
 }
 
-function RewiewList ({rewiews}: RewiewListProps) {
+function RewiewList ({rewiews, rewiewCount}: RewiewListProps) {
 
   return (
     <ul className="review-block__list">
       {rewiews
-        .slice(0, REWIEWS_COUNT)
+        .slice(0, rewiewCount)
         .map((rewiew) => (
           <li className="review-card" key={rewiew.id}>
             <div className="review-card__head">
