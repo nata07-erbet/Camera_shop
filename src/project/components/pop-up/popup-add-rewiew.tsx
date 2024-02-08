@@ -23,7 +23,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew, onKeyDownToClose, onButtonCli
 
   const handleClickOverlay = () => {
     onButtonClickOverlay();
-  }
+  };
 
   return(
     <div className="modal is-active">
