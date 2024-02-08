@@ -1,20 +1,11 @@
-import { useState } from 'react';
 import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
-type PopupAddRewiewProp = {
-  onButtonClickPostRewiew: () => void;
-}
 
-function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiewProp) {
-  const[initalRating, setRating] = useState(0);
-
+function PopupAddRewiew () {
   const handleButtonClick = () => {
-    onButtonClickPostRewiew();
+
   };
 
-  const handleInputChangeRating = () => {
-    setRating((prevState) => prevState + 1);
-  };
 
   return(
     <div className="modal is-active">
@@ -26,7 +17,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiewProp) {
 
             <form method="post">
               <div className="form-review__rate">
-                <RatingRewiew onInputChange={handleInputChangeRating} rating={initalRating}/>
+                <RatingRewiew />
                 <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">

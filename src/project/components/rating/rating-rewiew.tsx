@@ -1,13 +1,12 @@
-import { RatingTitleMap } from '../../const/const';
+import { Fragment, useState, ChangeEvent } from 'react';
+import { RatingMap } from '../../const/const';
 
-type RatingRewiewProps = {
-  rating: 1 | 2 | 3 | 4 | 5;
-  onInputChange: () => void;
-}
 
-function RatingRewiew ({rating, onInputChange}: RatingRewiewProps) {
-  const handleInputChange = () => {
-    onInputChange();
+function RatingRewiew () {
+  const [rating, setRating] = useState('');
+
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setRating(evt.target.value);
   };
 
   return (
@@ -21,28 +20,26 @@ function RatingRewiew ({rating, onInputChange}: RatingRewiewProps) {
       <div className="rate__bar">
         <div className="rate__group">
           {Object
-            .values(RatingTitleMap)
+            .entries(RatingMap)
             .reverse()
-            .map((title, id) => (
-              <>
+            .map(([key, value]) => (
+              <Fragment key={key}>
                 <input
-                  key={title}
+                  key={key}
                   className="visually-hidden"
-                  id={`star-${id}`}
+                  id={`star-${key}`}
                   name="rate"
                   type="radio"
-                  defaultValue={id}
+                  defaultValue={key}
                   onChange={handleInputChange}
                 />
                 <label
                   className="rate__label"
-                  htmlFor={`star-${id}`}
-                  title={title}
+                  htmlFor={`star-${key}`}
+                  title={value}
                 />
-              </>
+              </Fragment>
             ))}
-
-
         </div>
         <div className="rate__progress">
           <span className="rate__stars">{rating}</span> <span>/</span>{' '}

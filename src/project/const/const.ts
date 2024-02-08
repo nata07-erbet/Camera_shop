@@ -30,14 +30,14 @@ const PagesMap = {
   Basket: 'Корзина'
 };
 
-const RatingTitleMap = {
-  Perfectly: 'Отлично',
-  Good: 'Хорошо',
-  Normal: 'Нормально',
-  Bad: 'Плохо',
-  Terrible: 'Ужасно'
+const RatingMap = {
+  '5': 'Отлично',
+  '4': 'Хорошо',
+  '3': 'Нормально',
+  '2': 'Плохо',
+  '1': 'Ужасно'
 };
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingTitleMap };
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap };
