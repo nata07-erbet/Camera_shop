@@ -8,17 +8,21 @@ import { productsMocks } from '../../mocks/products-mock';
 import { similarMocks } from '../../mocks/similar-mocks';
 import { bannersMock } from '../../mocks/banners-mock';
 import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
-import { AppRoute } from '../../const/const';
+import { AppRoute} from '../../const/const';
 
 const router = createBrowserRouter([
   {
     path: AppRoute.Main,
-    element:<Catalog products={productsMocks } banners={bannersMock} />
+    element:<Catalog products={productsMocks } banners={bannersMock} />,
   },
 
   {
     path: `${AppRoute.Product}/:productId`,
-    element: <Product products={productsMocks} similarProducts={similarMocks} rewiews={getRewiewsMock} />
+    element: <Product
+      products={productsMocks}
+      similarProducts={similarMocks}
+      rewiews={getRewiewsMock}
+    />
   },
 
   {

@@ -20,7 +20,7 @@ function PopupBasketSuccess () {
             <use xlinkHref="#icon-success" />
           </svg>
           <div className="modal__buttons">
-            <Link className="btn btn--transparent modal__btn" to={AppRoute.Main}>
+            <Link className="btn btn--transparent modal__btn" to={AppRoute.Main} autoFocus>
               Продолжить покупки
             </Link>
             <button

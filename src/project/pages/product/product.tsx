@@ -1,17 +1,17 @@
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, useNavigate, generatePath } from 'react-router-dom';
+import classNames from 'classnames';
 
+import { AppRoute, AppRouteTab } from '../../const/const';
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import {SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
 import { TProduct, TGetRewiew } from '../../types/index';
-import classNames from 'classnames';
-import { useState } from 'react';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
 import { PopupBasketSuccess, PopupAddRewiew, PopRewiewSuccess } from '../../components/pop-up/index';
-
 
 type ProductProps = {
   products: TProduct[];
@@ -21,6 +21,7 @@ type ProductProps = {
 
 
 function Product ({products, similarProducts, rewiews}: ProductProps) {
+  const navigate = useNavigate();
   const isRetina = true;
 
   const [isActive, setIsActive] = useState(true);
@@ -68,8 +69,28 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     setIsAdded((prevState) => !prevState);
   };
 
-  const handleChangeTab = () => {
+  const handleChangeDescription = () => {
     setIsActive((prevState) => !prevState);
+    navigate(generatePath(`${AppRoute.Product}/:productId/tab`, {
+      productId: currentProduct.id.toString(),
+      tab: AppRouteTab.Description
+    }));
+  };
+
+  const handleChangeTabCharacteristic = () => {
+    setIsActive((prevState) => !prevState);
+  };
+
+  const handleButtonClickCloseModal = () => {
+    if(isShowModal) {
+      setIsShowModal((prevState) => !prevState);
+    }
+  };
+
+  const handleButtonClickOverlay = () => {
+    if(isShowModal) {
+      setIsShowModal((prevState) => !prevState);
+    }
   };
 
   const handleScrollToTop = () => {
@@ -89,6 +110,19 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     setIsSuccess((prevState) => !prevState);
     setIsShowModal((prevState) => !prevState);
   };
+
+  // не меняется состояние при нажатии кнопки esc
+  const handleKeyDownToClose = (evt: KeyboardEvent) => {
+    if(evt.key === 'Escape' && isShowModal) {
+      evt.preventDefault();
+      setIsShowModal((prevState) => !prevState);
+    }
+  };
+
+  if(isShowModal) {
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
+  }
 
   return (
     <>
@@ -137,7 +171,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': !isActive}
                         )}
                         type="button"
-                        onClick={handleChangeTab}
+                        onClick={handleChangeTabCharacteristic}
                       >
                         Характеристики
                       </button>
@@ -148,7 +182,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                           {'is-active': isActive}
                         )}
                         type="button"
-                        onClick={() => setIsActive((prevState) => !prevState)}
+                        onClick={handleChangeDescription}
                       >
                         Описание
                       </button>
@@ -207,7 +241,12 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
         { isAdded && <PopupBasketSuccess/>}
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
-      {isShowModal && <PopupAddRewiew onButtonClickPostRewiew={handleButtonClickPostRewiew} />}
+      {isShowModal && <PopupAddRewiew
+        onButtonClickPostRewiew={handleButtonClickPostRewiew}
+        onKeyDownToClose={handleKeyDownToClose}
+        onButtonClickCloseModal={handleButtonClickCloseModal}
+        onButtonClickOverlay={handleButtonClickOverlay}
+      />}
       {isSuccess && <PopRewiewSuccess />}
       <Footer />
     </>

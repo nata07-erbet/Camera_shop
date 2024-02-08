@@ -55,6 +55,7 @@ function PopupAddBasket ({product}: AddProductBasketPopProps) {
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
               onClick={handleButtonClick}
+              autoFocus
             >
               <svg width={24} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-add-basket" />

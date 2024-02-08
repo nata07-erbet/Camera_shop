@@ -18,17 +18,23 @@ const AppRoute = {
   AddRewiewError: '/add-rewiew-error',
 } as const;
 
+const AppRouteTab = {
+  Characteristic: 'characteristic',
+  Description: 'description'
+} as const;
+
+
 const PanginationStep = {
   First: 1,
   Second: 2,
   Third: 3,
-};
+} as const;
 
 const PagesMap = {
   Main: 'Главная',
   Catalog:  'Каталог',
   Basket: 'Корзина'
-};
+} as const;
 
 const RatingMap = {
   '5': 'Отлично',
@@ -36,8 +42,8 @@ const RatingMap = {
   '3': 'Нормально',
   '2': 'Плохо',
   '1': 'Ужасно'
-};
+} as const;
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap };
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab};

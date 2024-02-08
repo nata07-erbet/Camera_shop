@@ -2,19 +2,37 @@ import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
 type PopupAddRewiew ={
   onButtonClickPostRewiew: () => void;
+  onKeyDownToClose: () => void;
+  onButtonClickCloseModal: () => void;
+  onButtonClickOverlay: () => void;
 }
 
-function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiew) {
-
+function PopupAddRewiew ({onButtonClickPostRewiew, onKeyDownToClose, onButtonClickCloseModal, onButtonClickOverlay}: PopupAddRewiew) {
 
   const handleFormSubmit = () => {
     onButtonClickPostRewiew();
   };
 
+  const handleKeyDown = () => {
+    onKeyDownToClose();
+  };
+
+  const handleClickClose = () => {
+    onButtonClickCloseModal();
+  };
+
+  const handleClickOverlay = () => {
+    onButtonClickOverlay();
+  }
+
   return(
     <div className="modal is-active">
       <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
+        <div
+          className="modal__overlay"
+          onClick={handleClickOverlay}
+        >
+        </div>
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="form-review">
@@ -22,6 +40,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiew) {
             <form
               method="post"
               onSubmit={handleFormSubmit}
+              onKeyDown={handleKeyDown}
             >
               <div className="form-review__rate">
                 <RatingRewiew />
@@ -39,6 +58,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiew) {
                       minLength={2}
                       maxLength={15}
                       required
+                      autoFocus
                     />
                   </label>
                   <p className="custom-input__error">Нужно указать имя</p>
@@ -111,7 +131,11 @@ function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiew) {
             </form>
 
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+            onClick={handleClickClose}
+          >
             <svg width={10} height={10} aria-hidden="true">
               <use xlinkHref="#icon-close" />
             </svg>
