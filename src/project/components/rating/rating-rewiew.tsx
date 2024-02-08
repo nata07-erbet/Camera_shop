@@ -1,13 +1,16 @@
-import { Fragment, useState, ChangeEvent } from 'react';
+import { ChangeEvent, Fragment, useState} from 'react';
 import { RatingMap } from '../../const/const';
 
-
 function RatingRewiew () {
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('0');
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
   };
+
+  //как это значение передать наверх для валидации формы?
+  const isValed = () => rating !== '' && !rating.match(/[1-5]/);
+
 
   return (
     <fieldset className="rate form-review__item">
@@ -30,7 +33,8 @@ function RatingRewiew () {
                   id={`star-${key}`}
                   name="rate"
                   type="radio"
-                  defaultValue={key}
+                  value={key}
+                  defaultValue={0}
                   onChange={handleInputChange}
                 />
                 <label

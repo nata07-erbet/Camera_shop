@@ -87,6 +87,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
 
   const handleButtonClickPostRewiew = () => {
     setIsSuccess((prevState) => !prevState);
+    setIsShowModal((prevState) => !prevState);
   };
 
   return (

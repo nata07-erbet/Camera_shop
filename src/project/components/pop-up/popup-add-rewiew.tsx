@@ -1,11 +1,15 @@
 import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
+type PopupAddRewiew ={
+  onButtonClickPostRewiew: () => void;
+}
 
-function PopupAddRewiew () {
-  const handleButtonClick = () => {
+function PopupAddRewiew ({onButtonClickPostRewiew}: PopupAddRewiew) {
 
+
+  const handleFormSubmit = () => {
+    onButtonClickPostRewiew();
   };
-
 
   return(
     <div className="modal is-active">
@@ -15,7 +19,10 @@ function PopupAddRewiew () {
           <p className="title title--h4">Оставить отзыв</p>
           <div className="form-review">
 
-            <form method="post">
+            <form
+              method="post"
+              onSubmit={handleFormSubmit}
+            >
               <div className="form-review__rate">
                 <RatingRewiew />
                 <div className="custom-input form-review__item">
@@ -28,8 +35,9 @@ function PopupAddRewiew () {
                     </span>
                     <input
                       type="text"
-                      name="user-name"
                       placeholder="Введите ваше имя"
+                      minLength={2}
+                      maxLength={15}
                       required
                     />
                   </label>
@@ -47,6 +55,8 @@ function PopupAddRewiew () {
                       type="text"
                       name="user-plus"
                       placeholder="Основные преимущества товара"
+                      minLength={10}
+                      maxLength={160}
                       required
                     />
                   </label>
@@ -64,6 +74,8 @@ function PopupAddRewiew () {
                       type="text"
                       name="user-minus"
                       placeholder="Главные недостатки товара"
+                      minLength={10}
+                      maxLength={160}
                       required
                     />
                   </label>
@@ -79,7 +91,8 @@ function PopupAddRewiew () {
                     </span>
                     <textarea
                       name="user-comment"
-                      minLength={5}
+                      minLength={10}
+                      maxLength={160}
                       placeholder="Поделитесь своим опытом покупки"
                       defaultValue={''}
                     />
@@ -92,7 +105,6 @@ function PopupAddRewiew () {
               <button
                 className="btn btn--purple form-review__btn"
                 type="submit"
-                onClick={handleButtonClick}
               >
                 Отправить отзыв
               </button>
