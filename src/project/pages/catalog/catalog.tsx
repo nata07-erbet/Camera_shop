@@ -1,6 +1,6 @@
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
-import { Banner } from '../../components/banner/banner';
+import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pangination } from '../../components/pangination/pangination-component';
@@ -37,7 +37,7 @@ function Catalog ({products, banners}: CatalogProps) {
     <>
       <Header />
       <main>
-        <Banner banners={banners} />
+        <SliderSwiper banners={banners} />
         <div className="page-content">
           <BreadCrumbs isActiveMainPage={isActiveMainPage}/>
           <section className="catalog">

@@ -10,9 +10,9 @@ function Banner ({banners}: BannerProps) {
   const isRetina = true;
 
   return (
-    <div className="banner">
+    <>
       {banners.map((banner) => (
-        <>
+        <div className="banner" key={banner.id}>
           <picture>
             <source
               type="image/webp"
@@ -38,9 +38,9 @@ function Banner ({banners}: BannerProps) {
              Подробнее
             </Link>
           </p>
-        </>
+        </div>
       ))}
-    </div>
+    </>
   );
 }
 
