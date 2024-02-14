@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -80,7 +80,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
   };
 
   const handleSubmitForm = () => {
-    console.log('Submit');
+    setIsSuccessfulPopupShowed((prevState) => !prevState);
+    setIsRewiewPopUpShowed((prevState) => !prevState);
+
   };
 
   const handlePopupAddRewiewClose = () => {

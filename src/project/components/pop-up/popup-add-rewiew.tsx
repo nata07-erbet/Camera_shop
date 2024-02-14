@@ -28,6 +28,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
         <form
           method="post"
           onSubmit={handleFormSubmit}
+
         >
           <div className="form-review__rate">
             <RatingRewiew
@@ -49,6 +50,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   maxLength={15}
                   required
                   autoFocus
+                  value={}
                 />
               </label>
               <p className="custom-input__error">Нужно указать имя</p>
