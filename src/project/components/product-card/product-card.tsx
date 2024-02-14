@@ -64,7 +64,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         </button>
         <Link
           className="btn btn--transparent"
-          to={generatePath(`${AppRoute.Product}/:productId`, { productId: id.toString() })}
+          to={generatePath(AppRoute.Product, { productId: id.toString(), tab: null})}
         >
           Подробнее
         </Link>

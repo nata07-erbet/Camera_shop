@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -26,19 +26,16 @@ const TABS: TTab[] = ['characteristic', 'description'];
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const navigate = useNavigate();
 
+  const { productId } = useParams<{productId: string}>();
   const { tab: savedTab } = useParams<{tab: TTab}>();
 
   const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
-
   const [ isAddedBasket, setIsAddedBasket ] = useState(false);
   const [ isAddedBasketSuccess, setIsAddedBasketSuccess ] = useState(false);
   const [ isAddRewiewPopUpShowed, setIsRewiewPopUpShowed ] = useState(false);
   const [ isSuccessfulPopupShowed, setIsSuccessfulPopupShowed ] = useState(false);
 
   const isRetina = true;
-
-
-  const { productId } = useParams<{productId: string}>();
   const currentProduct = products.find((product) => product.id === Number(productId));
 
   const isActive = currentTab === DEFAULT_TAB;
@@ -114,14 +111,12 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
 
   const handleClickTab = (tab: TTab) => {
     setCurrentTab(tab);
-
     if (currentProduct) {
-      navigate (generatePath(AppRoute.Main,{
+      navigate(generatePath(AppRoute.Product, {
         productId: currentProduct.id.toString(),
         tab
       }));
     }
-
   };
 
   return (
