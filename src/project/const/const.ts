@@ -23,6 +23,13 @@ const AppRouteTab = {
   Description: 'description'
 } as const;
 
+const TabsMap = {
+  [AppRouteTab.Characteristic]: 'Характеристики',
+  [AppRouteTab.Description]: 'Описание'
+
+}as const;
+
+const DEFAULT_TAB = AppRouteTab.Characteristic;
 
 const PanginationStep = {
   First: 1,
@@ -46,4 +53,4 @@ const RatingMap = {
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab};
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap};

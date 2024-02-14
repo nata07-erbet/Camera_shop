@@ -1,8 +1,9 @@
+/* eslint-disable no-alert */
 import { FormEvent, useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { AppRoute, AppRouteTab } from '../../const/const';
+import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap} from '../../const/const';
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
@@ -19,9 +20,15 @@ type ProductProps = {
   rewiews: TGetRewiew[];
 }
 
+type TTab = typeof AppRouteTab[keyof typeof AppRouteTab];
+const TABS: TTab[] = ['characteristic', 'description'];
 
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const navigate = useNavigate();
+
+  const { tab: savedTab } = useParams<{tab: TTab}>();
+
+  const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
 
   const [ isAddedBasket, setIsAddedBasket ] = useState(false);
   const [ isAddedBasketSuccess, setIsAddedBasketSuccess ] = useState(false);
@@ -33,7 +40,8 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
 
   const { productId } = useParams<{productId: string}>();
   const currentProduct = products.find((product) => product.id === Number(productId));
-  const isActive = true;
+
+  const isActive = currentTab === DEFAULT_TAB;
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -51,7 +59,6 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     },
   );
 
-  //потом будет спиннер
   if(!currentProduct) {
     return null;
   }
@@ -105,6 +112,10 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     });
   };
 
+  const handleClickTab = (tab: TTab) => {
+    setCurrentTab(tab);
+  };
+
   return (
     <>
       <Header />
@@ -121,8 +132,8 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                       srcSet={ isRetina ? `/${previewImgWebp}` : `/${previewImgWebp2x}` }
                     />
                     <img
-                      src={`/${previewImg}`}
-                      srcSet={`/${previewImg2x}`}
+                      src={previewImg}
+                      srcSet={previewImg2x}
                       width={560}
                       height={480}
                       alt={name}
@@ -146,25 +157,17 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button
-                        className={classNames(
-                          'tabs__control',
-                          {'is-active': true}
-                        )}
-                        type="button"
-                      >
-                        Характеристики
-                      </button>
-
-                      <button
-                        className={classNames(
-                          'tabs__control',
-                          {'is-active': true}
-                        )}
-                        type="button"
-                      >
-                        Описание
-                      </button>
+                      {TABS.map((tab) => (
+                        <button key={tab}
+                          className={classNames(
+                            'tabs__control',
+                            {'is-active': tab === currentTab}
+                          )}
+                          type="button"
+                          onClick={() => handleClickTab(tab)}
+                        >
+                          {TabsMap[tab]}
+                        </button>))}
                     </div>
 
                     <div className="tabs__content">
