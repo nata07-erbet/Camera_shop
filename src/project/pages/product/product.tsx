@@ -22,15 +22,16 @@ type ProductProps = {
 
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const navigate = useNavigate();
+
+  const [isAddedBasket, setIsAddedBasket] = useState(false);
+  const [isAddRewiewPopUpShowed, setIsRewiewPopUpShowed] = useState(false);
+  const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
   const isRetina = true;
 
-  const [isActive, setIsActive] = useState(true);
-  const { productId } = useParams<{productId: string}>();
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
-  const [isAdded , setIsAdded] = useState(false);
+  const { productId } = useParams<{productId: string}>();
   const currentProduct = products.find((product) => product.id === Number(productId));
+  const isActive = true;
 
   const tabClassAct = classNames(
     'tabs__element',
@@ -47,7 +48,6 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       disabled: !isActive
     },
   );
-
 
   //потом будет спиннер
   if(!currentProduct) {
@@ -66,31 +66,23 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
   } = currentProduct;
 
   const handleClickButtonAddbasket = () => {
-    setIsAdded((prevState) => !prevState);
+    setIsAddedBasket((prevState) => !prevState);
   };
 
-  const handleChangeDescription = () => {
-    setIsActive((prevState) => !prevState);
-    navigate(generatePath(`${AppRoute.Product}/:productId/tab`, {
-      productId: currentProduct.id.toString(),
-      tab: AppRouteTab.Description
-    }));
+  const handleButtonAddRewiewClick = () => {
+    setIsRewiewPopUpShowed((prevState) => !prevState);
   };
 
-  const handleChangeTabCharacteristic = () => {
-    setIsActive((prevState) => !prevState);
+  const handleSubmitForm = () => {
+    console.log('Submit');
   };
 
-  const handleButtonClickCloseModal = () => {
-    if(isShowModal) {
-      setIsShowModal((prevState) => !prevState);
-    }
+  const handlePopupAddRewiewClose = () => {
+    console('AddRewiewClose');
   };
 
-  const handleButtonClickOverlay = () => {
-    if(isShowModal) {
-      setIsShowModal((prevState) => !prevState);
-    }
+  const handlePopRewiewSuccessClose = () => {
+    setIsSuccessfulPopupShowed((prevState) => !prevState);
   };
 
   const handleScrollToTop = () => {
@@ -100,29 +92,6 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       behavior: 'smooth'
     });
   };
-
-
-  const handleButtonAddRewiewClick = () => {
-    setIsShowModal((prevState) => !prevState);
-  };
-
-  const handleButtonClickPostRewiew = () => {
-    setIsSuccess((prevState) => !prevState);
-    setIsShowModal((prevState) => !prevState);
-  };
-
-  // не меняется состояние при нажатии кнопки esc
-  const handleKeyDownToClose = (evt: KeyboardEvent) => {
-    if(evt.key === 'Escape' && isShowModal) {
-      evt.preventDefault();
-      setIsShowModal((prevState) => !prevState);
-    }
-  };
-
-  if(isShowModal) {
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${window.scrollY}px`;
-  }
 
   return (
     <>
@@ -168,10 +137,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                       <button
                         className={classNames(
                           'tabs__control',
-                          {'is-active': !isActive}
+                          {'is-active': true}
                         )}
                         type="button"
-                        onClick={handleChangeTabCharacteristic}
                       >
                         Характеристики
                       </button>
@@ -179,10 +147,9 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                       <button
                         className={classNames(
                           'tabs__control',
-                          {'is-active': isActive}
+                          {'is-active': true}
                         )}
                         type="button"
-                        onClick={handleChangeDescription}
                       >
                         Описание
                       </button>
@@ -238,13 +205,18 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
             <Rewiews rewiews={rewiews} onButtonAddRewiewClick={handleButtonAddRewiewClick}/>
           </div>
         </div>
-        { isAdded && <PopupBasketSuccess/>}
+        { isAddedBasket && <PopupBasketSuccess/>}
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
-      {isShowModal && <PopupAddRewiew
-        onSubmit={}
-      />}
-      {isSuccess && <PopRewiewSuccess />}
+      <PopupAddRewiew
+        onSubmit={handleSubmitForm}
+        onClose={handlePopupAddRewiewClose}
+        opened={isAddRewiewPopUpShowed}
+      />
+      <PopRewiewSuccess
+        onClose={handlePopRewiewSuccessClose}
+        opened={isSuccessfulPopupShowed}
+      />
       <Footer />
     </>
   );

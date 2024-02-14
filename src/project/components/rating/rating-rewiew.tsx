@@ -1,6 +1,5 @@
 import React, { ChangeEvent, Fragment, useState} from 'react';
 import { RatingMap } from '../../const/const';
-import { errorMonitor } from 'events';
 import classNames from 'classnames';
 
 type RatingRewiewProps = {

@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { PropsWithChildren, useCallback, useEffect } from 'react';
 
 type PopUpProps = PropsWithChildren<{
-  onClose: () => void;
-  opened: boolean;
-  narrow: boolean;
+  onClose?: () => void;
+  opened?: boolean;
+  narrow?: boolean;
 }>
 
 function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
@@ -30,6 +30,14 @@ function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
 
     return () => document.removeEventListener('keydown', handleEscapeKeyDown);
   }, [handleEscapeKeyDown]);
+
+  useEffect(() =>{
+    if(opened) {
+      document.body.style.position = 'fixed';
+    } else {
+      document.body.style.position = '';
+    }
+  });
 
   return (
     <div
