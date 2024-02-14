@@ -11,7 +11,7 @@ import {SimilarSliderProducts } from '../../components/similar-slider-products/s
 import { TProduct, TGetRewiew } from '../../types/index';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
-import { PopupBasketSuccess, PopupAddRewiew, PopRewiewSuccess } from '../../components/pop-up/index';
+import { PopupBasketSuccess, PopupAddRewiew, PopRewiewSuccess, PopupAddBasket } from '../../components/pop-up/index';
 
 type ProductProps = {
   products: TProduct[];
@@ -23,9 +23,11 @@ type ProductProps = {
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const navigate = useNavigate();
 
-  const [isAddedBasket, setIsAddedBasket] = useState(false);
-  const [isAddRewiewPopUpShowed, setIsRewiewPopUpShowed] = useState(false);
-  const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
+  const [ isAddedBasket, setIsAddedBasket ] = useState(false);
+  const [ isAddedBasketSuccess, setIsAddedBasketSuccess ] = useState(false);
+  const [ isAddRewiewPopUpShowed, setIsRewiewPopUpShowed ] = useState(false);
+  const [ isSuccessfulPopupShowed, setIsSuccessfulPopupShowed ] = useState(false);
+
   const isRetina = true;
 
 
@@ -78,11 +80,15 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
   };
 
   const handlePopupAddRewiewClose = () => {
-    console('AddRewiewClose');
+    setIsRewiewPopUpShowed((prevState) => !prevState);
   };
 
   const handlePopRewiewSuccessClose = () => {
     setIsSuccessfulPopupShowed((prevState) => !prevState);
+  };
+
+  const handlePopupBasketSuccessClose = () => {
+    setIsAddedBasketSuccess((prevState) => !prevState);
   };
 
   const handleScrollToTop = () => {
@@ -205,9 +211,16 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
             <Rewiews rewiews={rewiews} onButtonAddRewiewClick={handleButtonAddRewiewClick}/>
           </div>
         </div>
-        { isAddedBasket && <PopupBasketSuccess/>}
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
+      <PopupAddBasket product={currentProduct}
+        opened={}
+        onClose={}
+      />
+      <PopupBasketSuccess
+        opened={isAddedBasketSuccess}
+        onClose={handlePopupBasketSuccessClose}
+      />
       <PopupAddRewiew
         onSubmit={handleSubmitForm}
         onClose={handlePopupAddRewiewClose}
