@@ -242,10 +242,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
       {isShowModal && <PopupAddRewiew
-        onButtonClickPostRewiew={handleButtonClickPostRewiew}
-        onKeyDownToClose={handleKeyDownToClose}
-        onButtonClickCloseModal={handleButtonClickCloseModal}
-        onButtonClickOverlay={handleButtonClickOverlay}
+        onSubmit={}
       />}
       {isSuccess && <PopRewiewSuccess />}
       <Footer />

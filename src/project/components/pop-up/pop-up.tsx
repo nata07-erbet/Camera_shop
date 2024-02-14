@@ -7,7 +7,7 @@ type PopUpProps = PropsWithChildren<{
   narrow: boolean;
 }>
 
-function PopUp({ children, onClose, opened, narrow}: PopUpProps) {
+function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
 
   const handleOverlayClick = () => {
     onClose?.();

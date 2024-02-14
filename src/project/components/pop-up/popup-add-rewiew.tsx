@@ -1,41 +1,39 @@
+import { useState } from 'react';
+import { PopUp, PopUpProps } from './pop-up';
 import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
-type PopupAddRewiew ={
-  onButtonClickPostRewiew: () => void;
-  onKeyDownToClose: () => void;
-  onButtonClickCloseModal: () => void;
-  onButtonClickOverlay: () => void;
-}
+type PopupAddRewiew = PopUpProps & {
+  onSubmit: () => void;}
 
-function PopupAddRewiew ({onButtonClickPostRewiew, onKeyDownToClose, onButtonClickCloseModal, onButtonClickOverlay}: PopupAddRewiew) {
+
+function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
+  const [isRatingValid, setRatingValid] = useState(false);
+
+  const validateForm = () => isRatingValid;
+  const validateRating = (value: string) => setRatingValid(Boolean(value && value.match(/^[1-5]$/)));
 
   const handleFormSubmit = () => {
-    onButtonClickPostRewiew();
-  };
+    const isValid = validateForm();
 
-  const handleKeyDown = () => {
-    onKeyDownToClose();
-  };
-
-  const handleClickClose = () => {
-    onButtonClickCloseModal();
-  };
-
-  const handleClickOverlay = () => {
-    onButtonClickOverlay();
+    if(isValid) {
+      onSubmit();
+    }
+    onSubmit();
   };
 
   return(
-    <>
+    <PopUp {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
         <form
           method="post"
           onSubmit={handleFormSubmit}
-          onKeyDown={handleKeyDown}
         >
           <div className="form-review__rate">
-            <RatingRewiew />
+            <RatingRewiew
+              onChange = {validateRating}
+              error = {!isRatingValid && '  Проставьте рейтинг'}
+            />
             <div className="custom-input form-review__item">
               <label>
                 <span className="custom-input__label">
@@ -124,7 +122,7 @@ function PopupAddRewiew ({onButtonClickPostRewiew, onKeyDownToClose, onButtonCli
 
       </div>
 
-    </>
+    </PopUp>
 
   );
 }
