@@ -9,7 +9,7 @@ const REWIEWS_COUNT = 3;
 
 const AppRoute = {
   Main: '/',
-  Product: '/product',
+  Product: '/product/:productId/:tab',
   Basket: '/basket',
   AddBasket: 'add-basket',
   AddBasketSuccess: '/add-basket-success',
@@ -19,10 +19,14 @@ const AppRoute = {
 } as const;
 
 const AppRouteTab = {
-  Characteristic: 'characteristic',
+  Characteristics: 'characteristics',
   Description: 'description'
 } as const;
 
+const TabsMap = {
+  [AppRouteTab.Characteristics]: 'Характеристики',
+  [AppRouteTab.Description]: 'Описание'
+} as const;
 
 const PanginationStep = {
   First: 1,
@@ -46,4 +50,4 @@ const RatingMap = {
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab};
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, TabsMap };

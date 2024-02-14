@@ -1,3 +1,4 @@
+import { RatingMap } from '../../const/const';
 import { TRating } from '../../types';
 
 type RatingProps ={
@@ -5,11 +6,11 @@ type RatingProps ={
   reviewCount?: number;
 }
 
+const stars = Object.keys(RatingMap).sort((a, b) => Number(a) - Number(b));
 
 function Rating ({rating, reviewCount}: RatingProps) {
-  const MAX_RATING = 5;
-  const starsFull = Array.from({length: Number(rating)}, () => '');
-  const statsEmpty = Array.from({length: MAX_RATING - Number(rating) }, () => '');
+  const starsFull = stars.slice(0, Number(rating));
+  const starsEmpty = stars.slice(Number(rating));
 
   return (
     <div className="rate product__rate">
@@ -19,13 +20,13 @@ function Rating ({rating, reviewCount}: RatingProps) {
         </svg>
       ))}
 
-      {statsEmpty.map((star) => (
+      {starsEmpty.map((star) => (
         <svg width={17} height={16} aria-hidden="true" key={star}>
           <use xlinkHref="#icon-star" />
         </svg>
       ))}
 
-      <p className="visually-hidden">Рейтинг: {rating}</p>
+      <p className="visually-hidden">Рейтинг: {String(rating)}</p>
       <p className="rate__count">
         <span className="visually-hidden">Всего оценок:</span>{reviewCount}
       </p>

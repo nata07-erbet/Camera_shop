@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { AppRoute, AppRouteTab } from '../../const/const';
+import { AppRoute, AppRouteTab, TabsMap } from '../../const/const';
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
@@ -11,7 +11,7 @@ import {SimilarSliderProducts } from '../../components/similar-slider-products/s
 import { TProduct, TGetRewiew } from '../../types/index';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
-import { PopupBasketSuccess, PopupAddRewiew, PopRewiewSuccess } from '../../components/pop-up/index';
+import { PopupBasketSuccess, PopupAddReview, PopupReviewSuccess } from '../../components/pop-up';
 
 type ProductProps = {
   products: TProduct[];
@@ -19,19 +19,26 @@ type ProductProps = {
   rewiews: TGetRewiew[];
 }
 
+type TTab = typeof AppRouteTab[keyof typeof AppRouteTab];
+
+const TABS: TTab[] = ['characteristics', 'description'];
+const DEFAULT_TAB = AppRouteTab.Characteristics;
 
 function Product ({products, similarProducts, rewiews}: ProductProps) {
   const navigate = useNavigate();
   const isRetina = true;
 
-  const [isActive, setIsActive] = useState(true);
+  const { tab: savedTab } = useParams<{tab: TTab}>();
   const { productId } = useParams<{productId: string}>();
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  
+  const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
+  const [isAddReviewPopupShowed, setIsAddReviewPopupShowed] = useState(false);
+  const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
 
   const [isAdded , setIsAdded] = useState(false);
   const currentProduct = products.find((product) => product.id === Number(productId));
 
+  const isActive = currentTab === DEFAULT_TAB;
   const tabClassAct = classNames(
     'tabs__element',
     {
@@ -48,6 +55,45 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     },
   );
 
+  const handleClickButtonAddbasket = () => {
+    setIsAdded((prevState) => !prevState);
+  };
+
+  const handleClickTab = (tab: TTab) => {
+    setCurrentTab(tab);
+    if (currentProduct) {
+      navigate(generatePath(AppRoute.Product, {
+        productId: currentProduct.id.toString(),
+        tab
+      }));
+    }
+  };
+
+  const handleAddReviewPopupClose = () => {
+    setIsAddReviewPopupShowed(false);
+  };
+
+  const handleSuccessfulPopupClose = () => {
+    setIsSuccessfulPopupShowed(false);
+  };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
+  const handleButtonAddRewiewClick = () => {
+    setIsAddReviewPopupShowed(true);
+  };
+
+  const handleSubmitRewiew = () => {
+    setIsAddReviewPopupShowed(false);
+    setIsSuccessfulPopupShowed(true);
+  };
 
   //потом будет спиннер
   if(!currentProduct) {
@@ -65,65 +111,6 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     reviewCount
   } = currentProduct;
 
-  const handleClickButtonAddbasket = () => {
-    setIsAdded((prevState) => !prevState);
-  };
-
-  const handleChangeDescription = () => {
-    setIsActive((prevState) => !prevState);
-    navigate(generatePath(`${AppRoute.Product}/:productId/tab`, {
-      productId: currentProduct.id.toString(),
-      tab: AppRouteTab.Description
-    }));
-  };
-
-  const handleChangeTabCharacteristic = () => {
-    setIsActive((prevState) => !prevState);
-  };
-
-  const handleButtonClickCloseModal = () => {
-    if(isShowModal) {
-      setIsShowModal((prevState) => !prevState);
-    }
-  };
-
-  const handleButtonClickOverlay = () => {
-    if(isShowModal) {
-      setIsShowModal((prevState) => !prevState);
-    }
-  };
-
-  const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
-  };
-
-
-  const handleButtonAddRewiewClick = () => {
-    setIsShowModal((prevState) => !prevState);
-  };
-
-  const handleButtonClickPostRewiew = () => {
-    setIsSuccess((prevState) => !prevState);
-    setIsShowModal((prevState) => !prevState);
-  };
-
-  // не меняется состояние при нажатии кнопки esc
-  const handleKeyDownToClose = (evt: KeyboardEvent) => {
-    if(evt.key === 'Escape' && isShowModal) {
-      evt.preventDefault();
-      setIsShowModal((prevState) => !prevState);
-    }
-  };
-
-  if(isShowModal) {
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${window.scrollY}px`;
-  }
-
   return (
     <>
       <Header />
@@ -137,11 +124,11 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                   <picture>
                     <source
                       type="image/webp"
-                      srcSet={ isRetina ? `/${previewImgWebp}` : `/${previewImgWebp2x}` }
+                      srcSet={ isRetina ? previewImgWebp : previewImgWebp2x }
                     />
                     <img
-                      src={`/${previewImg}`}
-                      srcSet={`/${previewImg2x}`}
+                      src={previewImg}
+                      srcSet={previewImg2x}
                       width={560}
                       height={480}
                       alt={name}
@@ -165,27 +152,18 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button
-                        className={classNames(
-                          'tabs__control',
-                          {'is-active': !isActive}
-                        )}
-                        type="button"
-                        onClick={handleChangeTabCharacteristic}
-                      >
-                        Характеристики
-                      </button>
-
-                      <button
-                        className={classNames(
-                          'tabs__control',
-                          {'is-active': isActive}
-                        )}
-                        type="button"
-                        onClick={handleChangeDescription}
-                      >
-                        Описание
-                      </button>
+                      {TABS.map((tab) => (
+                        <button key={tab}
+                          className={classNames(
+                            'tabs__control',
+                            {'is-active': tab === currentTab}
+                          )}
+                          type="button"
+                          onClick={() => handleClickTab(tab)}
+                        >
+                          {TabsMap[tab]}
+                        </button>
+                      ))}
                     </div>
 
                     <div className="tabs__content">
@@ -241,13 +219,12 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
         { isAdded && <PopupBasketSuccess/>}
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
-      {isShowModal && <PopupAddRewiew
-        onButtonClickPostRewiew={handleButtonClickPostRewiew}
-        onKeyDownToClose={handleKeyDownToClose}
-        onButtonClickCloseModal={handleButtonClickCloseModal}
-        onButtonClickOverlay={handleButtonClickOverlay}
-      />}
-      {isSuccess && <PopRewiewSuccess />}
+      <PopupAddReview
+        opened={isAddReviewPopupShowed}
+        onClose={handleAddReviewPopupClose}
+        onSubmit={handleSubmitRewiew}
+      />
+      <PopupReviewSuccess opened={isSuccessfulPopupShowed} onClose={handleSuccessfulPopupClose} />
       <Footer />
     </>
   );

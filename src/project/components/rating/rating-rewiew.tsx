@@ -1,19 +1,23 @@
 import { ChangeEvent, Fragment, useState} from 'react';
 import { RatingMap } from '../../const/const';
+import classNames from 'classnames';
 
-function RatingRewiew () {
+type RatingReviewProps = {
+  onChange: (value: string) => void;
+  error?: React.ReactNode;
+}
+
+function RatingRewiew ({ onChange, error }: RatingReviewProps) {
   const [rating, setRating] = useState('0');
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
+    onChange(evt.target.value);
   };
-
-  //как это значение передать наверх для валидации формы?
-  const isValed = () => rating !== '' && !rating.match(/[1-5]/);
-
+  console.log(error)
 
   return (
-    <fieldset className="rate form-review__item">
+    <fieldset className={classNames('rate form-review__item', { 'is-invalid': !!error })}>
       <legend className="rate__caption">
         Рейтинг
         <svg width={9} height={9} aria-hidden="true">
@@ -34,7 +38,6 @@ function RatingRewiew () {
                   name="rate"
                   type="radio"
                   value={key}
-                  defaultValue={0}
                   onChange={handleInputChange}
                 />
                 <label
@@ -50,7 +53,7 @@ function RatingRewiew () {
           <span className="rate__all-stars">5</span>
         </div>
       </div>
-      <p className="rate__message">Нужно оценить товар</p>
+      {error && <p className="rate__message">{error}</p>}
     </fieldset>
   );
 }

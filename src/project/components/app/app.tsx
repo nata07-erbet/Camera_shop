@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: `${AppRoute.Product}/:productId`,
+    path: AppRoute.Product,
     element:
       <Product
         products={productsMocks}
