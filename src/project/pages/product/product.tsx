@@ -114,6 +114,14 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
 
   const handleClickTab = (tab: TTab) => {
     setCurrentTab(tab);
+
+    if (currentProduct) {
+      navigate (generatePath(AppRoute.Main,{
+        productId: currentProduct.id.toString(),
+        tab
+      }));
+    }
+
   };
 
   return (
