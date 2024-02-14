@@ -71,6 +71,10 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     setIsAddedBasket((prevState) => !prevState);
   };
 
+  const handlePopupAddBasketClose = () => {
+    setIsAddedBasket((prevState) => !prevState);
+  };
+
   const handleButtonAddRewiewClick = () => {
     setIsRewiewPopUpShowed((prevState) => !prevState);
   };
@@ -214,8 +218,8 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
       </main>
       <UpBtn onScrollTop ={handleScrollToTop}/>
       <PopupAddBasket product={currentProduct}
-        opened={}
-        onClose={}
+        opened={isAddedBasket}
+        onClose={handlePopupAddBasketClose}
       />
       <PopupBasketSuccess
         opened={isAddedBasketSuccess}

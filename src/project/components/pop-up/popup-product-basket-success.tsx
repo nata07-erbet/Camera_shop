@@ -29,11 +29,6 @@ function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
               Перейти в корзину
         </button>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап">
-        <svg width={10} height={10} aria-hidden="true">
-          <use xlinkHref="#icon-close" />
-        </svg>
-      </button>
     </PopUp>
   );
 }
