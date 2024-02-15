@@ -1,6 +1,7 @@
 import { TProduct } from '../../types/';
 import { Rating } from '../../components/rating/rating';
-import { Link, generatePath } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { generatePath } from 'react-router';
 import { AppRoute } from '../../const/const';
 
 
@@ -23,6 +24,13 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
     reviewCount,
     price
   } = product;
+
+  const href = generatePath(AppRoute.Product, {
+    productId: id.toString(),
+    tab: null
+  });
+
+  console.log(href);
 
   const handleButtonClickBuy = () => {
     onClickButton(id);
@@ -64,7 +72,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         </button>
         <Link
           className="btn btn--transparent"
-          to={generatePath(AppRoute.Product, { productId: id.toString(), tab: null})}
+          to={href}
         >
           Подробнее
         </Link>

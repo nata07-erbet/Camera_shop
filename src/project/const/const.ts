@@ -9,7 +9,7 @@ const REWIEWS_COUNT = 3;
 
 const AppRoute = {
   Main: '/',
-  Product: '/product/:productId/:tab',
+  Product: '/product/:productId/:tab?',
   Basket: '/basket',
   AddBasket: 'add-basket',
   AddBasketSuccess: '/add-basket-success',

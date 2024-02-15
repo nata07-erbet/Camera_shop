@@ -1,10 +1,13 @@
+import { MouseEvent } from 'react';
+
 type UpBtnProps ={
   onScrollTop : () => void;
 }
 
 function UpBtn({onScrollTop}: UpBtnProps) {
 
-  const handleScrollTop = () => {
+  const handleScrollTop = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
     onScrollTop();
   };
 
