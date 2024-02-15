@@ -22,11 +22,11 @@ function PopupAddBasket ({product, ...props}: AddProductBasketPopProps) {
           <picture>
             <source
               type="image/webp"
-              srcSet={product.previewImgWebp}
+              srcSet={`/${product.previewImgWebp}`}
             />
             <img
-              src={product.previewImg}
-              srcSet="img/content/orlenok@2x.jpg 2x"
+              src={`/${product.previewImg}`}
+              srcSet={`/${product.previewImg2x}`}
               width={140}
               height={120}
               alt={`Фотоаппарат ${product.name}`}

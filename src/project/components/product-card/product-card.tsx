@@ -30,8 +30,6 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
     tab: null
   });
 
-  console.log(href);
-
   const handleButtonClickBuy = () => {
     onClickButton(id);
   };

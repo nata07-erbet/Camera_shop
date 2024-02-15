@@ -9,6 +9,8 @@ import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 import { useState } from 'react';
 import { PopupAddBasket } from '../../components/pop-up/index';
+import { useNavigate } from 'react-router';
+import { AppRoute } from '../../const/const';
 
 type CatalogProps = {
   products: TProduct[];
@@ -17,6 +19,7 @@ type CatalogProps = {
 
 
 function Catalog ({products, banners}: CatalogProps) {
+  const navigate = useNavigate();
 
   const isPaginationShow = () => {
     if(products.length >= 9) {
@@ -30,7 +33,17 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
     setSelectedId(productId); //id =2
   };
+
+  const handleModalAddProductShowClose = () => {
+    setIsModalAddProductShow((prevState) => !prevState);
+  };
+
   const buyingProduct = products.find((product) => product.id === selectedId);
+
+  if(!buyingProduct) {
+    navigate(AppRoute.Main);
+  }
+
   const isActiveMainPage = true;
 
   return (
@@ -59,7 +72,11 @@ function Catalog ({products, banners}: CatalogProps) {
             </div>
           </section>
         </div>
-        { isModalAddProductShow && < PopupAddBasket product={buyingProduct}/>}
+        { buyingProduct && < PopupAddBasket
+          product={buyingProduct}
+          opened={isModalAddProductShow}
+          onClose={handleModalAddProductShowClose}
+        />}
       </main>
       <Footer />
     </>
