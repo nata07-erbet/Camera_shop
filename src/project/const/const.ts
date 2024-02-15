@@ -37,6 +37,16 @@ const PanginationStep = {
   Third: 3,
 } as const;
 
+const PanginationButton = {
+  Next: 'Далее',
+  Prev: 'Назад'
+};
+
+const PanginationsMap = {
+  [PanginationButton.Next]: 'Далее',
+  [PanginationButton.Prev]: 'Назад'
+};
+
 const PagesMap = {
   Main: 'Главная',
   Catalog:  'Каталог',
@@ -53,4 +63,4 @@ const RatingMap = {
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap};
+export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap};
