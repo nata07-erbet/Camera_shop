@@ -1,14 +1,12 @@
 const PRODUCT_VIEW_COUNT = 9;
 
-export { PRODUCT_VIEW_COUNT };
-
 const MOCK_START = 1;
 const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
 
 const AppRoute = {
-  Main: '/',
+  Main: '/:page?',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
   AddBasket: 'add-basket',
@@ -63,4 +61,4 @@ const RatingMap = {
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 
-export { MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap};
+export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap};

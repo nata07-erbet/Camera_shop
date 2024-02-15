@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link, generatePath} from 'react-router-dom';
 import classNames from 'classnames';
-import { PanginationStep, PanginationsMap, PanginationButton} from '../../const/const';
+import { PanginationStep, PanginationsMap, PanginationButton, AppRoute} from '../../const/const';
 
 
 type TPag = typeof PanginationsMap[keyof typeof PanginationsMap];
 
 const PAG:TPag[] = [PanginationButton.Prev, PanginationButton.Next];
 
-function Pangination () {
+function PanginationComponent () {
   const INITAL_STEP = 1;
   const [isStepActive, setIsStepActive] = useState(INITAL_STEP);
 
-  const [currentPag, seCurrentPag] = useState('');
+  const [currentPag, setCurrentPag] = useState('');
+
+  const handleStepChange = (step: number) => {
+    setIsStepActive(step + 1);
+  };
 
   return(
     <div className="pagination">
@@ -40,8 +44,8 @@ function Pangination () {
                     'pagination__link--active': step === isStepActive,
                   }
                 )}
-                to="#"
-                onClick ={() =>setIsStepActive((prevState) => (prevState + 1))}
+                to={generatePath(AppRoute.Main, {page: step.toString()})}
+                onClick ={() =>handleStepChange(step)}
               >
                 {step}
               </Link>
@@ -52,4 +56,4 @@ function Pangination () {
   );
 }
 
-export { Pangination };
+export { PanginationComponent };

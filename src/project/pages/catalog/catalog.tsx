@@ -3,19 +3,22 @@ import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
-import { Pangination } from '../../components/pangination/pangination-component';
+import { Pangination } from '../../components/pangination/pangination';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { PopupAddBasket } from '../../components/pop-up/index';
 import { useNavigate } from 'react-router';
-import { AppRoute } from '../../const/const';
+import { AppRoute, PRODUCT_VIEW_COUNT } from '../../const/const';
 
 type CatalogProps = {
   products: TProduct[];
   banners: TBanner[];
 };
+
+const getTotalPageCount = (cardCount: number): number =>
+  Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
 
 
 function Catalog ({products, banners}: CatalogProps) {
@@ -29,6 +32,11 @@ function Catalog ({products, banners}: CatalogProps) {
   const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
 
+  const [page, setPage ] = useState(1);
+
+  const lastContebtIndex = page * getTotalPageCount(products.length);
+  const firstContentIndex = lastContebtIndex - getTotalPageCount(products.length);
+
   const handleClickButton = (productId: TProduct['id']) => {
     setIsModalAddProductShow((prevState) => !prevState);
     setSelectedId(productId); //id =2
@@ -38,6 +46,23 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
   };
 
+  const handlePrevPageClick = useCallback(() =>{
+    const currentPage = page;
+    const prev = currentPage - 1;
+
+    setPage(prev > 0 ? prev : currentPage);
+
+  }, [page]);
+
+  const handleNextPageClick = useCallback(() => {
+    const currentPage = page;
+    const next = currentPage + 1;
+    const total = getTotalPageCount(products.length);
+
+    setPage (next <= total ? next : currentPage);
+  }, [page, products.length]);
+
+
   const buyingProduct = products.find((product) => product.id === selectedId);
 
   if(!buyingProduct) {
@@ -45,6 +70,11 @@ function Catalog ({products, banners}: CatalogProps) {
   }
 
   const isActiveMainPage = true;
+
+  const prorerty = {
+    left: page === 1,
+    right: page === getTotalPageCount(products.length)
+  };
 
   return (
     <>
@@ -65,8 +95,16 @@ function Catalog ({products, banners}: CatalogProps) {
                   <ProductCardList
                     products={products}
                     onClickButton={handleClickButton}
+                    first={firstContentIndex}
+                    last={lastContebtIndex}
                   />
-                  {isPaginationShow() && <Pangination />}
+                  {isPaginationShow() && (
+                    <Pangination
+                      onPrevPageClick={handlePrevPageClick}
+                      onNextPageClick={handleNextPageClick}
+                      disable={prorerty}
+                    />
+                  )}
                 </div>
               </div>
             </div>
