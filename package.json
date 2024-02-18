@@ -385,7 +385,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --passWithnoTests",
     "lint": "eslint src --ext ts,tsx",
     "preview": "vite preview"
   },
