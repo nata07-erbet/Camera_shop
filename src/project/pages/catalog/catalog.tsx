@@ -1,16 +1,15 @@
+import { useState, useCallback } from 'react';
 import { Header} from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
 import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
-import { Pangination } from '../../components/pangination/pangination';
+import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
-import { useState, useCallback } from 'react';
 import { PopupAddBasket } from '../../components/pop-up/index';
-import { useNavigate } from 'react-router';
-import { AppRoute, PRODUCT_VIEW_COUNT } from '../../const/const';
+import { PRODUCT_VIEW_COUNT } from '../../const/const';
 
 type CatalogProps = {
   products: TProduct[];
@@ -22,20 +21,11 @@ const getTotalPageCount = (cardCount: number): number =>
 
 
 function Catalog ({products, banners}: CatalogProps) {
-  const navigate = useNavigate();
-
-  const isPaginationShow = () => {
-    if(products.length >= 9) {
-      return true;
-    }
-  };
+  const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
-
-  const [page, setPage ] = useState(1);
-
-  const lastContebtIndex = page * getTotalPageCount(products.length);
-  const firstContentIndex = lastContebtIndex - getTotalPageCount(products.length);
+  const [productsToShow, setProductsToShow] = useState(products.slice(0, PRODUCT_VIEW_COUNT));
+  const pagesAmount = getTotalPageCount(products.length);
 
   const handleClickButton = (productId: TProduct['id']) => {
     setIsModalAddProductShow((prevState) => !prevState);
@@ -46,35 +36,12 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
   };
 
-  const handlePrevPageClick = useCallback(() =>{
-    const currentPage = page;
-    const prev = currentPage - 1;
-
-    setPage(prev > 0 ? prev : currentPage);
-
-  }, [page]);
-
-  const handleNextPageClick = useCallback(() => {
-    const currentPage = page;
-    const next = currentPage + 1;
-    const total = getTotalPageCount(products.length);
-
-    setPage (next <= total ? next : currentPage);
-  }, [page, products.length]);
-
+  const handlePageClick = useCallback((page: number) =>{
+    setProductsToShow(products.slice((page - 1) * PRODUCT_VIEW_COUNT, page * PRODUCT_VIEW_COUNT));
+  }, [products]);
 
   const buyingProduct = products.find((product) => product.id === selectedId);
-
-  if(!buyingProduct) {
-    navigate(AppRoute.Main);
-  }
-
   const isActiveMainPage = true;
-
-  const prorerty = {
-    left: page === 1,
-    right: page === getTotalPageCount(products.length)
-  };
 
   return (
     <>
@@ -93,16 +60,13 @@ function Catalog ({products, banners}: CatalogProps) {
                 <div className="catalog__content">
                   <Sorting />
                   <ProductCardList
-                    products={products}
+                    products={productsToShow}
                     onClickButton={handleClickButton}
-                    first={firstContentIndex}
-                    last={lastContebtIndex}
                   />
-                  {isPaginationShow() && (
-                    <Pangination
-                      onPrevPageClick={handlePrevPageClick}
-                      onNextPageClick={handleNextPageClick}
-                      disable={prorerty}
+                  {showPagination && (
+                    <Pagination
+                      onPageClick={handlePageClick}
+                      pagesAmount={pagesAmount}
                     />
                   )}
                 </div>
@@ -110,11 +74,13 @@ function Catalog ({products, banners}: CatalogProps) {
             </div>
           </section>
         </div>
-        { buyingProduct && < PopupAddBasket
-          product={buyingProduct}
-          opened={isModalAddProductShow}
-          onClose={handleModalAddProductShowClose}
-        />}
+        {buyingProduct && (
+          <PopupAddBasket
+            product={buyingProduct}
+            opened={isModalAddProductShow}
+            onClose={handleModalAddProductShowClose}
+          />
+        )}
       </main>
       <Footer />
     </>

@@ -1,4 +1,4 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -11,34 +11,36 @@ type SliderSwiperProps = {
   banners: TBanner[];
 }
 
-function SliderSwiper({banners}: SliderSwiperProps){
-  const params = {
-    slidesPerView: 1,
-    spaceBetween: 10,
-    centeredSlides: true,
-    autoplay: {
-      delay: 3500,
-      disableOnInteraction: false,
-    },
-    pagination:{
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true,
-    },
-    navigation: true,
-    modules:[Autoplay, Pagination, Navigation],
-    className: 'mySwiper',
-
-    renderBullet: function (index: number, el: string) {
+const params: SwiperProps = {
+  slidesPerView: 1,
+  spaceBetween: 10,
+  centeredSlides: true,
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: false,
+  },
+  pagination:{
+    type: 'bullets',
+    clickable: true,
+    renderBullet(index, el) {
       return `<span class="${ el }">${ index + 1 }</span>`;
     }
-  };
+  },
+  navigation: true,
+  modules:[Autoplay, Pagination, Navigation],
+  className: 'mySwiper',
+};
+
+function SliderSwiper({banners}: SliderSwiperProps){
+
 
   return(
     <Swiper {...params} >
-      <SwiperSlide>
-        <Banner banners={banners} />
-      </SwiperSlide>
+      {banners.map((banner) => (
+        <SwiperSlide key={banner.id}>
+          <Banner banner={banner} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 

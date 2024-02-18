@@ -6,7 +6,7 @@ const MOCK_END = 40;
 const REWIEWS_COUNT = 3;
 
 const AppRoute = {
-  Main: '/:page?',
+  Main: '/',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
   AddBasket: 'add-basket',
