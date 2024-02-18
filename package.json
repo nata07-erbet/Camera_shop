@@ -398,5 +398,8 @@
   "bugs": {
     "url": "https://github.com/nata07-erbet/Camera_shop-_1/issues"
   },
-  "homepage": "https://github.com/nata07-erbet/Camera_shop-_1#readme"
+  "homepage": "https://github.com/nata07-erbet/Camera_shop-_1#readme",
+  "devDependencies": {
+    "@testing-library/react": "^14.2.1"
+  }
 }
