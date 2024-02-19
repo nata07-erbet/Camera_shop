@@ -24,7 +24,7 @@ function Banner ({banner}: BannerProps) {
           alt={banner.name}
         />
       </picture>
-      <p className="banner__info">
+      <p className="banner__info" data-testid ='banner-offer'>
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">
           {banner.name}
