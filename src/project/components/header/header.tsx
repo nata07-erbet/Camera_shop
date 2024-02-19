@@ -1,19 +1,12 @@
 import { Link, NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+import { Logo } from '../logo/logo';
 
 function Header () {
   return (
     <header className="header" id="header">
       <div className="container">
-        <Link
-          className="header__logo"
-          to={AppRoute.Main}
-          aria-label="Переход на главную"
-        >
-          <svg width={100} height={36} aria-hidden="true">
-            <use xlinkHref="#icon-logo" />
-          </svg>
-        </Link>
+        <Logo />
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
