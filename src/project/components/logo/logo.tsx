@@ -4,6 +4,7 @@ import { AppRoute } from '../../const/const';
 function Logo() {
   return (
     <Link
+      data-testid='logotype'
       className="header__logo"
       to={AppRoute.Main}
       aria-label="Переход на главную"
