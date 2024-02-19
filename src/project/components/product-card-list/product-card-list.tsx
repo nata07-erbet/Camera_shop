@@ -8,7 +8,7 @@ type ProductCardListProps = {
 
 function ProductCardList ({ products, onClickButton }: ProductCardListProps) {
   return (
-    <div className="cards catalog__cards">
+    <div className="cards catalog__cards" data-testid="mistake-container">
       {products
         .map((product) =>(
           <ProductCard

@@ -6,7 +6,6 @@
   "dependencies": {
     "@hookform/error-message": "2.0.1",
     "@typescript-eslint/eslint-plugin": "6.19.1",
-    "@vitejs/plugin-react": "^4.2.1",
     "abab": "2.0.6",
     "acorn": "8.10.0",
     "acorn-jsx": "5.3.2",
@@ -83,7 +82,6 @@
     "esbuild": "0.17.19",
     "escalade": "3.1.1",
     "escape-string-regexp": "4.0.0",
-    "eslint": "8.43.0",
     "eslint-config-htmlacademy": "9.1.1",
     "eslint-plugin-es": "3.0.1",
     "eslint-plugin-node": "11.1.0",
@@ -385,9 +383,9 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "test": "vitest --passWithnoTests",
     "lint": "eslint src --ext ts,tsx",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --passWithNoTests"
   },
   "repository": {
     "type": "git",
@@ -400,6 +398,13 @@
   },
   "homepage": "https://github.com/nata07-erbet/Camera_shop-_1#readme",
   "devDependencies": {
-    "@testing-library/react": "^14.2.1"
+    "@testing-library/jest-dom": "6.4.2",
+    "@testing-library/react": "14.2.1",
+    "@testing-library/user-event": "14.5.2",
+    "@types/testing-library__jest-dom": "6.0.0",
+    "@vitejs/plugin-react": "4.2.1",
+    "eslint": "8.56.0",
+    "i": "0.3.7",
+    "npm": "10.4.0"
   }
 }

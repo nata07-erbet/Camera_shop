@@ -57,7 +57,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
   );
 
   if(!currentProduct) {
-    return null;
+   navigate{AppRoute.Loader}
   }
 
   const {

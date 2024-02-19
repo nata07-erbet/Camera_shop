@@ -9,6 +9,7 @@ import { similarMocks } from '../../mocks/similar-mocks';
 import { bannersMock } from '../../mocks/banners-mock';
 import { getRewiewsMock } from '../../mocks/get-rewiews-mock';
 import { AppRoute} from '../../const/const';
+import { LoadingScreen } from '../loading-screen/loading-screen';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path:'*',
     element: <NotFoundPage />
+  },
+  {
+    path: AppRoute.Loader,
+    element: <LoadingScreen />
   }
 ]);
 

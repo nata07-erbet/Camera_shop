@@ -9,6 +9,7 @@ const AppRoute = {
   Main: '/',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
+  Loader:'/loader',
   AddBasket: 'add-basket',
   AddBasketSuccess: '/add-basket-success',
   AddRewiew: '/add-rewiew',
