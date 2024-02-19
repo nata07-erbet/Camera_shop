@@ -10,6 +10,6 @@ describe('Component: NotFoundScreen', () => {
 
     render(prepareComponent);
 
-    expect(screen.getAllByTestId(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
   });
 });
