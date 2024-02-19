@@ -10,7 +10,7 @@ function BasketList ({products}:BasketListProps) {
   const isRetina = true;
 
   return (
-    <ul className="basket__list">
+    <ul className="basket__list" data-testid="basket-list">
       {products
         .slice(0, MAX_BASKET)
         .map((product) =>(
