@@ -1,13 +1,20 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+import { Logo } from '../../components/logo/logo';
 
 function NotFoundPage() {
   return (
     <>
-      <p>404 Not found</p>
-      <Link to={AppRoute.Main}>
-        Go to main Page
-      </Link>
+      <header className="game__header">
+        <Logo />
+      </header>
+      <div className="container" style={{textAlign:'center'}}>
+        <h1 >404 Not found</h1>
+        <Link to={AppRoute.Main}>
+          Go to main Page
+        </Link>
+      </div>
+
     </>
 
   );
