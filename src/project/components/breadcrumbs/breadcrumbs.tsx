@@ -12,7 +12,7 @@ type BreadCrumbsProps = {
 function BreadCrumbs ({isActiveMainPage, isActiveBasketPage, currentProduct}: BreadCrumbsProps) {
 
   return (
-    <div className="breadcrumbs">
+    <div className="breadcrumbs" data-testid="breadcrumbs-list">
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
