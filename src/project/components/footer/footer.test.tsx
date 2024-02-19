@@ -1,11 +1,11 @@
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { Filter } from './filter';
+import { Footer } from './footer';
 
-describe('component: FilterListCards', () => {
+describe('component: Footer', () => {
   it('should render correctly', () => {
-    const expectedText = 'Фильтр';
-    const preparedComponent = withHelmet(<Filter />);
+    const expectedText = 'Интернет-магазин фото- и видеотехники';
+    const preparedComponent = withHelmet(<Footer />);
 
     render(preparedComponent);
 
