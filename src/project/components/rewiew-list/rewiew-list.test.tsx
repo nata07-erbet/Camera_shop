@@ -12,7 +12,7 @@ describe('component: ', () => {
 
     render(preparedComponent);
 
-    expect(screen.getByText(expectedTestId)).toBeInTheDocument();
+    expect(screen.getAllByTestId(expectedTestId)).toBeInTheDocument();
   });
 });
 

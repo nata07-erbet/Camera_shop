@@ -1,13 +1,13 @@
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { SimilarList } from './similar-list';
+import { SimilarSliderProducts } from './similar-list';
 import { similarMocks } from '../../mocks/similar-mocks';
 
-describe('component: ', () => {
+describe('component: SimilarSliderProducts', () => {
   it('should render correctly', () => {
-    const expectedTestId = 'similar';
+    const expectedTestId = 'slider';
 
-    const preparedComponent = withHelmet(<SimilarList similarProducts={similarMocks} />);
+    const preparedComponent = withHelmet(<SimilarSliderProducts />);
 
     render(preparedComponent);
 

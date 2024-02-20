@@ -7,7 +7,7 @@ type SimilarSliderProductsProps = {
 
 function SimilarSliderProducts ({similarProducts}: SimilarSliderProductsProps) {
   return(
-    <section className="product-similar">
+    <section className="product-similar" data-testid="slider">
       <div className="container">
         <h2 className="title title--h3">Похожие товары</h2>
 
