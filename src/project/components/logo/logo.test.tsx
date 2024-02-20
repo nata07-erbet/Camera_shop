@@ -9,6 +9,6 @@ describe('Component: Logo', () => {
 
     render(prepareComponent);
 
-    expect(screen.getAllByTestId(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
   });
 });

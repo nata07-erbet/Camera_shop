@@ -32,10 +32,8 @@ const params: SwiperProps = {
 };
 
 function SliderSwiper({banners}: SliderSwiperProps){
-
-
   return(
-    <Swiper {...params} >
+    <Swiper {...params} data-testid="swiper" >
       {banners.map((banner) => (
         <SwiperSlide key={banner.id}>
           <Banner banner={banner} />

@@ -1,13 +1,12 @@
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { SimilarList } from './similar-list';
-import { similarMocks } from '../../mocks/similar-mocks';
+import { Sorting } from './sorting';
 
-describe('component: ', () => {
+describe('component: Sorting', () => {
   it('should render correctly', () => {
-    const expectedTestId = 'similar';
+    const expectedTestId = 'sort';
 
-    const preparedComponent = withHelmet(<SimilarList similarProducts={similarMocks} />);
+    const preparedComponent = withHelmet(<Sorting />);
 
     render(preparedComponent);
 
