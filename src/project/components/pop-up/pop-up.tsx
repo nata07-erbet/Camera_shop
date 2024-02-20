@@ -45,6 +45,7 @@ function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
         {'is-active': opened,
           'modal-narrow': narrow
         })}
+      data-testid= 'modal-window'
     >
       <div className="modal__wrapper">
         <div

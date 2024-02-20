@@ -50,6 +50,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   maxLength={15}
                   required
                   autoFocus
+                  data-testid="nameElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать имя</p>
@@ -69,6 +70,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   minLength={10}
                   maxLength={160}
                   required
+                  data-testid="positiveElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать достоинства</p>
@@ -88,6 +90,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   minLength={10}
                   maxLength={160}
                   required
+                  data-testid="negativeElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать недостатки</p>
@@ -106,6 +109,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   maxLength={160}
                   placeholder="Поделитесь своим опытом покупки"
                   defaultValue={''}
+                  data-testid="commentElement"
                 />
               </label>
               <div className="custom-textarea__error">

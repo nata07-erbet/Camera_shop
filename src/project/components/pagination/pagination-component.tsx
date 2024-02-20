@@ -40,7 +40,7 @@ const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
   };
 
   return(
-    <div className="pagination">
+    <div className="pagination" data-testid='pagination-component'>
       <ul className="pagination__list">
         {previousPage && (
           <li className="pagination__item">
