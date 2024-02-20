@@ -5,11 +5,11 @@ import { BreadCrumbs } from './breadcrumbs';
 
 describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
-    const expectedText = 'breadcrumbs-list';
+    const expectedTestId = 'breadcrumbs-list';
     const prepareComponent = withHelmet(<BreadCrumbs currentProduct={productsMocks[0]} isActiveMainPage isActiveBasketPage />);
 
     render(prepareComponent);
 
-    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
   });
 });

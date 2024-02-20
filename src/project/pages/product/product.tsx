@@ -123,7 +123,7 @@ function Product ({products, similarProducts, rewiews}: ProductProps) {
     <>
       <Header />
       <main>
-        <div className="page-content">
+        <div className="page-content" data-testid="product">
           <BreadCrumbs currentProduct={currentProduct} />
           <div className="page-content__section">
             <section className="product">

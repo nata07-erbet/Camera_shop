@@ -4,13 +4,14 @@ import { Banner } from './banner';
 import { bannersMock } from '../../mocks/banners-mock';
 
 describe('component: BannerOffer', () => {
+
   it('should render correctly', () => {
-    const expectedText = 'banner-offer';
+    const expectedTestId = 'banner-offer';
 
     const preparedComponent = withHelmet(<Banner banner={bannersMock[0]}/>);
 
     render(preparedComponent);
 
-    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
   });
 });
