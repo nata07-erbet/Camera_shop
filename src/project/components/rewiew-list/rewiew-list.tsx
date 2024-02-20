@@ -1,4 +1,4 @@
-import { TGetRewiew } from '../../types/index';
+import { TGetRewiew, TRating } from '../../types/index';
 import { FormattedDate } from '../../utils/utils';
 import { Rating } from '../rating/rating';
 
@@ -24,7 +24,7 @@ function RewiewList ({rewiews, rewiewCount}: RewiewListProps) {
         .reverse()
         .slice(0, rewiewCount)
         .map((rewiew) => (
-          <li className="review-card" key={rewiew.id}>
+          <li className="review-card" key={rewiew.id} data-testid="rewiew">
             <div className="review-card__head">
               <p className="title title--h4">{rewiew.userName}</p>
               <time className="review-card__data" dateTime={rewiew.createAt}>

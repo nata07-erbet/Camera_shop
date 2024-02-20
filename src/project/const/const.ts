@@ -62,7 +62,8 @@ const RatingMap = {
 
 const INITAL_PAGE_BY_PANGINATION = 1;
 const INITAL_RATING = '3';
+const INITAL_COUNT_COMMENTS = 5;
 
 const ERROR_MESSAGE = 'Нужно оценить товар';
 
-export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap, ERROR_MESSAGE, INITAL_RATING};
+export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap, ERROR_MESSAGE, INITAL_RATING, INITAL_COUNT_COMMENTS};
