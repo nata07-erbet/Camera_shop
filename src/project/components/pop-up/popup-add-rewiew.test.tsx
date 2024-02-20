@@ -17,10 +17,7 @@ describe('component: PopupAddRewiew', () => {
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
-});
 
-
-describe('component: PopupAddRewiew', () => {
   it('should render correctly when user enter name, and other comments', async () => {
     const nameId = 'nameElement';
     const positiveId = 'positiveElement';
@@ -63,3 +60,4 @@ describe('component: PopupAddRewiew', () => {
     expect(screen.getByDisplayValue(expectedCommentElement)).toBeInTheDocument();
   });
 });
+

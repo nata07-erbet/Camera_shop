@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { PopupBasketSuccess } from './index';
 
 
-describe('component: ModalWindowBasketSuccess', () => {
+describe('component: PopupBasketSuccess', () => {
   it('should render correctly', () => {
-    const expectedText = 'Спасибо за отзыв';
+    const expectedText = 'Товар успешно добавлен в корзину';
     const preparedComponent = withHelmet(<PopupBasketSuccess />);
 
     render(preparedComponent);
