@@ -1,6 +1,6 @@
 import { PopUp, PopUpProps } from './pop-up';
 
-function AddRewiewError({...props}:PopUpProps) {
+function PopupRewiewError({...props}:PopUpProps) {
   return (
     <PopUp {...props} >
       <p className="title title--h4">Оставить отзыв</p>
@@ -164,4 +164,4 @@ function AddRewiewError({...props}:PopUpProps) {
   );
 }
 
-export { AddRewiewError };
+export { PopupRewiewError };
