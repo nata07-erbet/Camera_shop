@@ -16,7 +16,7 @@ describe('component: PopupAddBasket', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it('when user clicked replay button', async () => {
+  it('when user clicked  button', async () => {
 
     const preparedComponent = withHelmet(<PopupAddBasket product={productsMocks[0]} />);
     await userEvent.click(screen.getByRole('button'));
