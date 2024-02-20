@@ -1,12 +1,12 @@
-import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event'
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { PopRewiewSuccess } from './index';
+import { PopupThanksForProductBuy } from './index';
 
-describe('component: PopRewiewSuccess', () => {
+describe('component: PopupThanksForProductBuy', () => {
   it('should render correctly', () => {
-    const expectedText = 'Спасибо за отзыв';
-    const preparedComponent = withHelmet(<PopRewiewSuccess/>);
+    const expectedText = 'Спасибо за покупку';
+    const preparedComponent = withHelmet(<PopupThanksForProductBuy/>);
 
     render(preparedComponent);
 
@@ -14,8 +14,8 @@ describe('component: PopRewiewSuccess', () => {
   });
 
   it('when user clicked  button', async () => {
-    const preparedComponent = withHelmet(<PopRewiewSuccess/>);
-    await userEvent.click(screen.getByRole('button'))
+    const preparedComponent = withHelmet(<PopupThanksForProductBuy />);
+    await userEvent.click(screen.getByRole('button'));
     render(preparedComponent);
 
     expect(screen.getByTestId(expectedText)).toBeInTheDocument();
