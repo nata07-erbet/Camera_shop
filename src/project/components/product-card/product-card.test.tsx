@@ -1,18 +1,18 @@
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { PopupAddBasket } from './index';
+import { ProductCard } from './product-card';
 import { productsMocks } from '../../mocks/products-mock';
 import userEvent from '@testing-library/user-event';
 
 
-describe('component: PopupAddBasket', () => {
+describe('component: productsMocks', () => {
   it('should render correctly', () => {
-    const expectedText = 'Добавить товар в корзину';
-    const preparedComponent = withHelmet(<PopupAddBasket product={productsMocks[0]} />);
+    const expectedTestId = 'Добавить товар в корзину';
+    const preparedComponent = withHelmet(<ProductCard product={productsMocks[0]} onClickButton={function (): void {} } />);
 
     render(preparedComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 

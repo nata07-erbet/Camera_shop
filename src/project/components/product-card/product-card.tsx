@@ -35,7 +35,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
   };
 
   return (
-    <div className="product-card is-active">
+    <div className="product-card is-active" data-testid="product">
       <div className="product-card__img">
         <picture>
           <source

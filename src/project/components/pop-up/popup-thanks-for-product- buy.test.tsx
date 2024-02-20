@@ -1,4 +1,4 @@
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import { withHelmet } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
 import { PopupThanksForProductBuy } from './index';
