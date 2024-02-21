@@ -1,12 +1,11 @@
-import { withHelmet } from '../../utils/mock-component/mock-component';
+import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
 import { PopupBasketSuccess } from './index';
-
 
 describe('component: PopupBasketSuccess', () => {
   it('should render correctly', () => {
     const expectedText = 'Товар успешно добавлен в корзину';
-    const preparedComponent = withHelmet(<PopupBasketSuccess />);
+    const preparedComponent = withHistory(<PopupBasketSuccess />);
 
     render(preparedComponent);
 

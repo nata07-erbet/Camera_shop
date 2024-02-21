@@ -1,11 +1,11 @@
-import { render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Logo } from './logo';
-import { withHelmet } from '../../utils/mock-component/mock-component';
+import { withHistory } from '../../utils/mock-component/mock-component';
 
 describe('Component: Logo', () => {
   it('should render correctly', () => {
     const expectedText = 'logotype';
-    const prepareComponent = withHelmet(<Logo />);
+    const prepareComponent = withHistory(<Logo />);
 
     render(prepareComponent);
 
