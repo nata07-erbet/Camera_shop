@@ -1,9 +1,16 @@
-import {HelmetProvider} from 'react-helmet-async';
+import { MemoryHistory, createMemoryHistory } from 'history';
+import { HistoryRouter } from '../history-router/history-router';
+import { HelmetProvider } from 'react-helmet-async';
 
-export function withHelmet(component: JSX.Element) {
+
+function withHistory (component: JSX.Element, history?: MemoryHistory) {
+  const memoryHistory = history ?? createMemoryHistory();
+
   return (
-    <HelmetProvider>
-      {component}
-    </HelmetProvider>
+    <HistoryRouter history={memoryHistory}>
+      <HelmetProvider>
+        {component}
+      </HelmetProvider>
+    </HistoryRouter>
   );
 }
