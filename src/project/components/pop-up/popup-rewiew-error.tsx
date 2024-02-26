@@ -1,15 +1,15 @@
 import { PopUp, PopUpProps } from './pop-up';
 
-function PopupRewiewError({...props}:PopUpProps) {
+function PopupRewiewError({ ...props }: PopUpProps) {
   return (
-    <PopUp {...props} >
+    <PopUp {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
         <form method="post">
           <div className="form-review__rate">
             <fieldset className="rate form-review__item is-invalid">
               <legend className="rate__caption">
-                    Рейтинг
+                Рейтинг
                 <svg width={9} height={9} aria-hidden="true">
                   <use xlinkHref="#icon-snowflake" />
                 </svg>
@@ -87,7 +87,7 @@ function PopupRewiewError({...props}:PopUpProps) {
             <div className="custom-input form-review__item is-invalid">
               <label>
                 <span className="custom-input__label">
-                      Ваше имя
+                  Ваше имя
                   <svg width={9} height={9} aria-hidden="true">
                     <use xlinkHref="#icon-snowflake" />
                   </svg>
@@ -97,6 +97,7 @@ function PopupRewiewError({...props}:PopUpProps) {
                   name="user-name"
                   placeholder="Введите ваше имя"
                   required
+                  data-testid="nameElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать имя</p>
@@ -104,7 +105,7 @@ function PopupRewiewError({...props}:PopUpProps) {
             <div className="custom-input form-review__item is-invalid">
               <label>
                 <span className="custom-input__label">
-                       Достоинства
+                  Достоинства
                   <svg width={9} height={9} aria-hidden="true">
                     <use xlinkHref="#icon-snowflake" />
                   </svg>
@@ -114,6 +115,7 @@ function PopupRewiewError({...props}:PopUpProps) {
                   name="user-plus"
                   placeholder="Основные преимущества товара"
                   required
+                  data-testid="positiveElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать достоинства</p>
@@ -121,7 +123,7 @@ function PopupRewiewError({...props}:PopUpProps) {
             <div className="custom-input form-review__item is-invalid">
               <label>
                 <span className="custom-input__label">
-                      Недостатки
+                  Недостатки
                   <svg width={9} height={9} aria-hidden="true">
                     <use xlinkHref="#icon-snowflake" />
                   </svg>
@@ -131,6 +133,7 @@ function PopupRewiewError({...props}:PopUpProps) {
                   name="user-minus"
                   placeholder="Главные недостатки товара"
                   required
+                  data-testid="negativeElement"
                 />
               </label>
               <p className="custom-input__error">Нужно указать недостатки</p>
@@ -138,7 +141,7 @@ function PopupRewiewError({...props}:PopUpProps) {
             <div className="custom-textarea form-review__item is-invalid">
               <label>
                 <span className="custom-textarea__label">
-                      Комментарий
+                  Комментарий
                   <svg width={9} height={9} aria-hidden="true">
                     <use xlinkHref="#icon-snowflake" />
                   </svg>
@@ -148,15 +151,16 @@ function PopupRewiewError({...props}:PopUpProps) {
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
                   defaultValue={''}
+                  data-testid="commentElement"
                 />
               </label>
               <div className="custom-textarea__error">
-                    Нужно добавить комментарий
+                Нужно добавить комментарий
               </div>
             </div>
           </div>
           <button className="btn btn--purple form-review__btn" type="submit">
-                Отправить отзыв
+            Отправить отзыв
           </button>
         </form>
       </div>

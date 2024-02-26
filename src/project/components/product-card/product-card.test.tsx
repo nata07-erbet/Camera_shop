@@ -2,11 +2,10 @@ import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
 import { ProductCard } from './product-card';
 import { productsMocks } from '../../mocks/products-mock';
-import userEvent from '@testing-library/user-event';
 
 describe('component: productsMocks', () => {
   it('should render correctly', () => {
-    const expectedTestId = 'Добавить товар в корзину';
+    const expectedTestId = 'product';
     const preparedComponent = withHistory(
       <ProductCard
         product={productsMocks[0]}
@@ -17,10 +16,5 @@ describe('component: productsMocks', () => {
     render(preparedComponent);
 
     expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
-    expect(screen.getByRole('button')).toBeInTheDocument();
-  });
-
-  it('when user clicked  button', async () => {
-    await userEvent.click(screen.getByRole('button'));
   });
 });

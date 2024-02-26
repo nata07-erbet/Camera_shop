@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Header} from '../../components/header/header';
+import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
 import { TProduct, TBanner } from '../../types/index';
@@ -19,12 +19,14 @@ type CatalogProps = {
 const getTotalPageCount = (cardCount: number): number =>
   Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
 
-
-function Catalog ({products, banners}: CatalogProps) {
+function Catalog({ products, banners }: CatalogProps) {
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
-  const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
+  const [isModalAddProductShow, setIsModalAddProductShow] =
+    useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
-  const [productsToShow, setProductsToShow] = useState(products.slice(0, PRODUCT_VIEW_COUNT));
+  const [productsToShow, setProductsToShow] = useState(
+    products.slice(0, PRODUCT_VIEW_COUNT)
+  );
   const pagesAmount = getTotalPageCount(products.length);
 
   const handleClickButton = (productId: TProduct['id']) => {
@@ -36,9 +38,17 @@ function Catalog ({products, banners}: CatalogProps) {
     setIsModalAddProductShow((prevState) => !prevState);
   };
 
-  const handlePageClick = useCallback((page: number) =>{
-    setProductsToShow(products.slice((page - 1) * PRODUCT_VIEW_COUNT, page * PRODUCT_VIEW_COUNT));
-  }, [products]);
+  const handlePageClick = useCallback(
+    (page: number) => {
+      setProductsToShow(
+        products.slice(
+          (page - 1) * PRODUCT_VIEW_COUNT,
+          page * PRODUCT_VIEW_COUNT
+        )
+      );
+    },
+    [products]
+  );
 
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;
@@ -46,10 +56,10 @@ function Catalog ({products, banners}: CatalogProps) {
   return (
     <>
       <Header />
-      <main>
+      <main data-testid="main-page">
         <SliderSwiper banners={banners} />
         <div className="page-content">
-          <BreadCrumbs isActiveMainPage={isActiveMainPage}/>
+          <BreadCrumbs isActiveMainPage={isActiveMainPage} />
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

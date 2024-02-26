@@ -5,11 +5,14 @@ import { INITAL_RATING } from '../../const/const';
 
 describe('component: Rating', () => {
   it('should render correctly', () => {
-    const expectedText = 'Рейтинг';
-    const preparedComponent = withHistory(<Rating rating={INITAL_RATING} />);
+    const expectedTestId = 'rate';
+    const preparedComponent = withHistory(<Rating rating={{
+      rating: 3
+    }}
+    />);
 
     render(preparedComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
   });
 });

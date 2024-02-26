@@ -5,7 +5,7 @@ import { bannersMock } from '../../mocks/banners-mock';
 
 describe('component: SliderSwiper', () => {
   it('should render correctly', () => {
-    const expectedTestId = 'slider';
+    const expectedTestId = 'swiper';
 
     const preparedComponent = withHistory(
       <SliderSwiper banners={bannersMock} />

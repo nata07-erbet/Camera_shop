@@ -1,14 +1,14 @@
 import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PopupRewiewError } from './popup-add-rewiew';
+import { PopupRewiewError } from './index';
 
 describe('component: PopupAddRewiew', () => {
   it('should render correctly', () => {
     const expectedText = 'Оставить отзыв';
 
     const preparedComponent = withHistory(
-      <PopupRewiewError onSubmit={function (): void {}} />
+      <PopupRewiewError/>
     );
 
     render(preparedComponent);
@@ -28,7 +28,7 @@ describe('component: PopupAddRewiew', () => {
     const expectedCommentElement = 'Поделитесь своим опытом покупки';
 
     const preparedComponent = withHistory(
-      <PopupRewiewError onSubmit={function (): void {}} />
+      <PopupRewiewError />
     );
 
     render(preparedComponent);

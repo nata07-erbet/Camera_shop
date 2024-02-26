@@ -17,10 +17,6 @@ function RatingRewiew ({ onChange, error }: RatingRewiewProps){
     onChange(evt.target.value);
   };
 
-  // eslint-disable-next-line no-console
-  console.log(error);
-
-
   return (
     <fieldset className={
       classNames(

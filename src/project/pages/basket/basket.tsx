@@ -1,28 +1,29 @@
-import { Header} from '../../components/header/header';
+import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { BasketList } from '../../components/basket-list/basket-list';
 import { TProduct } from '../../types';
 
-type BasketProps ={
+type BasketProps = {
   products: TProduct[];
-}
-function Basket ({products}: BasketProps) {
+};
+function Basket({ products }: BasketProps) {
   const activeBasketPage = true;
   return (
     <>
       <Header />
-      <main>
+      <main data-testid="basket-page">
         <div className="page-content">
-          <BreadCrumbs isActiveBasketPage ={activeBasketPage}/>
+          <BreadCrumbs isActiveBasketPage={activeBasketPage} />
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
-              <BasketList products={products}/>
+              <BasketList products={products} />
               <div className="basket__summary">
                 <div className="basket__promo">
                   <p className="title title--h4">
-                    Если у вас есть промокод на скидку, примените его в этом поле
+                    Если у вас есть промокод на скидку, примените его в этом
+                    поле
                   </p>
                   <div className="basket-form">
                     <form action="#">
@@ -36,7 +37,9 @@ function Basket ({products}: BasketProps) {
                           />
                         </label>
                         <p className="custom-input__error">Промокод неверный</p>
-                        <p className="custom-input__success">Промокод принят!</p>
+                        <p className="custom-input__success">
+                          Промокод принят!
+                        </p>
                       </div>
                       <button className="btn" type="submit">
                         Применить

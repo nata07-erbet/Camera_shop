@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
-import { HistoryRouter } from './project/components/history-router/history-router';
-import { browserHistory } from './src-browser-history';
+// import { HistoryRouter } from './project/components/history-router/history-router';
+// import { browserHistory } from './src-browser-history';
 import React from 'react';
 import { App } from './project/components/app/app';
 
@@ -10,8 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <HistoryRouter history={browserHistory}>
-      <App />
-    </HistoryRouter>
+    <App />
   </React.StrictMode>
 );
