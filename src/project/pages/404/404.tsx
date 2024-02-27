@@ -8,7 +8,7 @@ function NotFoundPage() {
       <header className="game__header">
         <Logo />
       </header>
-      <div className="container" style={{textAlign:'center'}}>
+      <div className="container" data-testid='error-page' style={{textAlign:'center'}}>
         <h1 >404 Not found</h1>
         <Link to={AppRoute.Main}>
           Go to main Page

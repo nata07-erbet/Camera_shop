@@ -1,12 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import { App } from './app';
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from '../../utils/testUtils';
+import { AppRoute } from '../../const/const';
+import { generatePath } from 'react-router';
 
 describe('Application Routing', () => {
   it('should render "MainPage" when user navigates to "/"', () => {
     const expectData = 'main-page';
     const expectedText = 'Каталог фото- и видеотехники';
 
-    render(<App />);
+    renderWithRouter(AppRoute.Main);
 
     expect(screen.getByTestId(expectData)).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
@@ -15,7 +17,7 @@ describe('Application Routing', () => {
   it('should render "Product-page" when user navigates to "/product"', () => {
     const expectData = 'product-page';
 
-    render(<App />);
+    renderWithRouter(generatePath(AppRoute.Product, { productId: '1', tab: null }));
 
     expect(screen.getByTestId(expectData)).toBeInTheDocument();
   });
@@ -23,14 +25,14 @@ describe('Application Routing', () => {
   it('should render "Basket-page" when user navigates to "/basket"', () => {
     const expectData = 'basket-page';
 
-    render(<App />);
+    renderWithRouter(AppRoute.Basket);
 
     expect(screen.getByTestId(expectData)).toBeInTheDocument();
   });
   it('should render "ErrorPage" when user navigates to "/unknown-route"', () => {
     const expectData = 'error-page';
 
-    render(<App />);
+    renderWithRouter('/unknown-route');
 
     expect(screen.getByTestId(expectData)).toBeInTheDocument();
   });
