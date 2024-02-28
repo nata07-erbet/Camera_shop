@@ -1,0 +1,14 @@
+import { withHistory } from '../../utils/mock-component/mock-component';
+import { render, screen } from '@testing-library/react';
+import { PopUp } from './pop-up';
+
+describe('component: PopUp', () => {
+  it('should render correctly', () => {
+    const expectedData = 'modal-window';
+    const preparedComponent = withHistory(<PopUp />);
+
+    render(preparedComponent);
+
+    expect(screen.getByTestId(expectedData)).toBeInTheDocument();
+  });
+});
