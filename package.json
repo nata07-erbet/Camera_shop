@@ -401,7 +401,7 @@
   },
   "homepage": "https://github.com/nata07-erbet/Camera_shop-_1#readme",
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.1"
+    "@testing-library/jest-dom": "6.4.2",
+    "@testing-library/react": "14.2.1"
   }
 }
