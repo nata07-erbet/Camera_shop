@@ -40,7 +40,6 @@ function Product() {
       .then((resolve) => setSimilarProducts(resolve.data));
   }, [productId]);
 
-  
   const navigate = useNavigate();
 
   const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);

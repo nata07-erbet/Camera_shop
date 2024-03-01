@@ -3,12 +3,19 @@ import { Footer } from '../../components/footer/footer';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { BasketList } from '../../components/basket-list/basket-list';
 import { TProduct } from '../../types';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { ReqPath } from '../../const/const';
 
-type BasketProps = {
-  products: TProduct[];
-};
-function Basket({ products }: BasketProps) {
+function Basket() {
   const activeBasketPage = true;
+  const [products, setProducts] = useState<TProduct[]>([]);
+
+  useEffect(() => {
+    axios.get(`${ReqPath.getProducts}`)
+      .then((response) => setProducts(response.data));
+  },[]);
+
   return (
     <>
       <Header />
