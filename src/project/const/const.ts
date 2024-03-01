@@ -5,6 +5,8 @@ const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
 
+const BACK_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
+
 const AppRoute = {
   Main: '/',
   Product: '/product/:productId/:tab?',
@@ -16,6 +18,10 @@ const AppRoute = {
   AddRewiewSuccess: '/add-rewiew-success',
   AddRewiewError: '/add-rewiew-error',
 } as const;
+
+const ReqPath = {
+  getCameras: `${BACK_URL}/cameras`
+};
 
 const AppRouteTab = {
   Characteristic: 'characteristic',
@@ -66,4 +72,4 @@ const INITAL_COUNT_COMMENTS = 5;
 
 const ERROR_MESSAGE = 'Нужно оценить товар';
 
-export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap, ERROR_MESSAGE, INITAL_RATING, INITAL_COUNT_COMMENTS};
+export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap, ERROR_MESSAGE, INITAL_RATING, INITAL_COUNT_COMMENTS, BACK_URL, ReqPath};

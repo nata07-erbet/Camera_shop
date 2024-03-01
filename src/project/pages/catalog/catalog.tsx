@@ -9,7 +9,9 @@ import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 import { PopupAddBasket } from '../../components/pop-up/index';
-import { PRODUCT_VIEW_COUNT } from '../../const/const';
+import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 type CatalogProps = {
   products: TProduct[];
@@ -19,7 +21,14 @@ type CatalogProps = {
 const getTotalPageCount = (cardCount: number): number =>
   Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
 
-function Catalog({ products, banners }: CatalogProps) {
+function Catalog({ banners }: CatalogProps) {
+  const [products, setProducts] = useState<TProduct[]>([]);
+
+  useEffect(() => {
+    axios.get(`${ReqPath.getCameras}`)
+      .then((response) => setProducts(response.data));
+  }, []);
+
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const [isModalAddProductShow, setIsModalAddProductShow] =
     useState<boolean>(false);
@@ -27,6 +36,9 @@ function Catalog({ products, banners }: CatalogProps) {
   const [productsToShow, setProductsToShow] = useState(
     products.slice(0, PRODUCT_VIEW_COUNT)
   );
+
+
+
   const pagesAmount = getTotalPageCount(products.length);
 
   const handleClickButton = (productId: TProduct['id']) => {

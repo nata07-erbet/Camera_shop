@@ -14,7 +14,6 @@ const routesConfig = [
     path: AppRoute.Main,
     element: (
       <Catalog
-        products={productsMocks}
         banners={bannersMock}
         data-testid="main-page"
       />
