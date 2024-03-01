@@ -20,7 +20,10 @@ const AppRoute = {
 } as const;
 
 const ReqPath = {
-  getCameras: `${BACK_URL}/cameras`
+  getProducts: `${BACK_URL}/cameras`,
+  getBanners: `${BACK_URL}/promo`,
+  getRewiews: '/reviews',
+  getSimilar: `${BACK_URL}/cameras/cameraId/similar`
 };
 
 const AppRouteTab = {

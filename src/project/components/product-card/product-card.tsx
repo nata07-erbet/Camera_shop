@@ -4,7 +4,6 @@ import { Link} from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../../const/const';
 
-
 type ProductCardProps = {
   product: TProduct;
   onClickButton: (id: TProduct['id']) => void;
@@ -13,6 +12,7 @@ type ProductCardProps = {
 const isRetina = false;
 
 function ProductCard ({ product, onClickButton }: ProductCardProps) {
+
   const {
     id,
     name,

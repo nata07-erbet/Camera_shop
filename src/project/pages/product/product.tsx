@@ -1,9 +1,8 @@
-/* eslint-disable no-alert */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap } from '../../const/const';
+import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap, ReqPath} from '../../const/const';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
@@ -18,21 +17,31 @@ import {
   PopRewiewSuccess,
   PopupAddBasket,
 } from '../../components/pop-up/index';
-
-type ProductProps = {
-  products: TProduct[];
-  similarProducts: TProduct[];
-  rewiews: TGetRewiew[];
-};
+import axios from 'axios';
 
 type TTab = (typeof AppRouteTab)[keyof typeof AppRouteTab];
 const TABS: TTab[] = ['characteristic', 'description'];
 
-function Product({ products, similarProducts, rewiews }: ProductProps) {
-  const navigate = useNavigate();
-
+function Product() {
+  const [ products, setProducts ] = useState<TProduct[]>([]);
+  const [similarProducts, setSimilarProducts ] = useState<TProduct[]>([]);
+  const [ rewiews, setRewiews ] = useState<TGetRewiew[]>([]);
   const { productId } = useParams<{ productId: string }>();
   const { tab: savedTab } = useParams<{ tab: TTab }>();
+
+  useEffect(() => {
+    axios.get(`${ReqPath.getProducts}`)
+      .then((resolve) => setProducts(resolve.data));
+
+    axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getRewiews}`)
+      .then((resolve) => setRewiews(resolve.data));
+
+    axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getSimilar}`)
+      .then((resolve) => setSimilarProducts(resolve.data));
+  }, [productId]);
+
+  
+  const navigate = useNavigate();
 
   const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
   const [isAddedBasket, setIsAddedBasket] = useState(false);

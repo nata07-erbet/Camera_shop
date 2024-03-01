@@ -13,20 +13,20 @@ import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-type CatalogProps = {
-  products: TProduct[];
-  banners: TBanner[];
-};
 
 const getTotalPageCount = (cardCount: number): number =>
   Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
 
-function Catalog({ banners }: CatalogProps) {
+function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
+  const [ banners, setBanners] = useState<TBanner[]>([]);
 
   useEffect(() => {
-    axios.get(`${ReqPath.getCameras}`)
+    axios.get(`${ReqPath.getProducts}`)
       .then((response) => setProducts(response.data));
+
+    axios.get(`${ReqPath.getBanners}`)
+      .then((response) => setBanners(response.data));
   }, []);
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
@@ -36,8 +36,6 @@ function Catalog({ banners }: CatalogProps) {
   const [productsToShow, setProductsToShow] = useState(
     products.slice(0, PRODUCT_VIEW_COUNT)
   );
-
-
 
   const pagesAmount = getTotalPageCount(products.length);
 
