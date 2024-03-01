@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
-import { PopUp, PopUpProps } from './pop-up';
+import { PopUpMain, PopUpMainProps } from './popup-main';
 import { AppRoute } from '../../const/const';
 
-function PopupThanksForProductBuy ({...props}: PopUpProps) {
+function PopupThanksForProductBuy ({...props}: PopUpMainProps) {
   const navigate = useNavigate();
 
   const handleclickButton = () => {
@@ -10,7 +10,7 @@ function PopupThanksForProductBuy ({...props}: PopUpProps) {
   };
 
   return (
-    <PopUp { ...props}>
+    <PopUpMain { ...props}>
       <p className="title title--h4">Спасибо за покупку</p>
       <svg className="modal__icon" width={80} height={78} aria-hidden="true">
         <use xlinkHref="#icon-review-success" />
@@ -24,7 +24,7 @@ function PopupThanksForProductBuy ({...props}: PopUpProps) {
           Вернуться к покупкам
         </button>
       </div>
-    </PopUp>
+    </PopUpMain>
 
 
   );

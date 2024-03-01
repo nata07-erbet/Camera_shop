@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import { PropsWithChildren, useCallback, useEffect } from 'react';
 
-type PopUpProps = PropsWithChildren<{
+type PopUpMainProps = PropsWithChildren<{
   onClose?: () => void;
   opened?: boolean;
   narrow?: boolean;
 }>
 
-function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
+function PopUpMainMain({ children, onClose, opened, narrow }: PopUpMainProps) {
 
   const handleOverlayClick = () => {
     onClose?.();
@@ -71,5 +71,5 @@ function PopUp({ children, onClose, opened, narrow }: PopUpProps) {
   );
 }
 
-export type { PopUpProps};
-export { PopUp };
+export type { PopUpMainProps};
+export { PopUpMainMain };

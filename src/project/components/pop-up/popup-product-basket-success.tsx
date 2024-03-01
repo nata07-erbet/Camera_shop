@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { useNavigate } from 'react-router-dom';
-import { PopUp, PopUpProps } from './pop-up';
+import { PopUpMain, PopUpMainProps } from './popup-main';
 
-type PopupBasketSuccessProps = PopUpProps;
+type PopupBasketSuccessProps = PopUpMainProps;
 
 function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
   const navigation = useNavigate();
@@ -13,7 +13,7 @@ function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
   };
 
   return (
-    <PopUp {...props}>
+    <PopUpMain {...props}>
       <p className="title title--h4">Товар успешно добавлен в корзину</p>
       <svg className="modal__icon" width={86} height={80} aria-hidden="true">
         <use xlinkHref="#icon-success" />
@@ -29,7 +29,7 @@ function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
               Перейти в корзину
         </button>
       </div>
-    </PopUp>
+    </PopUpMain>
   );
 }
 

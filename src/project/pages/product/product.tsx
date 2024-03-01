@@ -45,7 +45,7 @@ function Product() {
   const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
   const [isAddedBasket, setIsAddedBasket] = useState(false);
   const [isAddedBasketSuccess, setIsAddedBasketSuccess] = useState(false);
-  const [isAddRewiewPopUpShowed, setIsRewiewPopUpShowed] = useState(false);
+  const [isAddRewiewPopUpMainShowed, setIsRewiewPopUpMainShowed] = useState(false);
   const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
 
   const isRetina = true;
@@ -89,16 +89,16 @@ function Product() {
   };
 
   const handleButtonAddRewiewClick = () => {
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+    setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
   const handleSubmitForm = () => {
     setIsSuccessfulPopupShowed((prevState) => !prevState);
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+    setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
   const handlePopupAddRewiewClose = () => {
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+    setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
   const handlePopRewiewSuccessClose = () => {
@@ -257,7 +257,7 @@ function Product() {
       <PopupAddRewiew
         onSubmit={handleSubmitForm}
         onClose={handlePopupAddRewiewClose}
-        opened={isAddRewiewPopUpShowed}
+        opened={isAddRewiewPopUpMainShowed}
       />
       <PopRewiewSuccess
         onClose={handlePopRewiewSuccessClose}
