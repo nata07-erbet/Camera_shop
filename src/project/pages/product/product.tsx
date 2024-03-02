@@ -38,6 +38,7 @@ function Product() {
 
     axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getSimilar}`)
       .then((resolve) => setSimilarProducts(resolve.data));
+
   }, [productId]);
 
   const navigate = useNavigate();

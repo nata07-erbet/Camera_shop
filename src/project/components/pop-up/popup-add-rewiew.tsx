@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PopUpMain, PopUpMainProps } from './popup-main';
+import { PopUpMain, PopUpMainProps } from './index';
 import { RatingRewiew } from '../../components/rating/rating-rewiew';
 
 type PopupAddRewiew = PopUpMainProps & {

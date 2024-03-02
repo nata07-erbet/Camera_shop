@@ -1,6 +1,6 @@
 import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { PopUpMain } from './popup-main';
+import { PopUpMain } from './index';
 
 describe('component: PopUpMain', () => {
   it('should render correctly', () => {

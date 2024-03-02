@@ -7,7 +7,7 @@ type PopUpMainProps = PropsWithChildren<{
   narrow?: boolean;
 }>
 
-function PopUpMainMain({ children, onClose, opened, narrow }: PopUpMainProps) {
+function PopUpMain({ children, onClose, opened, narrow }: PopUpMainProps) {
 
   const handleOverlayClick = () => {
     onClose?.();
@@ -72,4 +72,4 @@ function PopUpMainMain({ children, onClose, opened, narrow }: PopUpMainProps) {
 }
 
 export type { PopUpMainProps};
-export { PopUpMainMain };
+export { PopUpMain };

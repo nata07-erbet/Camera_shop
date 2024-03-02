@@ -44,6 +44,7 @@ function Catalog() {
     setSelectedId(productId); //id =2
   };
 
+
   const handleModalAddProductShowClose = () => {
     setIsModalAddProductShow((prevState) => !prevState);
   };
@@ -80,7 +81,8 @@ function Catalog() {
                 <div className="catalog__content">
                   <Sorting />
                   <ProductCardList
-                    products={productsToShow}
+                  // замена productsToShow на products
+                    products={products}
                     onClickButton={handleClickButton}
                   />
                   {showPagination && (
