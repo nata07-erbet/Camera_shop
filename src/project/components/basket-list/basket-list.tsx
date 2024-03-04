@@ -7,7 +7,6 @@ type BasketListProps = {
 const MAX_BASKET = 5;
 
 function BasketList ({products}:BasketListProps) {
-  const isRetina = true;
 
   return (
     <ul className="basket__list" data-testid="basket-list">
@@ -19,7 +18,7 @@ function BasketList ({products}:BasketListProps) {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet={isRetina ? product.previewImgWebp2x : product.previewImgWebp}
+                  srcSet={product.previewImgWebp2x}
                 />
                 <img
                   src={product.previewImg}
@@ -77,7 +76,6 @@ function BasketList ({products}:BasketListProps) {
               </button>
             </div>
             <div className="basket-item__total-price">
-              {/* //пока для проверки */}
               <span className="visually-hidden">Общая цена:</span>{product.price * 3 }₽
             </div>
             <button
@@ -91,7 +89,6 @@ function BasketList ({products}:BasketListProps) {
             </button>
           </li>
         ))}
-
     </ul>
   );
 }

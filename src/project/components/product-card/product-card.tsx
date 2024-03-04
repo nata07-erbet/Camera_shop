@@ -8,9 +8,6 @@ type ProductCardProps = {
   product: TProduct;
   onClickButton: (id: TProduct['id']) => void;
 }
-
-const isRetina = false;
-
 function ProductCard ({ product, onClickButton }: ProductCardProps) {
 
   const {
@@ -19,7 +16,6 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
     previewImg,
     previewImg2x,
     previewImgWebp,
-    previewImgWebp2x,
     rating,
     reviewCount,
     price
@@ -40,9 +36,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         <picture>
           <source
             type="image/webp"
-            srcSet={
-              isRetina ? `${previewImgWebp}` : `${previewImgWebp2x}`
-            }
+            srcSet={`/${previewImgWebp}`}
           />
           <img
             src={previewImg}

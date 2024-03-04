@@ -9,7 +9,7 @@ describe('Component: NotFoundScreen', () => {
     const prepareComponent = withHistory(
       <Pagination
         pagesAmount={INITAL_PAGE_BY_PANGINATION}
-        onPageClick={function (): void {}}
+        onPageClick={function (): void{}}
       />
     );
 

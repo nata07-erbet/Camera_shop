@@ -50,7 +50,6 @@ function Product() {
   const [isAddRewiewPopUpMainShowed, setIsRewiewPopUpMainShowed] = useState(false);
   const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
 
-  const isRetina = true;
   const currentProduct = products.find(
     (product) => product.id === Number(productId)
   );
@@ -74,7 +73,6 @@ function Product() {
   const {
     name,
     previewImgWebp,
-    previewImgWebp2x,
     previewImg,
     previewImg2x,
     price,
@@ -144,9 +142,7 @@ function Product() {
                   <picture>
                     <source
                       type="image/webp"
-                      srcSet={
-                        isRetina ? `/${previewImgWebp}` : `/${previewImgWebp2x}`
-                      }
+                      srcSet={`/${previewImgWebp}`}
                     />
                     <img
                       src={previewImg}
