@@ -70,7 +70,7 @@ const RatingMap = {
 } as const;
 
 const INITAL_PAGE_BY_PANGINATION = 1;
-const INITAL_RATING = '3';
+const INITAL_RATING = 3;
 const INITAL_COUNT_COMMENTS = 5;
 
 const ERROR_MESSAGE = 'Нужно оценить товар';

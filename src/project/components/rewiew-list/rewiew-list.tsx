@@ -11,7 +11,7 @@ const compare = (a: TGetRewiew, b: TGetRewiew) => {
   const dateA = new Date(a.createAt);
   const dateB = new Date(b.createAt);
 
-  return dateA - dateB;
+  return Number(dateA) - Number(dateB);
 };
 
 function RewiewList({ rewiews, rewiewCount }: RewiewListProps) {

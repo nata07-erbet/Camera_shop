@@ -7,7 +7,7 @@ describe('component: Rating', () => {
   it('should render correctly', () => {
     const expectedTestId = 'rate';
     const preparedComponent = withHistory(<Rating rating={{
-      rating: 3
+      rating: INITAL_RATING
     }}
     />);
 
