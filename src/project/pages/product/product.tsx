@@ -33,12 +33,13 @@ function Product() {
     axios.get(`${ReqPath.getProducts}`)
       .then((resolve) => setProducts(resolve.data));
 
-    axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getRewiews}`)
-      .then((resolve) => setRewiews(resolve.data));
+    if(productId) {
+      axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getRewiews}`)
+        .then((resolve) => setRewiews(resolve.data));
 
-    axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getSimilar}`)
-      .then((resolve) => setSimilarProducts(resolve.data));
-
+      axios.get(`${ReqPath.getProducts}/${productId}/${ReqPath.getSimilar}`)
+        .then((resolve) => setSimilarProducts(resolve.data));
+    }
   }, [productId]);
 
   const navigate = useNavigate();

@@ -11,13 +11,8 @@ function useSwiper() {
       clickable: true,
     },
     navigation: true,
-
-    // renderBullet: function (index: number, className: string) {
-    //   return `<span class="${ className }">${ index + 1 }</span>`;
-    // },
   });
 
   return swiper;
 }
-
 export { useSwiper };

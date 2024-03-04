@@ -41,7 +41,7 @@ function Catalog() {
 
   const handleClickButton = (productId: TProduct['id']) => {
     setIsModalAddProductShow((prevState) => !prevState);
-    setSelectedId(productId); //id =2
+    setSelectedId(productId);
   };
 
 

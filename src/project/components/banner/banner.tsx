@@ -5,7 +5,7 @@ import { AppRoute } from '../../const/const';
 type BannerProps = {
   banner: TBanner;
 }
-// отбражается только 1 картинка?
+
 function Banner ({banner}: BannerProps) {
   const isRetina = true;
 
