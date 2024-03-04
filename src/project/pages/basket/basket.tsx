@@ -12,7 +12,7 @@ function Basket() {
   const [products, setProducts] = useState<TProduct[]>([]);
 
   useEffect(() => {
-    axios.get(`${ReqPath.getProducts}`)
+    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => setProducts(response.data));
   },[]);
 

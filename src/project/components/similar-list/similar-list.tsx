@@ -11,7 +11,7 @@ function SimilarList ({similarProducts}: SimilarListProps) {
       {similarProducts
         .slice(0, 3)
         .map((product) => (
-          <ProductCard key={product.id} product={product} onClickButton={()=> {}} />
+          <ProductCard key={product.id} product={product} onClickButton={vi.fn()} />
         ))}
     </div>
   );

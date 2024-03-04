@@ -8,7 +8,7 @@ describe('component: PopupAddRewiew', () => {
     const expectedText = 'Оставить отзыв';
 
     const preparedComponent = withHistory(
-      <PopupAddRewiew onSubmit={function (): void {}} />
+      <PopupAddRewiew onSubmit={vi.fn()} />
     );
 
     render(preparedComponent);

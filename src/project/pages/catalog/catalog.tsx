@@ -21,18 +21,18 @@ function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [ banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
-  const [productsToShow, setProductsToShow] = useState(
-    products.slice(0, PRODUCT_VIEW_COUNT)
-  );
 
   useEffect(() => {
-    axios.get(`${ReqPath.getProducts}`)
+    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => setProducts(response.data));
 
-    axios.get(`${ReqPath.getBanners}`)
+    axios.get<TBanner[]>(`${ReqPath.getBanners}`)
       .then((response) => setBanners(response.data));
   }, []);
 
+  const [productsToShow, setProductsToShow] = useState(
+    products.slice(0, PRODUCT_VIEW_COUNT)
+  );
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const [isModalAddProductShow, setIsModalAddProductShow] =
     useState<boolean>(false);
@@ -81,8 +81,7 @@ function Catalog() {
                 <div className="catalog__content">
                   <Sorting />
                   <ProductCardList
-                  // замена productsToShow на products
-                    products={products}
+                    products={productsToShow}
                     onClickButton={handleClickButton}
                   />
                   {showPagination && (

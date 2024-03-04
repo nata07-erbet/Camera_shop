@@ -8,7 +8,7 @@ describe('component: RatingRewiew', () => {
     const expectedText = 'Рейтинг';
 
     const preparedComponent = withHistory(
-      <RatingRewiew onChange={function (): void {}} error={ERROR_MESSAGE} />
+      <RatingRewiew onChange={vi.fn()} error={ERROR_MESSAGE} />
     );
 
     render(preparedComponent);
