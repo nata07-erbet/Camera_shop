@@ -6,7 +6,7 @@ import { AppRoute } from '../../const/const';
 
 type ProductCardProps = {
   product: TProduct;
-  onClickButton: (id: TProduct['id']) => void;
+  onClickButton?: (id: TProduct['id']) => void | undefined;
 }
 function ProductCard ({ product, onClickButton }: ProductCardProps) {
 
@@ -27,7 +27,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
   });
 
   const handleButtonClickBuy = () => {
-    onClickButton(id);
+    onClickButton?.(id);
   };
 
   return (

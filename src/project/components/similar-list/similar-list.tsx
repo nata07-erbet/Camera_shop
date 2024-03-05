@@ -10,9 +10,7 @@ function SimilarList ({similarProducts}: SimilarListProps) {
     <div className="product-similar__slider-list" data-testid="similar">
       {similarProducts
         .slice(0, 3)
-        .map((product) => (
-          <ProductCard key={product.id} product={product} onClickButton={vi.fn()} />
-        ))}
+        .map((product) => <ProductCard key={product.id} product={product} />)}
     </div>
   );
 }

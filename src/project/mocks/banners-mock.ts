@@ -27,7 +27,7 @@ const bannersJSON = `[
   }
 ]`;
 
-const bannersMock: TBanner[] = JSON.parse(bannersJSON);
+const bannersMock = JSON.parse(bannersJSON) as TBanner[];
 
 
 export { bannersMock };

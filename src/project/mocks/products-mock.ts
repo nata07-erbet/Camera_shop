@@ -643,6 +643,6 @@ const mocksByJSON = `[
     }
   ]`;
 
-const productsMocks: TProduct[] = JSON.parse(mocksByJSON);
+const productsMocks = JSON.parse(mocksByJSON) as TProduct[];
 
 export { productsMocks };

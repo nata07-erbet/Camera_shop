@@ -19,20 +19,21 @@ const getTotalPageCount = (cardCount: number): number =>
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
-  const [ banners, setBanners] = useState<TBanner[]>([]);
+  const [banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
+  const [productsToShow, setProductsToShow] = useState<TProduct[]>([]);
 
   useEffect(() => {
     axios.get<TProduct[]>(`${ReqPath.getProducts}`)
-      .then((response) => setProducts(response.data));
+      .then((response) => {
+        setProducts(response.data);
+        setProductsToShow(response.data.slice(0, PRODUCT_VIEW_COUNT));
+      });
 
     axios.get<TBanner[]>(`${ReqPath.getBanners}`)
       .then((response) => setBanners(response.data));
   }, []);
 
-  const [productsToShow, setProductsToShow] = useState(
-    products.slice(0, PRODUCT_VIEW_COUNT)
-  );
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const [isModalAddProductShow, setIsModalAddProductShow] =
     useState<boolean>(false);
