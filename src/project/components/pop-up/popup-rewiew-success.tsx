@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PopUpMain, PopUpMainProps } from './popup-main';
 
 
-function PopRewiewSuccess ({...props}: PopUpMainProps) {
+function PopupRewiewSuccess ({...props}: PopUpMainProps) {
   const navigation = useNavigate();
 
   const handleButtonClick = () => {
@@ -31,4 +31,4 @@ function PopRewiewSuccess ({...props}: PopUpMainProps) {
   );
 }
 
-export { PopRewiewSuccess };
+export { PopupRewiewSuccess };

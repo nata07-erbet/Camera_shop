@@ -13,7 +13,7 @@ import { Rewiews } from '../../components/rewiews/rewiews';
 import {
   PopupBasketSuccess,
   PopupAddRewiew,
-  PopRewiewSuccess,
+  PopupRewiewSuccess,
   PopupAddBasket,
 } from '../../components/pop-up/index';
 import axios from 'axios';
@@ -81,7 +81,7 @@ function Product() {
     setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
-  const handlePopRewiewSuccessClose = () => {
+  const handlePopupRewiewSuccessClose = () => {
     setIsSuccessfulPopupShowed((prevState) => !prevState);
   };
 
@@ -233,8 +233,8 @@ function Product() {
         onClose={handlePopupAddRewiewClose}
         opened={isAddRewiewPopUpMainShowed}
       />
-      <PopRewiewSuccess
-        onClose={handlePopRewiewSuccessClose}
+      <PopupRewiewSuccess
+        onClose={handlePopupRewiewSuccessClose}
         opened={isSuccessfulPopupShowed}
       />
       <Footer />

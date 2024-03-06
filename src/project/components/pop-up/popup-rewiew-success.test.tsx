@@ -1,11 +1,11 @@
 import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { PopRewiewSuccess } from './index';
+import { PopupRewiewSuccess } from './index';
 
-describe('component: PopRewiewSuccess', () => {
+describe('component: PopupRewiewSuccess', () => {
   it('should render correctly', () => {
     const expectedText = 'Спасибо за отзыв';
-    const preparedComponent = withHistory(<PopRewiewSuccess />);
+    const preparedComponent = withHistory(<PopupRewiewSuccess />);
 
     render(preparedComponent);
 
