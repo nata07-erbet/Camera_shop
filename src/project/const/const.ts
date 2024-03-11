@@ -75,4 +75,45 @@ const INITAL_COUNT_COMMENTS = 5;
 
 const ERROR_MESSAGE = 'Нужно оценить товар';
 
-export {PRODUCT_VIEW_COUNT, MOCK_START, MOCK_END, REWIEWS_COUNT, AppRoute, PanginationStep, INITAL_PAGE_BY_PANGINATION, PagesMap, RatingMap, AppRouteTab, DEFAULT_TAB, TabsMap, PanginationButton, PanginationsMap, ERROR_MESSAGE, INITAL_RATING, INITAL_COUNT_COMMENTS, BACK_URL, ReqPath};
+const FilterCategoryMap = {
+  photocamera: 'Фотокамера',
+  videocamera: 'Видеокамера'
+} as const;
+
+const FilterTypeMap = {
+  digital: 'Цифровая',
+  film: 'Плёночная',
+  snapshot: 'Моментальная',
+  collection: 'Коллекционная',
+} as const;
+
+const FilterLevelMap = {
+  zero: 'Нулевой',
+  nonProfessional: 'Любительский',
+  professional: 'Профессиональный'
+} as const;
+
+export {
+  PRODUCT_VIEW_COUNT,
+  MOCK_START,
+  MOCK_END,
+  REWIEWS_COUNT,
+  AppRoute,
+  PanginationStep,
+  INITAL_PAGE_BY_PANGINATION,
+  PagesMap,
+  RatingMap,
+  AppRouteTab,
+  DEFAULT_TAB,
+  TabsMap,
+  PanginationButton,
+  PanginationsMap,
+  ERROR_MESSAGE,
+  INITAL_RATING,
+  INITAL_COUNT_COMMENTS,
+  BACK_URL,
+  ReqPath,
+  FilterCategoryMap,
+  FilterTypeMap,
+  FilterLevelMap
+};

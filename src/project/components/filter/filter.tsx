@@ -1,3 +1,9 @@
+import {
+  FilterCategoryMap,
+  FilterTypeMap,
+  FilterLevelMap
+} from '../../const/const';
+
 function Filter () {
   return(
     <div className="catalog-filter">
@@ -24,102 +30,50 @@ function Filter () {
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input
-                type="checkbox"
-                name="photocamera"
-                defaultChecked
-              />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Фотокамера
-              </span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="videocamera" />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Видеокамера
-              </span>
-            </label>
-          </div>
+          {Object.entries(FilterCategoryMap)
+            .map(([key, value]) => (
+              <div className="custom-checkbox catalog-filter__item" key={key}>
+                <label>
+                  <input
+                    type="checkbox"
+                    name={key}
+                  />
+                  <span className="custom-checkbox__icon" />
+                  <span className="custom-checkbox__label">
+                    {value}
+                  </span>
+                </label>
+              </div>
+            ))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input
-                type="checkbox"
-                name="digital"
-                defaultChecked
-              />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">Цифровая</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="film" disabled />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Плёночная
-              </span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="snapshot" />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Моментальная
-              </span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input
-                type="checkbox"
-                name="collection"
-                defaultChecked
-                disabled
-              />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Коллекционная
-              </span>
-            </label>
-          </div>
+          {Object.entries(FilterTypeMap)
+            .map(([key, value]) => (
+              <div className="custom-checkbox catalog-filter__item" key={key}>
+                <label>
+                  <input
+                    type="checkbox"
+                    name={key}
+                  />
+                  <span className="custom-checkbox__icon" />
+                  <span className="custom-checkbox__label">{value}</span>
+                </label>
+              </div>
+            ))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="zero" defaultChecked />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">Нулевой</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="non-professional" />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Любительский
-              </span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="professional" />
-              <span className="custom-checkbox__icon" />
-              <span className="custom-checkbox__label">
-                Профессиональный
-              </span>
-            </label>
-          </div>
+          {Object.entries(FilterLevelMap)
+            .map(([key, value]) => (
+              <div className="custom-checkbox catalog-filter__item" key={key}>
+                <label>
+                  <input type="checkbox" name="zero"/>
+                  <span className="custom-checkbox__icon" />
+                  <span className="custom-checkbox__label">{value}</span>
+                </label>
+              </div>
+            ))}
         </fieldset>
         <button
           className="btn catalog-filter__reset-btn"
