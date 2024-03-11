@@ -3,6 +3,7 @@ import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap, ReqPath} from '../../const/const';
+import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -110,7 +111,8 @@ function Product() {
   };
 
   return (
-    <>
+    <div className="wrapper">
+      <Header />
       <main data-testid="product-page">
         {currentProduct && (
           <div className="page-content">
@@ -137,8 +139,8 @@ function Product() {
                     <h1 className="title title--h3" data-testid='product-name'>{currentProduct.name}</h1>
                     <Rating rating={currentProduct.rating} reviewCount={currentProduct.reviewCount} />
                     <p className="product__price">
-                      <span >Цена:</span>
-                      {currentProduct.price}₽
+                      <span className="visually-hidden">Цена:</span>
+                      {currentProduct.price.toLocaleString()}₽
                     </p>
                     <button
                       className="btn btn--purple"
@@ -238,7 +240,7 @@ function Product() {
         opened={isSuccessfulPopupShowed}
       />
       <Footer />
-    </>
+    </div>
   );
 }
 

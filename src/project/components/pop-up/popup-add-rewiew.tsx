@@ -124,11 +124,8 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 Отправить отзыв
           </button>
         </form>
-
       </div>
-
     </PopUpMain>
-
   );
 }
 
