@@ -9,6 +9,7 @@ function useSwiper() {
     },
     pagination: {
       clickable: true,
+      bulletActiveClass: 'visually-hidden',
     },
     navigation: true,
   });

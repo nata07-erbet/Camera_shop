@@ -23,7 +23,7 @@ const params: SwiperProps = {
     type: 'bullets',
     clickable: true,
     renderBullet(index, el) {
-      return `<span class="${ el }">${ index + 1 }</span>`;
+      return `<span class="${ el } visually-hidden">${ index + 1 }</span>`;
     }
   },
   navigation: true,
