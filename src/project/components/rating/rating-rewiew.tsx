@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Fragment, useState} from 'react';
-import { RatingMap } from '../../const/const';
+
 import classNames from 'classnames';
 
 type RatingRewiewProps = {
@@ -9,7 +9,7 @@ type RatingRewiewProps = {
 }
 
 function RatingRewiew ({ onChange, error }: RatingRewiewProps){
-  const [rating, setRating] = useState('0');
+
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);

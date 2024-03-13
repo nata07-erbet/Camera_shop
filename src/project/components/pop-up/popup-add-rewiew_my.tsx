@@ -1,133 +1,94 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { PopUpMain, PopUpMainProps } from './index';
-import { RatingMap } from '../../const/const';
-import { useForm } from 'react-hook-form';
+import { RatingRewiew } from '../../components/rating/rating-rewiew';
 import classNames from 'classnames';
+import {
+  NAME_MIN,
+  NAME_MAX,
+  DATA_MIN,
+  DATA_MAX
+} from '../../const/const';
 
 type PopupAddRewiew = PopUpMainProps & {
   onSubmit: () => void;}
 
-type FormInputs = {
-  rate: string;
-  name: string;
-  userPlus: string;
-  userMinus: string;
-  comment: string;
-}
 
 function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
-  const [rating, setRating] = useState('0');
   const [ name, setName ] = useState('');
   const [ userPlus, setUserPlus ] = useState('');
   const [ userMinus, setUserMinus ] = useState('');
   const [ comment, setComment ] = useState('');
 
   const [ isRatingValid, setRatingValid ] = useState(false);
-  const validateForm = () => isRatingValid;
+  const [isNameValid , setIsNameValid ] = useState(true);
+  const [ isUserPlusValid, setUserPlusValid ] = useState(true);
+  const [ isUserMinusValid, setIsUserMinusValid ] = useState(true);
+  const [ isCommentValid, setCommentValid ] = useState(true);
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(evt.target.value);
-  };
+  const validateName = (value: string) => setIsNameValid(value.length >= NAME_MIN && value.length <= NAME_MAX);
+  const validateUserPlus = (value: string) => setUserPlusValid(value.length >= DATA_MIN && value.length <= DATA_MAX);
+  const validateUserMinus = (value: string) => setIsUserMinusValid(value.length >= DATA_MIN && value.length <= DATA_MAX);
+  const validateComment = (value: string) => setCommentValid(value.length >= DATA_MIN && value.length <= DATA_MAX);
+
+
+  const validateForm = () => isRatingValid && isNameValid && isUserPlusValid && isUserMinusValid && isCommentValid;
+
+  const validateRating = (value: string) => setRatingValid(Boolean(value && value.match(/^[1-5]$/)));
+
 
   const handleInputNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setName(evt.target.value);
+    validateName(evt.target.value);
   };
 
   const handleInputUserPlusChange = (evt:ChangeEvent<HTMLInputElement>) => {
     setUserPlus(evt.target.value);
+    validateUserPlus(evt.target.value);
   };
 
   const handleInputUserMinusChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setUserMinus(evt.target.value);
+    validateUserMinus(evt.target.value);
   };
 
   const handleInputCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
+    validateComment(evt.target.value);
   };
 
-  const onFormSubmit = (evt: FormEvent<HTMLElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLElement>) => {
     evt.preventDefault();
-  };
 
-  const {
-    register,
-    formState:{ errors },
-    handleSubmit
-  } = useForm<FormInputs>();
+    const isValid = validateForm();
+
+    if(isValid) {
+      onSubmit();
+    }
+    onSubmit();
+  };
 
 
   return(
     <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
-
         <form
           action="#"
           method="post"
-          onSubmit={handleSubmit(onFormSubmit)}
+          onSubmit={handleFormSubmit}
         >
           <div className="form-review__rate">
-            <fieldset className={
-              classNames(
-                'rate',
-                'form-review__item',
-                {'is-invalid': !!errors.rate}
-              )
-            }
-            >
-              <legend className="rate__caption">
-               Рейтинг
-                <svg width={9} height={9} aria-hidden="true">
-                  <use xlinkHref="#icon-snowflake" />
-                </svg>
-              </legend>
-              <div className="rate__bar">
-                <div className="rate__group">
-                  {Object
-                    .entries(RatingMap)
-                    .reverse()
-                    .map(([key, value]) => (
-                      <Fragment key={key}>
-                        <input
-                          key={key}
-                          className="visually-hidden"
-                          id={`star-${key}`}
-                          type="radio"
-                          value={key}
-                          defaultValue={0}
-                          {
-                            ...register('rate', {
-                              required: 'Нужно проставить рейтинг',
-                              pattern: {
-                                value: /^[1-5]$/,
-                                message: 'Rate must contain from 1 to 5 stars'
-                              }
-                            })
-                          }
-                          onChange={handleInputChange}
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor={`star-${key}`}
-                          title={value}
-                        />
-                      </Fragment>
-                    ))}
-                </div>
-                <div className="rate__progress">
-                  <span className="rate__stars">{rating}</span> <span>/</span>{' '}
-                  <span className="rate__all-stars">5</span>
-                </div>
-              </div>
-              {errors.rate && (
+            <RatingRewiew
+              onChange = {validateRating}
+              error = {!isRatingValid && (
                 <p className="rate__message">Нужно оценить товар</p>
               )}
-            </fieldset>
+            />
             <div className={
               classNames(
                 'custom-input',
                 'form-review__item',
-                { 'is-invalid': errors.name}
+                { 'is-invalid': !isNameValid}
               )
             }
             >
@@ -141,26 +102,20 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 <input
                   type="text"
                   placeholder="Введите ваше имя"
-                  data-testid="nameElement"
+                  required
                   autoFocus
-                  {...register('name', {
-                    required: 'Введите ваше имя',
-                    pattern: {
-                      value: /^\w{3,10}$/,
-                      message: 'Name must contain from 3 to 10 letters'
-                    }
-                  })}
+                  data-testid="nameElement"
                   onChange={handleInputNameChange}
                 />
               </label>
-              { errors.name && (
+              { !isNameValid && (
                 <p className="custom-input__error">Нужно указать имя</p>
               )}
             </div>
             <div className={classNames(
               'custom-input',
               'form-review__item',
-              {'is-invalid' : errors.userPlus}
+              {'is-invalid' : !isUserPlusValid}
             )}
             >
               <label>
@@ -171,20 +126,18 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   </svg>
                 </span>
                 <input
+                  className='is-invalid'
                   type="text"
+                  name="user-plus"
                   placeholder="Основные преимущества товара"
-                  {...register('userPlus', {
-                    required: 'Основные преимущества товара',
-                    pattern: {
-                      value: /^\w{10,160}$/,
-                      message: 'userPlus must contain from 10 to 160 letters'
-                    }
-                  })}
+                  minLength={10}
+                  maxLength={160}
+                  required
                   data-testid="positiveElement"
                   onChange={handleInputUserPlusChange}
                 />
               </label>
-              {errors.userPlus && (
+              {!isUserPlusValid && (
                 <p className="custom-input__error">Нужно указать достоинства</p>
               )}
             </div>
@@ -192,7 +145,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
               classNames(
                 'custom-input',
                 'form-review__item',
-                {'is-invalid': errors.userMinus}
+                {'is-invalid': !isUserMinusValid}
               )
             }
             >
@@ -205,26 +158,23 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
+                  name="user-minus"
                   placeholder="Главные недостатки товара"
-                  {...register('userMinus', {
-                    required: 'Главные недостатки товара',
-                    pattern: {
-                      value: /^\w{10,160}$/,
-                      message: 'userMinus must contain from 10 to 160 letters'
-                    }
-                  })}
+                  minLength={10}
+                  maxLength={160}
+                  required
                   data-testid="negativeElement"
                   onChange= {handleInputUserMinusChange}
                 />
               </label>
-              {errors.userMinus && (
+              {!isUserMinusValid && (
                 <p className="custom-input__error">Нужно указать недостатки</p>
               )}
             </div>
             <div className={classNames(
               'custom-textarea',
               'form-review__item',
-              {'is-invalid' : errors.comment}
+              {'is-invalid' : !isCommentValid}
             )}
             >
               <label>
@@ -235,21 +185,16 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   </svg>
                 </span>
                 <textarea
+                  name="user-comment"
+                  minLength={10}
+                  maxLength={160}
                   placeholder="Поделитесь своим опытом покупки"
                   defaultValue={''}
                   data-testid="commentElement"
-                  {...register('comment', {
-                    required: 'Поделитесь своим опытом покупки',
-                    pattern: {
-                      value: /^\w{10,160}$/,
-                      message: 'Comment must contain from 10 to 160 letters'
-                    }
-                  })
-                  }
                   onChange={handleInputCommentChange}
                 />
               </label>
-              {errors.comment && (
+              {!isCommentValid && (
                 <div className="custom-textarea__error">
                  Нужно добавить комментарий
                 </div>
