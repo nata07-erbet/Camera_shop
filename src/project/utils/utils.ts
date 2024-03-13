@@ -1,3 +1,4 @@
+import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT } from '../const/const';
 
 function getRandomInteger(min: number, max: number): number {
   const rand: number = min + Math.random() * (max + 1 - min);
@@ -11,4 +12,10 @@ function FormattedDate(date: string) {
   return formatDate;
 }
 
-export { getRandomInteger, FormattedDate };
+const getTotalPageCount = (cardCount: number): number =>
+  Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
+
+const getSimilarPageCount = (cardCount: number): number =>
+  Math.ceil(cardCount / SIMILAR_VIEW_COUNT);
+
+export { getRandomInteger, FormattedDate, getTotalPageCount, getSimilarPageCount };

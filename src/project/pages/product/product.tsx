@@ -74,8 +74,9 @@ function Product() {
   };
 
   const handleSubmitForm = () => {
-    setIsSuccessfulPopupShowed((prevState) => !prevState);
-    setIsRewiewPopUpMainShowed((prevState) => !prevState);
+    setIsSuccessfulPopupShowed(true);
+    console.log(isSuccessfulPopupShowed);
+    setIsRewiewPopUpMainShowed(false);
   };
 
   const handlePopupAddRewiewClose = () => {

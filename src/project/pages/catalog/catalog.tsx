@@ -11,11 +11,10 @@ import { Sorting } from '../../components/sorting/sorting';
 import { PopupAddBasket } from '../../components/pop-up/index';
 import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
+import { getTotalPageCount } from '../../utils/utils';
 import axios from 'axios';
 
 
-const getTotalPageCount = (cardCount: number): number =>
-  Math.ceil(cardCount / PRODUCT_VIEW_COUNT);
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -109,4 +108,4 @@ function Catalog() {
   );
 }
 
-export { Catalog };
+export { Catalog, getTotalPageCount };

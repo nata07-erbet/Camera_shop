@@ -8,7 +8,6 @@ type RatingRewiewProps = {
 
 }
 
-
 function RatingRewiew ({ onChange, error }: RatingRewiewProps){
   const [rating, setRating] = useState('0');
 
@@ -62,8 +61,6 @@ function RatingRewiew ({ onChange, error }: RatingRewiewProps){
           <span className="rate__all-stars">5</span>
         </div>
       </div>
-      { error && <p className="rate__message">Нужно оценить товар</p>}
-
     </fieldset>
   );
 }
