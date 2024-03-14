@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './similar-slider-products.css';
 
 import { Navigation } from 'swiper/modules';
 import { TProduct } from '../../types/index';
@@ -27,7 +28,6 @@ const params: SwiperProps = {
 };
 
 function SimilarSliderProducts ({similarProducts}: SimilarSliderProductsProps) {
-
   return(
     <section className="product-similar" data-testid="slider">
       <div className="container">

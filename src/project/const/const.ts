@@ -6,7 +6,7 @@ const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
 
-const START_SEARCH_TERM = 3
+const START_SEARCH_TERM = 3;
 
 const BACK_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 

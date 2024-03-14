@@ -16,6 +16,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
     previewImg,
     previewImg2x,
     previewImgWebp,
+    previewImgWebp2x,
     rating,
     reviewCount,
     price
@@ -36,11 +37,11 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         <picture>
           <source
             type="image/webp"
-            srcSet={`/${previewImgWebp}`}
+            srcSet={`/${previewImgWebp}, /${previewImgWebp2x} 2x`}
           />
           <img
-            src={previewImg}
-            srcSet={previewImg2x}
+            src={`/${previewImg}`}
+            srcSet={`/${previewImg2x} 2x`}
             width={280}
             height={240}
             alt={name}

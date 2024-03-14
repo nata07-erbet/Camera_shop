@@ -75,7 +75,6 @@ function Product() {
 
   const handleSubmitForm = () => {
     setIsSuccessfulPopupShowed(true);
-    console.log(isSuccessfulPopupShowed);
     setIsRewiewPopUpMainShowed(false);
   };
 

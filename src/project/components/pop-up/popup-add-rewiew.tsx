@@ -91,7 +91,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                           id={`star-${key}`}
                           type="radio"
                           value={key}
-                          defaultValue={0}
                           {
                             ...register('rate', {
                               required: 'Нужно проставить рейтинг',
@@ -236,7 +235,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <textarea
                   placeholder="Поделитесь своим опытом покупки"
-                  defaultValue={''}
                   value={comment}
                   data-testid="commentElement"
                   {...register('comment', {
