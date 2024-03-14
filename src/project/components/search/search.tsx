@@ -1,6 +1,11 @@
+import { SearchList } from '../search-list/search-list';
+import { TProduct } from '../../types';
 
+type SearchProps = {
+  products: TProduct[];
+}
 
-function Search () {
+function Search ({ products }: SearchProps) {
   return (
     <>
       <form>
@@ -20,8 +25,9 @@ function Search () {
             placeholder="Поиск по сайту"
           />
         </label>
-       //
-      </form><button className="form-search__reset" type="reset">
+        <SearchList products={products} />
+      </form>
+      <button className="form-search__reset" type="reset">
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />
         </svg>
@@ -32,4 +38,4 @@ function Search () {
 }
 
 
-export { Search }
+export { Search };

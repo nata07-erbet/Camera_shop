@@ -21,4 +21,4 @@ function SearchList ({ products }: SearchListProps) {
   );
 }
 
-export { SearchList};
+export { SearchList };
