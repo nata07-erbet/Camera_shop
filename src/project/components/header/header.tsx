@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { Logo } from '../logo/logo';
+import { Search } from '../search/search';
 
 function Header () {
   return (
@@ -32,7 +33,7 @@ function Header () {
           </ul>
         </nav>
         <div className="form-search">
-         //
+          <Search />
         </div>
         <Link className="header__basket-link" to={AppRoute.Basket}>
           <svg width={16} height={16} aria-hidden="true">

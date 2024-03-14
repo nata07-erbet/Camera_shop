@@ -1,11 +1,15 @@
-import { SearchList } from '../search-list/search-list';
+import { ChangeEvent, useState } from 'react';
 import { TProduct } from '../../types';
+import { SearchComponent } from '../search-component/search-component';
 
-type SearchProps = {
-  products: TProduct[];
-}
+function Search () {
+  const [ ListResultSearch, setListResultSearch ] = useState<TProduct[]>([]);
+  const [ searchLine, setSearchLine ] = useState('');
 
-function Search ({ products }: SearchProps) {
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setSearchLine(evt.target.value);
+  };
+
   return (
     <>
       <form>
@@ -23,9 +27,17 @@ function Search ({ products }: SearchProps) {
             type="text"
             autoComplete="off"
             placeholder="Поиск по сайту"
+            value={searchLine}
+            onChange={handleInputChange}
           />
         </label>
-        <SearchList products={products} />
+        <ul className="form-search__select-list">
+          {ListResultSearch.map((product) => (
+            <SearchComponent
+              key={product.id}
+              product={product}
+            />))}
+        </ul>
       </form>
       <button className="form-search__reset" type="reset">
         <svg width={10} height={10} aria-hidden="true">
@@ -36,6 +48,5 @@ function Search ({ products }: SearchProps) {
     </>
   );
 }
-
 
 export { Search };

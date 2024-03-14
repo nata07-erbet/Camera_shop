@@ -15,7 +15,6 @@ import { getTotalPageCount } from '../../utils/utils';
 import axios from 'axios';
 
 
-
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [banners, setBanners] = useState<TBanner[]>([]);

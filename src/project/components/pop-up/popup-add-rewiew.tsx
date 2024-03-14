@@ -22,9 +22,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
   const [ userMinus, setUserMinus ] = useState('');
   const [ comment, setComment ] = useState('');
 
-  const [ isRatingValid, setRatingValid ] = useState(false);
-  const validateForm = () => isRatingValid;
-
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
   };
@@ -47,6 +44,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
 
   const onFormSubmit = (evt: FormEvent<HTMLElement>) => {
     evt.preventDefault();
+    onSubmit();
   };
 
   const {
@@ -60,7 +58,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
     <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
-
         <form
           action="#"
           method="post"
@@ -140,6 +137,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
+                  value={name}
                   placeholder="Введите ваше имя"
                   data-testid="nameElement"
                   autoFocus
@@ -172,6 +170,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
+                  value={userPlus}
                   placeholder="Основные преимущества товара"
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
@@ -205,6 +204,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
+                  value={userMinus}
                   placeholder="Главные недостатки товара"
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
@@ -237,6 +237,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 <textarea
                   placeholder="Поделитесь своим опытом покупки"
                   defaultValue={''}
+                  value={comment}
                   data-testid="commentElement"
                   {...register('comment', {
                     required: 'Поделитесь своим опытом покупки',

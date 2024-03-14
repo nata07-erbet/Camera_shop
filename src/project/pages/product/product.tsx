@@ -23,7 +23,7 @@ type TTab = (typeof AppRouteTab)[keyof typeof AppRouteTab];
 const TABS: TTab[] = ['characteristic', 'description'];
 
 function Product() {
-  const [currentProduct, setProduct] = useState<TProduct | null>(null);
+  const [currentProduct, setCurrentProduct] = useState<TProduct | null>(null);
   const [similarProducts, setSimilarProducts ] = useState<TProduct[]>([]);
   const [rewiews, setRewiews] = useState<TGetRewiew[]>([]);
   const { productId, tab: savedTab } = useParams<{ productId: string; tab: TTab }>();
@@ -31,7 +31,7 @@ function Product() {
   useEffect(() => {
     if (productId) {
       axios.get<TProduct>(`${ReqPath.getProducts}/${productId}`)
-        .then((resolve) => setProduct(resolve.data));
+        .then((resolve) => setCurrentProduct(resolve.data));
 
       axios.get<TGetRewiew[]>(`${ReqPath.getProducts}/${productId}/${ReqPath.getRewiews}`)
         .then((resolve) => setRewiews(resolve.data));
@@ -113,7 +113,7 @@ function Product() {
 
   return (
     <div className="wrapper">
-      <Header />
+      <Header/>
       <main data-testid="product-page">
         {currentProduct && (
           <div className="page-content">
