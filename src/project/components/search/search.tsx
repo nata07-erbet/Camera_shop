@@ -1,10 +1,34 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
+import axios from 'axios';
+import { ReqPath, START_SEARCH_TERM } from '../../const/const';
 import { TProduct } from '../../types';
 import { SearchComponent } from '../search-component/search-component';
 
+
 function Search () {
+  const [ products, setProducts ] = useState<TProduct[]>([]);
   const [ ListResultSearch, setListResultSearch ] = useState<TProduct[]>([]);
   const [ searchLine, setSearchLine ] = useState('');
+
+  useEffect(() => {
+    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
+      .then((response) => {
+        setProducts(response.data);
+        setListResultSearch(response.data.slice(0, START_SEARCH_TERM));
+      });
+  }, []);
+
+  const findProducts = (searchText: string, listOfCards: TProduct[]) => {
+    if(!searchText) {
+      return [];
+    }
+
+    return listOfCards.filter(({ name }) =>
+      name.toLowerCase().includes(searchText.toLowerCase()));
+  };
+
+  const filtredProducts = findProducts(searchLine, products);
+  console.log(filtredProducts);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearchLine(evt.target.value);

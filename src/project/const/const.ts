@@ -6,6 +6,8 @@ const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
 
+const START_SEARCH_TERM = 3
+
 const BACK_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
@@ -106,6 +108,7 @@ export {
   MOCK_START,
   MOCK_END,
   REWIEWS_COUNT,
+  START_SEARCH_TERM,
   AppRoute,
   PanginationStep,
   INITAL_PAGE_BY_PANGINATION,
