@@ -30,7 +30,7 @@ describe('Component: Product', () => {
         });
       }
 
-      if (path.includes(`${ReqPath.getProducts}/1/${ReqPath.getRewiews}`)) {
+      if (path.includes(`${ReqPath.getProducts}/1${ReqPath.getRewiews}`)) {
         return Promise.resolve<AxiosResponse<TGetRewiew[]>>({
           data: [],
           status: 200,
@@ -40,7 +40,7 @@ describe('Component: Product', () => {
         });
       }
 
-      if (path.includes(`${ReqPath.getProducts}/1/${ReqPath.getSimilar}`)) {
+      if (path.includes(`${ReqPath.getProducts}/1${ReqPath.getSimilar}`)) {
         return Promise.resolve<AxiosResponse<TProduct[]>>({
           data: [],
           status: 200,

@@ -17,7 +17,7 @@ import {
   PopupRewiewSuccess,
   PopupAddBasket,
 } from '../../components/pop-up/index';
-import axios from 'axios';
+import { api } from '../../services';
 
 type TTab = (typeof AppRouteTab)[keyof typeof AppRouteTab];
 const TABS: TTab[] = ['characteristic', 'description'];
@@ -30,13 +30,13 @@ function Product() {
 
   useEffect(() => {
     if (productId) {
-      axios.get<TProduct>(`${ReqPath.getProducts}/${productId}`)
+      api.get<TProduct>(`${ReqPath.getProducts}/${productId}`)
         .then((resolve) => setCurrentProduct(resolve.data));
 
-      axios.get<TGetRewiew[]>(`${ReqPath.getProducts}/${productId}/${ReqPath.getRewiews}`)
+      api.get<TGetRewiew[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getRewiews}`)
         .then((resolve) => setRewiews(resolve.data));
 
-      axios.get<TProduct[]>(`${ReqPath.getProducts}/${productId}/${ReqPath.getSimilar}`)
+      api.get<TProduct[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getSimilar}`)
         .then((resolve) => setSimilarProducts(resolve.data));
     }
   }, [productId]);
@@ -73,7 +73,7 @@ function Product() {
     setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
-  const handleSubmitForm = () => {
+  const handleFormSubmit = () => {
     setIsSuccessfulPopupShowed(true);
     setIsRewiewPopUpMainShowed(false);
   };
@@ -231,7 +231,8 @@ function Product() {
         onClose={handlePopupBasketSuccessClose}
       />
       <PopupAddRewiew
-        onSubmit={handleSubmitForm}
+        productId={Number(productId)}
+        onSubmit={handleFormSubmit}
         onClose={handlePopupAddRewiewClose}
         opened={isAddRewiewPopUpMainShowed}
       />

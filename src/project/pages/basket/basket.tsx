@@ -4,15 +4,15 @@ import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { BasketList } from '../../components/basket-list/basket-list';
 import { TProduct } from '../../types';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { ReqPath } from '../../const/const';
+import { api } from '../../services';
 
 function Basket() {
   const activeBasketPage = true;
   const [products, setProducts] = useState<TProduct[]>([]);
 
   useEffect(() => {
-    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
+    api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => setProducts(response.data));
   },[]);
 

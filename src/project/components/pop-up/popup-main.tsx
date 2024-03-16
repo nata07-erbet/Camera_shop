@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { PropsWithChildren, useCallback, useEffect } from 'react';
 import FocusLock from 'react-focus-lock';
+import './popup-main.css';
 
 type PopUpMainProps = PropsWithChildren<{
   onClose?: () => void;
@@ -32,13 +33,18 @@ function PopUpMain({ children, onClose, opened, narrow }: PopUpMainProps) {
     return () => document.removeEventListener('keydown', handleEscapeKeyDown);
   }, [handleEscapeKeyDown]);
 
-  useEffect(() =>{
-    if(opened) {
-      document.body.style.position = 'fixed';
-    } else {
-      document.body.style.position = '';
+  useEffect(() => {
+    let isMounted = true;
+
+    if(isMounted && opened) {
+      document.body.classList.add('scroll-lock');
     }
-  });
+
+    return () => {
+      document.body.classList.remove('scroll-lock');
+      isMounted = false;
+    };
+  }, [opened]);
 
   return (
     <FocusLock>

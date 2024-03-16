@@ -1,8 +1,8 @@
 import { ChangeEvent, useState, useEffect } from 'react';
-import axios from 'axios';
 import { ReqPath, START_SEARCH_TERM } from '../../const/const';
 import { TProduct } from '../../types';
 import { SearchComponent } from '../search-component/search-component';
+import { api } from '../../services';
 
 
 function Search () {
@@ -11,7 +11,7 @@ function Search () {
   const [ searchLine, setSearchLine ] = useState('');
 
   useEffect(() => {
-    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
+    api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => {
         setProducts(response.data);
         setListResultSearch(response.data.slice(0, START_SEARCH_TERM));

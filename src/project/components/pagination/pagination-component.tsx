@@ -11,8 +11,8 @@ interface PaginationProps {
 const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
   const { pathname } = useLocation();
   const [search] = useSearchParams();
-  const initPage = search.get('page');
-  const { currentPage, currentRange, setPage, previousPage, nextPage } = usePagination({ initPage: initPage ? Number(initPage) : undefined, pagesAmount});
+  const initPage = Number(search.get('page'));
+  const { currentPage, currentRange, setPage, previousPage, nextPage } = usePagination({ initPage: initPage || undefined, pagesAmount});
 
   const generatePath = (pageNum: number): string => {
     search.set('page', pageNum.toString());

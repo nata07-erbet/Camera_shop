@@ -8,7 +8,7 @@ const REWIEWS_COUNT = 3;
 
 const START_SEARCH_TERM = 3;
 
-const BACK_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
+const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
   Main: '/',
@@ -23,10 +23,11 @@ const AppRoute = {
 } as const;
 
 const ReqPath = {
-  getProducts: `${BACK_URL}/cameras`,
-  getBanners: `${BACK_URL}/promo`,
-  getRewiews: 'reviews',
-  getSimilar: 'similar'
+  getProducts: '/cameras',
+  getBanners: '/promo',
+  getRewiews: '/reviews',
+  getSimilar: '/similar',
+  postRewiews: '/reviewss',
 };
 
 const AppRouteTab = {
@@ -126,7 +127,7 @@ export {
   ERROR_MESSAGE,
   INITAL_RATING,
   INITAL_COUNT_COMMENTS,
-  BACK_URL,
+  API_URL,
   ReqPath,
   FilterCategoryMap,
   FilterTypeMap,

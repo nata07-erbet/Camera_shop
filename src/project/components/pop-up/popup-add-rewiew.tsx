@@ -1,11 +1,15 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { PopUpMain, PopUpMainProps } from './index';
-import { RatingMap } from '../../const/const';
-import { useForm } from 'react-hook-form';
+import { RatingMap, ReqPath } from '../../const/const';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
+import { TPostRewiew } from '../../types';
+import { api } from '../../services';
 
-type PopupAddRewiew = PopUpMainProps & {
-  onSubmit: () => void;}
+type IPopupAddRewiew = PopUpMainProps & {
+  productId: number;
+  onSubmit: () => void;
+}
 
 type FormInputs = {
   rate: string;
@@ -15,45 +19,37 @@ type FormInputs = {
   comment: string;
 }
 
-function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
-  const [rating, setRating] = useState('0');
-  const [ name, setName ] = useState('');
-  const [ userPlus, setUserPlus ] = useState('');
-  const [ userMinus, setUserMinus ] = useState('');
-  const [ comment, setComment ] = useState('');
+function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(evt.target.value);
-  };
-
-  const handleInputNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setName(evt.target.value);
-  };
-
-  const handleInputUserPlusChange = (evt:ChangeEvent<HTMLInputElement>) => {
-    setUserPlus(evt.target.value);
-  };
-
-  const handleInputUserMinusChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setUserMinus(evt.target.value);
-  };
-
-  const handleInputCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(evt.target.value);
-  };
-
-  const onFormSubmit = (evt: FormEvent<HTMLElement>) => {
-    evt.preventDefault();
-    onSubmit();
-  };
 
   const {
     register,
     formState:{ errors },
-    handleSubmit
-  } = useForm<FormInputs>();
+    handleSubmit,
+    watch,
+    setError,
+  } = useForm<FormInputs>({
+    mode: 'all'
+  });
+
+  const ratingValue = watch('rate');
 
 
+  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+    const formData: TPostRewiew = {
+      cameraId: productId,
+      userName: data.name,
+      advantage: data.userPlus,
+      disadvantage: data.userMinus,
+      review: data.comment,
+      rating: +data.rate
+    };
+
+    api.post(ReqPath.postRewiews, formData)
+      .then(onSubmit)
+      .catch((err) => setError('root', err));
+  };
+  console.log(errors);
   return(
     <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
@@ -61,7 +57,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
         <form
           action="#"
           method="post"
-          onSubmit={handleSubmit(onFormSubmit)}
+          onSubmit={(evt) => handleSubmit(handleFormSubmit)(evt)}
         >
           <div className="form-review__rate">
             <fieldset className={
@@ -100,7 +96,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                               }
                             })
                           }
-                          onChange={handleInputChange}
                         />
                         <label
                           className="rate__label"
@@ -111,7 +106,7 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                     ))}
                 </div>
                 <div className="rate__progress">
-                  <span className="rate__stars">{rating}</span> <span>/</span>{' '}
+                  <span className="rate__stars">{ratingValue}</span> <span>/</span>{' '}
                   <span className="rate__all-stars">5</span>
                 </div>
               </div>
@@ -136,7 +131,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
-                  value={name}
                   placeholder="Введите ваше имя"
                   data-testid="nameElement"
                   autoFocus
@@ -147,7 +141,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                       message: 'Name must contain from 3 to 10 letters'
                     }
                   })}
-                  onChange={handleInputNameChange}
                 />
               </label>
               { errors.name && (
@@ -169,7 +162,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
-                  value={userPlus}
                   placeholder="Основные преимущества товара"
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
@@ -179,7 +171,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                     }
                   })}
                   data-testid="positiveElement"
-                  onChange={handleInputUserPlusChange}
                 />
               </label>
               {errors.userPlus && (
@@ -203,7 +194,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
-                  value={userMinus}
                   placeholder="Главные недостатки товара"
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
@@ -213,7 +203,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                     }
                   })}
                   data-testid="negativeElement"
-                  onChange= {handleInputUserMinusChange}
                 />
               </label>
               {errors.userMinus && (
@@ -235,7 +224,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <textarea
                   placeholder="Поделитесь своим опытом покупки"
-                  value={comment}
                   data-testid="commentElement"
                   {...register('comment', {
                     required: 'Поделитесь своим опытом покупки',
@@ -245,7 +233,6 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                     }
                   })
                   }
-                  onChange={handleInputCommentChange}
                 />
               </label>
               {errors.comment && (
@@ -256,6 +243,9 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
 
             </div>
           </div>
+          {errors.root && (
+            <p className="custom-input__error custom-input__error--root" style={{ color: 'red', fontSize: 12, maxWidth: 400 }}>При отправке произошла ошибка: {errors.root.message}</p>
+          )}
           <button
             className="btn btn--purple form-review__btn"
             type="submit"

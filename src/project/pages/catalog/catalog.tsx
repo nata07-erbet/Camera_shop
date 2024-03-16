@@ -12,7 +12,7 @@ import { PopupAddBasket } from '../../components/pop-up/index';
 import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
-import axios from 'axios';
+import { api } from '../../services';
 
 
 function Catalog() {
@@ -22,13 +22,13 @@ function Catalog() {
   const [productsToShow, setProductsToShow] = useState<TProduct[]>([]);
 
   useEffect(() => {
-    axios.get<TProduct[]>(`${ReqPath.getProducts}`)
+    api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => {
         setProducts(response.data);
         setProductsToShow(response.data.slice(0, PRODUCT_VIEW_COUNT));
       });
 
-    axios.get<TBanner[]>(`${ReqPath.getBanners}`)
+    api.get<TBanner[]>(`${ReqPath.getBanners}`)
       .then((response) => setBanners(response.data));
   }, []);
 
@@ -107,4 +107,4 @@ function Catalog() {
   );
 }
 
-export { Catalog, getTotalPageCount };
+export { Catalog };
