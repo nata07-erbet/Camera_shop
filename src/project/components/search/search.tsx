@@ -10,25 +10,36 @@ function Search () {
   const [ ListResultSearch, setListResultSearch ] = useState<TProduct[]>([]);
   const [ searchLine, setSearchLine ] = useState('');
 
+  const isShowResultSearch = searchLine.length >= START_SEARCH_TERM && ListResultSearch.length > 0;
+
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => {
         setProducts(response.data);
-        setListResultSearch(response.data.slice(0, START_SEARCH_TERM));
       });
   }, []);
 
-  const findProducts = (searchText: string, listOfCards: TProduct[]) => {
-    if(!searchText) {
+  const findProducts = (productList: TProduct[], searchTerm: string) => {
+    if(!searchTerm) {
       return [];
     }
-
-    return listOfCards.filter(({ name }) =>
-      name.toLowerCase().includes(searchText.toLowerCase()));
+    return productList.filter(({ name }) => name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()));
   };
 
-  const filtredProducts = findProducts(searchLine, products);
-  console.log(filtredProducts);
+  useEffect(() => {
+    let isMounted = true;
+
+    if(isMounted) {
+      const filteredCards = findProducts(products, searchLine);
+      setListResultSearch(filteredCards);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+
+  }, [ products, searchLine ]);
+
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearchLine(evt.target.value);
@@ -55,13 +66,22 @@ function Search () {
             onChange={handleInputChange}
           />
         </label>
-        <ul className="form-search__select-list">
-          {ListResultSearch.map((product) => (
-            <SearchComponent
-              key={product.id}
-              product={product}
-            />))}
-        </ul>
+        { isShowResultSearch && (
+          <ul
+            className="form-search__select-list"
+            style={{
+              visibility: 'visible',
+              opacity: '100'
+            }}
+          >
+            {ListResultSearch.map((product) => (
+              <SearchComponent
+                key={product.id}
+                product={product}
+                productId={product.id}
+              />))}
+          </ul>
+        )}
       </form>
       <button className="form-search__reset" type="reset">
         <svg width={10} height={10} aria-hidden="true">

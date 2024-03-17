@@ -12,6 +12,7 @@ const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
   Main: '/',
+  AnyProduct: '/product',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
   Loader:'/loader',
