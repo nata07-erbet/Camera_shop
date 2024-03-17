@@ -27,7 +27,7 @@ const ReqPath = {
   getBanners: '/promo',
   getRewiews: '/reviews',
   getSimilar: '/similar',
-  postRewiews: '/reviewss',
+  postRewiews: '/reviews',
 };
 
 const AppRouteTab = {
