@@ -1,20 +1,32 @@
 import { useState } from 'react';
 import {
   SortMap,
+  SortingMap,
   ForLabelSorted,
 } from '../../const/const';
 
-type TSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
+export type TSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
+export type TSorting = 'up' | 'down';
+
 const SORT: TSort [] = ['sortPrice', 'sortPopular'];
 
-function Sorting () {
+type SortingProps = {
+  onSort: (sort: TSort) => void;
+  onSortUp: () => void;
+};
+
+function Sorting ({ onSort, onSortUp }: SortingProps) {
   const [ currentSort, setCurrentSort ] = useState('');
 
 
   const handleSortingClick = (sort: TSort) => {
     setCurrentSort(sort);
+    onSort(sort);
   };
 
+  const handleClickUp = () => {
+    onSortUp();
+  };
 
   return(
     <div className="catalog-sort" data-testid="sort">
@@ -36,33 +48,31 @@ function Sorting () {
             ))}
           </div>
           <div className="catalog-sort__order">
-            <div className="catalog-sort__btn catalog-sort__btn--up">
-              <input
-                type="radio"
-                id="up"
-                name="sort-icon"
-                defaultChecked
-                aria-label="По возрастанию"
-              />
-              <label htmlFor="up">
-                <svg width={16} height={14} aria-hidden="true">
-                  <use xlinkHref="#icon-sort" />
-                </svg>
-              </label>
-            </div>
-            <div className="catalog-sort__btn catalog-sort__btn--down">
-              <input
-                type="radio"
-                id="down"
-                name="sort-icon"
-                aria-label="По убыванию"
-              />
-              <label htmlFor="down">
-                <svg width={16} height={14} aria-hidden="true">
-                  <use xlinkHref="#icon-sort" />
-                </svg>
-              </label>
-            </div>
+            {(
+              Object.entries(SortingMap) as [
+              TSorting,
+              (typeof SortingMap)[TSorting]
+            ][]
+            ).map(([key, value]) => (
+              <div
+                className={`catalog-sort__btn catalog-sort__btn--${key}`}
+                key={key}
+              >
+                <input
+                  type="radio"
+                  id={key}
+                  name="sort-icon"
+                  defaultChecked
+                  aria-label={value}
+                  onClick={handleClickUp}
+                />
+                <label htmlFor={key}>
+                  <svg width={16} height={14} aria-hidden="true">
+                    <use xlinkHref="#icon-sort" />
+                  </svg>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
       </form>

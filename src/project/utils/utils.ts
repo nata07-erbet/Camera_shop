@@ -1,4 +1,5 @@
-import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT } from '../const/const';
+import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT, ForLabelSorted } from '../const/const';
+import { TProduct } from '../types/product.type';
 
 function getRandomInteger(min: number, max: number): number {
   const rand: number = min + Math.random() * (max + 1 - min);
@@ -18,4 +19,15 @@ const getTotalPageCount = (cardCount: number): number =>
 const getSimilarPageCount = (cardCount: number): number =>
   Math.ceil(cardCount / SIMILAR_VIEW_COUNT);
 
-export { getRandomInteger, FormattedDate, getTotalPageCount, getSimilarPageCount };
+const getSortUp = (a: number, b: number) => a - b;
+const getSortDown = (a: number, b: number) => b - a;
+
+
+export {
+  getRandomInteger,
+  FormattedDate,
+  getTotalPageCount,
+  getSimilarPageCount,
+  getSortUp,
+  getSortDown
+};

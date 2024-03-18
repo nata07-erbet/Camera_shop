@@ -7,13 +7,12 @@ import { ProductCardList } from '../../components/product-card-list/product-card
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
-import { Sorting } from '../../components/sorting/sorting';
+import { Sorting, TSort } from '../../components/sorting/sorting';
 import { PopupAddBasket } from '../../components/pop-up/index';
-import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
+import { PRODUCT_VIEW_COUNT, ReqPath, ForLabelSorted } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
-
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -60,6 +59,19 @@ function Catalog() {
     [products]
   );
 
+  const handleSortButton = (sort: TSort) => {
+    if(sort === ForLabelSorted.sortPrice) {
+      return sort;
+    } else {
+      return sort;
+    }
+  };
+
+  const handleSortButtonUp = () => {
+    const sortUpProducts = productsToShow.filter((product: TProduct) => product.price !== null);
+    console.log(sortUpProducts);
+  };
+
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;
 
@@ -78,7 +90,10 @@ function Catalog() {
                   <Filter />
                 </div>
                 <div className="catalog__content">
-                  <Sorting />
+                  <Sorting
+                    onSort={handleSortButton}
+                    onSortUp={handleSortButtonUp}
+                  />
                   <ProductCardList
                     products={productsToShow}
                     onClickButton={handleClickButton}

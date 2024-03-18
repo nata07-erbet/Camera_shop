@@ -116,6 +116,11 @@ const SortMap = {
   [ForLabelSorted.sortPrice]: 'по популярности'
 };
 
+const SortingMap = {
+  up: 'По возрастанию',
+  down: 'По убыванию'
+} as const;
+
 export {
   PRODUCT_VIEW_COUNT,
   SIMILAR_VIEW_COUNT,
@@ -146,5 +151,6 @@ export {
   FilterTypeMap,
   FilterLevelMap,
   SortMap,
+  SortingMap,
   ForLabelSorted
 };
