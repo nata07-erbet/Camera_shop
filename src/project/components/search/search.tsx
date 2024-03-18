@@ -11,6 +11,7 @@ function Search () {
   const [ searchLine, setSearchLine ] = useState('');
 
   const isShowResultSearch = searchLine.length >= START_SEARCH_TERM && ListResultSearch.length > 0;
+  const isShowResetSearch  = searchLine.length > 1;
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -83,7 +84,13 @@ function Search () {
           </ul>
         )}
       </form>
-      <button className="form-search__reset" type="reset">
+      <button
+        className="form-search__reset"
+        type="reset"
+        style={{
+          display: isShowResetSearch ? 'block' : 'none'
+        }}
+      >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />
         </svg>
