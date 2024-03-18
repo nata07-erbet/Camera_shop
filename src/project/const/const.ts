@@ -104,6 +104,18 @@ const FilterLevelMap = {
   professional: 'Профессиональный'
 } as const;
 
+
+const ForLabelSorted = {
+  sortPrice: 'sortPrice',
+  sortPopular: 'sortPopular'
+} as const;
+
+
+const SortMap = {
+  [ForLabelSorted.sortPopular]: 'по цене',
+  [ForLabelSorted.sortPrice]: 'по популярности'
+};
+
 export {
   PRODUCT_VIEW_COUNT,
   SIMILAR_VIEW_COUNT,
@@ -132,5 +144,7 @@ export {
   ReqPath,
   FilterCategoryMap,
   FilterTypeMap,
-  FilterLevelMap
+  FilterLevelMap,
+  SortMap,
+  ForLabelSorted
 };

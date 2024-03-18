@@ -1,23 +1,39 @@
+import { useState } from 'react';
+import {
+  SortMap,
+  ForLabelSorted,
+} from '../../const/const';
+
+type TSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
+const SORT: TSort [] = ['sortPrice', 'sortPopular'];
+
 function Sorting () {
+  const [ currentSort, setCurrentSort ] = useState('');
+
+
+  const handleSortingClick = (sort: TSort) => {
+    setCurrentSort(sort);
+  };
+
+
   return(
     <div className="catalog-sort" data-testid="sort">
       <form action="#">
         <div className="catalog-sort__inner">
           <p className="title title--h5">Сортировать:</p>
           <div className="catalog-sort__type">
-            <div className="catalog-sort__btn-text">
-              <input
-                type="radio"
-                id="sortPrice"
-                name="sort"
-                defaultChecked
-              />
-              <label htmlFor="sortPrice">по цене</label>
-            </div>
-            <div className="catalog-sort__btn-text">
-              <input type="radio" id="sortPopular" name="sort" />
-              <label htmlFor="sortPopular">по популярности</label>
-            </div>
+            {SORT .map((sort) => (
+              <div className="catalog-sort__btn-text" key={sort}>
+                <input
+                  type="radio"
+                  id={sort}
+                  name="sort"
+                  onClick={() => handleSortingClick(sort)}
+                  checked = { sort === currentSort }
+                />
+                <label htmlFor={ForLabelSorted[sort]}>{SortMap[sort]}</label>
+              </div>
+            ))}
           </div>
           <div className="catalog-sort__order">
             <div className="catalog-sort__btn catalog-sort__btn--up">

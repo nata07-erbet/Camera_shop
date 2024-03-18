@@ -11,7 +11,7 @@ function Search () {
   const [ searchLine, setSearchLine ] = useState('');
 
   const isShowResultSearch = searchLine.length >= START_SEARCH_TERM && ListResultSearch.length > 0;
-  const isShowResetSearch  = searchLine.length > 1;
+  const isShowResetSearch = searchLine.length >= 1;
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -44,6 +44,10 @@ function Search () {
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearchLine(evt.target.value);
+  };
+
+  const handleButtonClick = () => {
+    setSearchLine('');
   };
 
   return (
@@ -90,6 +94,7 @@ function Search () {
         style={{
           display: isShowResetSearch ? 'block' : 'none'
         }}
+        onClick={handleButtonClick}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />
