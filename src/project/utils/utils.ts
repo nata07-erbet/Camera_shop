@@ -1,5 +1,4 @@
-import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT, ForLabelSorted } from '../const/const';
-import { TProduct } from '../types/product.type';
+import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT } from '../const/const'
 
 function getRandomInteger(min: number, max: number): number {
   const rand: number = min + Math.random() * (max + 1 - min);
