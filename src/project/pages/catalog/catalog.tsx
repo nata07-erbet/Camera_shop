@@ -13,12 +13,14 @@ import { PRODUCT_VIEW_COUNT, ReqPath, ForLabelSorted } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
+import { sorting } from '../../utils/utils';
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
   const [productsToShow, setProductsToShow] = useState<TProduct[]>([]);
+
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -30,6 +32,9 @@ function Catalog() {
     api.get<TBanner[]>(`${ReqPath.getBanners}`)
       .then((response) => setBanners(response.data));
   }, []);
+
+  const getSortedOffersByPrice = () => sorting.HighToLowPrice(products);
+  console.log(getSortedOffersByPrice());
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const [isModalAddProductShow, setIsModalAddProductShow] =
