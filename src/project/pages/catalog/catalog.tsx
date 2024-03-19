@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner, TSortingAll } from '../../types/index';
+import { TProduct, TBanner } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -66,7 +66,7 @@ function Catalog() {
   };
 
   const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
-  console.log(sortedProducts);
+  // console.log(sortedProducts);
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const pagesAmount = getTotalPageCount(products.length);
