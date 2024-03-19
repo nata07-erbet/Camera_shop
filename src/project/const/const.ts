@@ -121,6 +121,11 @@ const SortingMap = {
   down: 'По убыванию'
 } as const;
 
+const SettingValidation = {
+  UserMin: 3,
+  UserMax: 10
+};
+
 export {
   PRODUCT_VIEW_COUNT,
   SIMILAR_VIEW_COUNT,
@@ -152,5 +157,6 @@ export {
   FilterLevelMap,
   SortMap,
   SortingMap,
-  ForLabelSorted
+  ForLabelSorted,
+  SettingValidation
 };

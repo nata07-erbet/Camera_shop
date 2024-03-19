@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { TPostRewiew } from '../../types';
 import { api } from '../../services';
+import {  SettingValidation } from '../../const/const'
 
 type IPopupAddRewiew = PopUpMainProps & {
   productId: number;
@@ -136,8 +137,12 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   autoFocus
                   {...register('name', {
                     required: 'Введите ваше имя',
-                    pattern: {
-                      value: /^\w{3,10}$/,
+                    minLength: {
+                      value: SettingValidation.UserMin,
+                      message: 'Name must contain from 3 to 10 letters'
+                    },
+                    maxLength: {
+                      value: SettingValidation.UserMax,
                       message: 'Name must contain from 3 to 10 letters'
                     }
                   })}
