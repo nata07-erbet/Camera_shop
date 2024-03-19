@@ -27,6 +27,11 @@ function Catalog() {
   const [ activeSortItem, setActiveSortItem ] = useState<TActiveSort >();
   const [currentActiveSortItem, setCurrentActiveSortItem] = useState<TSortingAll>();
 
+  const [ currentCategoryItem, setCurrentCategoryItem ] = useState<TFilterCategory>();
+  const [ currentTypeItem, setCurrentTypeItem ] = useState<TFilterType>();
+  const [ currentLevelItem, setCurrentLevelItem ] = useState<TFilterLevel>();
+
+
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => {
@@ -71,6 +76,22 @@ function Catalog() {
   // const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
   // console.log(sortedProducts);
 
+  const handleCategoryChange = (key: TFilterCategory) => {
+    setCurrentCategoryItem(key);
+  };
+
+  const handleTypeChange = (key: TFilterType) => {
+    setCurrentTypeItem(key);
+  };
+
+  const handleTypeLevel = (key: TFilterLevel) => {
+    setCurrentLevelItem(key);
+  };
+
+  const handleButtonClick = () => {
+    setIsReset((prevState) => !prevState);
+  };
+  
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const pagesAmount = getTotalPageCount(products.length);
 
@@ -111,7 +132,11 @@ function Catalog() {
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
                 <div className="catalog__aside">
-                  <Filter />
+                  <Filter
+                    categoryFilter={categoryItem}
+                    {typeItem}
+                    {levelItem}
+                   />
                 </div>
                 <div className="catalog__content">
                   <Sorting

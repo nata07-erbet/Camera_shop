@@ -5,26 +5,36 @@ import {
   FilterLevelMap
 } from '../../const/const';
 
-import { TFilterCategory, TFilterType, TFilterLevel } from '../../types/index';
+import {
+  TFilterCategory,
+  TFilterType,
+  TFilterLevel
+} from '../../types/index';
 
-function Filter () {
-  const [ currentCategoryItem, setCurrentCategoryItem ] = useState<TFilterCategory>();
-  const [ currentTypeItem, setCurrentTypeItem ] = useState<TFilterType>();
-  const [ currentLevelItem, setCurrentLevelItem ] = useState<TFilterLevel>();
+type FilterProps = {
+  categoryItem: TFilterCategory;
+  typeItem: TFilterType;
+  levelItem: TFilterLevel;
+  onCategoryChange: (key: TFilterCategory) => void;
+  onTypeChange: (key: TFilterType) => void;
+};
+
+function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeChange}: FilterProps) {
+
   const [ isReset, setIsReset ] = useState(false);
 
   const isDisabled = () => {
-    if(currentCategoryItem === 'videocamera') {
+    if(categoryItem === 'videocamera') {
       return true;
     }
   };
 
   const handleCategoryChange = (key: TFilterCategory) => {
-    setCurrentCategoryItem(key);
+    onCategoryChange(key);
   };
 
   const handleTypeChange = (key: TFilterType) => {
-    setCurrentTypeItem(key);
+    onTypeChange(key);
   };
 
   const handleTypeLevel = (key: TFilterLevel) => {
