@@ -2,25 +2,29 @@ import { useState, useCallback } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner } from '../../types/index';
+import { TProduct, TBanner, TSortingAll } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
-import { Sorting, TSort } from '../../components/sorting/sorting';
+import { Sorting } from '../../components/sorting/sorting';
 import { PopupAddBasket } from '../../components/pop-up/index';
-import { PRODUCT_VIEW_COUNT, ReqPath, ForLabelSorted } from '../../const/const';
+import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
 import { sorting } from '../../utils/utils';
+import { TCurrentSort, TActiveSort } from '../../components/sorting/sorting';
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
   const [productsToShow, setProductsToShow] = useState<TProduct[]>([]);
+  const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
 
+  const [ currentSortItem, setCurrentSortItem ] = useState<TCurrentSort>();
+  const [ activeSortItem, setActiveSortItem ] = useState<TActiveSort >();
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -33,13 +37,38 @@ function Catalog() {
       .then((response) => setBanners(response.data));
   }, []);
 
-  const getSortedOffersByPrice = () => sorting.HighToLowPrice(products);
-  console.log(getSortedOffersByPrice());
+  const getSortedOffers = (current: TCurrentSort, active: TActiveSort) => {
+    if(!productsToShow) {
+      return null;
+    }
+    switch(current, active) {
+
+      case 'sortPrice' && 'down':
+        return sorting.HighToLowPrice(productsToShow);
+
+      case 'sortPopular' && 'up':
+        return sorting.LowToHighRating(productsToShow);
+
+      case 'sortPopular' && 'down':
+        return sorting.HighToLowRating(productsToShow);
+
+      case 'sortPrice' && 'up':
+      default:
+        return sorting.LowToHighPrice(productsToShow);
+    }
+  };
+
+  const handleSortButton = (sort: TCurrentSort) => {
+    setCurrentSortItem(sort);
+  };
+  const handleSortButtonToggle = (key: TActiveSort) => {
+    setActiveSortItem (key);
+  };
+
+  const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
+  console.log(sortedProducts);
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
-  const [isModalAddProductShow, setIsModalAddProductShow] =
-    useState<boolean>(false);
-
   const pagesAmount = getTotalPageCount(products.length);
 
   const handleClickButton = (productId: TProduct['id']) => {
@@ -64,19 +93,6 @@ function Catalog() {
     [products]
   );
 
-  const handleSortButton = (sort: TSort) => {
-    if(sort === ForLabelSorted.sortPrice) {
-      return sort;
-    } else {
-      return sort;
-    }
-  };
-
-  const handleSortButtonUp = () => {
-    const sortUpProducts = productsToShow.filter((product: TProduct) => product.price !== null);
-    console.log(sortUpProducts);
-  };
-
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;
 
@@ -96,8 +112,10 @@ function Catalog() {
                 </div>
                 <div className="catalog__content">
                   <Sorting
+                    currentSort={currentSortItem}
+                    activeSort={activeSortItem}
                     onSort={handleSortButton}
-                    onSortUp={handleSortButtonUp}
+                    onSortToggle={handleSortButtonToggle}
                   />
                   <ProductCardList
                     products={productsToShow}

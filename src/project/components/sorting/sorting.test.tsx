@@ -6,7 +6,7 @@ describe('component: Sorting', () => {
   it('should render correctly', () => {
     const expectedTestId = 'sort';
 
-    const preparedComponent = withHistory(<Sorting onSort={vi.fn()} onSortUp ={vi.fn()}/>);
+    const preparedComponent = withHistory(<Sorting onSort={vi.fn()} onSortToggle ={vi.fn()}/>);
 
     render(preparedComponent);
 

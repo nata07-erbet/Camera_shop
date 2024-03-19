@@ -1,31 +1,30 @@
-import { useState } from 'react';
 import {
   SortMap,
   SortingMap,
   ForLabelSorted,
 } from '../../const/const';
 
-export type TSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
-export type TSorting = 'up' | 'down';
+export type TCurrentSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
+export type TActiveSort= 'up' | 'down';
 
-const SORT: TSort [] = ['sortPrice', 'sortPopular'];
+const SORT: TCurrentSort [] = ['sortPrice', 'sortPopular'];
 
 type SortingProps = {
-  onSort: (sort: TSort) => void;
-  onSortUp: () => void;
+  currentSort: TCurrentSort;
+  activeSort: TActiveSort;
+  onSort: (sort: TCurrentSort) => void;
+  onSortToggle : (type: TActiveSort) => void;
 };
 
-function Sorting ({ onSort, onSortUp }: SortingProps) {
-  const [ currentSort, setCurrentSort ] = useState('');
+function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProps) {
 
 
-  const handleSortingClick = (sort: TSort) => {
-    setCurrentSort(sort);
-    onSort(sort);
+  const handleSortingClick = (type: TCurrentSort) => {
+    onSort(type);
   };
 
-  const handleClickUp = () => {
-    onSortUp();
+  const handleClickToggle = (key: TActiveSort) => {
+    onSortToggle(key);
   };
 
   return(
@@ -41,7 +40,7 @@ function Sorting ({ onSort, onSortUp }: SortingProps) {
                   id={sort}
                   name="sort"
                   onClick={() => handleSortingClick(sort)}
-                  checked = { sort === currentSort }
+                  checked ={sort === currentSort}
                 />
                 <label htmlFor={ForLabelSorted[sort]}>{SortMap[sort]}</label>
               </div>
@@ -50,8 +49,8 @@ function Sorting ({ onSort, onSortUp }: SortingProps) {
           <div className="catalog-sort__order">
             {(
               Object.entries(SortingMap) as [
-              TSorting,
-              (typeof SortingMap)[TSorting]
+                TActiveSort,
+              (typeof SortingMap)[TActiveSort]
             ][]
             ).map(([key, value]) => (
               <div
@@ -62,9 +61,9 @@ function Sorting ({ onSort, onSortUp }: SortingProps) {
                   type="radio"
                   id={key}
                   name="sort-icon"
-                  defaultChecked
+                  checked={key === activeSort}
                   aria-label={value}
-                  onClick={handleClickUp}
+                  onClick={() => handleClickToggle(key)}
                 />
                 <label htmlFor={key}>
                   <svg width={16} height={14} aria-hidden="true">

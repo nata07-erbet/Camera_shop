@@ -116,6 +116,13 @@ const SortMap = {
   [ForLabelSorted.sortPrice]: 'по популярности'
 };
 
+const SortingAllMap = {
+  LowToHighPrice: 'По возрастанию цены',
+  HighToLowPrice: 'По убыванию цены',
+  LowToHighRating: 'По возрастанию популярности',
+  HighToLowRating: 'По убыванию популярности',
+};
+
 const SortingMap = {
   up: 'По возрастанию',
   down: 'По убыванию'
@@ -166,5 +173,6 @@ export {
   SortMap,
   SortingMap,
   ForLabelSorted,
-  SettingValidation
+  SettingValidation,
+  SortingAllMap
 };

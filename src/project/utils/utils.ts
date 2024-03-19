@@ -19,15 +19,17 @@ const getTotalPageCount = (cardCount: number): number =>
 const getSimilarPageCount = (cardCount: number): number =>
   Math.ceil(cardCount / SIMILAR_VIEW_COUNT);
 
-const getSortUpByRating = (a: TProduct, b: TProduct) => (a.rating - b.rating);
-const getSortDownByRating = (a: TProduct, b: TProduct) => (b.rating - a.rating);
-
 const getSortUpByPrice = (a: TProduct, b: TProduct) => (a.price - b.price);
 const getSortDownByPrice = (a: TProduct, b: TProduct) => (b.price - a.price);
 
+const getSortUpByRating = (a: TProduct, b: TProduct) => (a.rating - b.rating);
+const getSortDownByRating = (a: TProduct, b: TProduct) => (b.rating - a.rating);
 
 const sorting: Record<string, (products: TProduct[]) => TProduct[]> = {
-  'HighToLowPrice': (products: TProduct[]) => products.toSorted(getSortUpByPrice),
+  LowToHighPrice: (products: TProduct[]) => products.toSorted(getSortUpByPrice),
+  HighToLowPrice: (products: TProduct[]) => products.toSorted(getSortDownByPrice),
+  LowToHigh: (products: TProduct[]) => products.toSorted(getSortUpByRating),
+  HighToLowRating: (products: TProduct[]) => products.toSorted(getSortDownByRating),
 };
 
 export {
