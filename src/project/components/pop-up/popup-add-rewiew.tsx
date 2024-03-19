@@ -138,11 +138,11 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('name', {
                     required: 'Введите ваше имя',
                     minLength: {
-                      value: SettingValidation.UserMin,
+                      value: SettingValidation.UserNameMin,
                       message: 'Name must contain from 3 to 10 letters'
                     },
                     maxLength: {
-                      value: SettingValidation.UserMax,
+                      value: SettingValidation.UserNameMax,
                       message: 'Name must contain from 3 to 10 letters'
                     }
                   })}
@@ -170,8 +170,12 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   placeholder="Основные преимущества товара"
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
-                    pattern: {
-                      value: /^\w{10,160}$/,
+                    minLength: {
+                      value: SettingValidation.UserTextMin,
+                      message: 'userPlus must contain from 10 to 160 letters'
+                    },
+                    maxLength: {
+                      value: SettingValidation.UserTextMin,
                       message: 'userPlus must contain from 10 to 160 letters'
                     }
                   })}
@@ -203,7 +207,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
                     pattern: {
-                      value: /^\w{10,160}$/,
+                      value: /^\[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
                       message: 'userMinus must contain from 10 to 160 letters'
                     }
                   })}

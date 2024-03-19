@@ -122,8 +122,16 @@ const SortingMap = {
 } as const;
 
 const SettingValidation = {
-  UserMin: 3,
-  UserMax: 10
+  UserNameMin: 2,
+  UserNameMax: 15,
+  UserMessageValidation: 'От 2 до 15 символов',
+  UserMessageRequired: 'Нужно указать имя',
+  UserTextMin: 10,
+  UserTextMax: 160,
+  UserTextMessage: 'От 10 до 160 символов',
+  UserTextPlus: 'Нужно указать достоинства',
+  UserTextMinus: 'Нужно указать недостатки',
+  UserComment: 'Нужно добавить комментарий'
 };
 
 export {
