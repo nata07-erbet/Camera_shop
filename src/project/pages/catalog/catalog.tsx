@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner } from '../../types/index';
+import { TProduct, TBanner, TSortingAll } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -25,6 +25,7 @@ function Catalog() {
 
   const [ currentSortItem, setCurrentSortItem ] = useState<TCurrentSort>();
   const [ activeSortItem, setActiveSortItem ] = useState<TActiveSort >();
+  const [currentActiveSortItem, setCurrentActiveSortItem] = useState<TSortingAll>();
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -37,26 +38,28 @@ function Catalog() {
       .then((response) => setBanners(response.data));
   }, []);
 
-  const getSortedOffers = (current: TCurrentSort, active: TActiveSort) => {
+
+  const getSortedOffers = (label: TSortingAll) => {
     if(!productsToShow) {
       return null;
     }
-    switch(current, active) {
+    switch(label) {
 
-      case 'sortPrice' && 'down':
-        return sorting.HighToLowPrice(productsToShow);
-
-      case 'sortPopular' && 'up':
+      case 'LowToHighRating':
         return sorting.LowToHighRating(productsToShow);
 
-      case 'sortPopular' && 'down':
+      case 'HighToLowRating':
         return sorting.HighToLowRating(productsToShow);
 
-      case 'sortPrice' && 'up':
+      case 'HighToLowPrice':
+        return sorting.HighToLowPrice(productsToShow);
+
+      case 'LowToHighPrice':
       default:
         return sorting.LowToHighPrice(productsToShow);
     }
   };
+
 
   const handleSortButton = (sort: TCurrentSort) => {
     setCurrentSortItem(sort);
@@ -65,7 +68,7 @@ function Catalog() {
     setActiveSortItem (key);
   };
 
-  const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
+  // const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
   // console.log(sortedProducts);
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;

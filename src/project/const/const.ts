@@ -106,8 +106,8 @@ const FilterLevelMap = {
 
 
 const ForLabelSorted = {
+  sortPopular: 'sortPopular',
   sortPrice: 'sortPrice',
-  sortPopular: 'sortPopular'
 } as const;
 
 

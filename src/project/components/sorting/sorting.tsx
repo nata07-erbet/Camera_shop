@@ -7,7 +7,7 @@ import {
 export type TCurrentSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
 export type TActiveSort= 'up' | 'down';
 
-const SORT: TCurrentSort [] = ['sortPrice', 'sortPopular'];
+const SORT: TCurrentSort [] = ['sortPopular', 'sortPrice' ];
 
 type SortingProps = {
   currentSort: TCurrentSort;
@@ -39,7 +39,7 @@ function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProp
                   type="radio"
                   id={sort}
                   name="sort"
-                  onClick={() => handleSortingClick(sort)}
+                  onChange={() => handleSortingClick(sort)}
                   checked ={sort === currentSort}
                 />
                 <label htmlFor={ForLabelSorted[sort]}>{SortMap[sort]}</label>
@@ -63,7 +63,7 @@ function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProp
                   name="sort-icon"
                   checked={key === activeSort}
                   aria-label={value}
-                  onClick={() => handleClickToggle(key)}
+                  onChange={() => handleClickToggle(key)}
                 />
                 <label htmlFor={key}>
                   <svg width={16} height={14} aria-hidden="true">
