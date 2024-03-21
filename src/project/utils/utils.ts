@@ -1,5 +1,5 @@
 import { PRODUCT_VIEW_COUNT, SIMILAR_VIEW_COUNT } from '../const/const';
-import { TProduct } from '../types/index';
+import { TProduct, TSortingKey } from '../types/index';
 
 function getRandomInteger(min: number, max: number): number {
   const rand: number = min + Math.random() * (max + 1 - min);
@@ -25,10 +25,10 @@ const getSortDownByPrice = (a: TProduct, b: TProduct) => (b.price - a.price);
 const getSortUpByRating = (a: TProduct, b: TProduct) => (a.rating - b.rating);
 const getSortDownByRating = (a: TProduct, b: TProduct) => (b.rating - a.rating);
 
-const sorting: Record<string, (products: TProduct[]) => TProduct[]> = {
+const sorting: Record<TSortingKey, (products: TProduct[]) => TProduct[]> = {
   LowToHighPrice: (products: TProduct[]) => products.toSorted(getSortUpByPrice),
   HighToLowPrice: (products: TProduct[]) => products.toSorted(getSortDownByPrice),
-  LowToHigh: (products: TProduct[]) => products.toSorted(getSortUpByRating),
+  LowToHighRating: (products: TProduct[]) => products.toSorted(getSortUpByRating),
   HighToLowRating: (products: TProduct[]) => products.toSorted(getSortDownByRating),
 };
 

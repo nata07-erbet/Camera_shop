@@ -87,7 +87,7 @@ const DATA_MAX = 160;
 const ERROR_MESSAGE = 'Нужно оценить товар';
 
 const FilterCategoryMap = {
-  photocamera: 'Фотокамера',
+  photocamera: 'Фотоаппарат',
   videocamera: 'Видеокамера'
 } as const;
 
@@ -105,28 +105,25 @@ const FilterLevelMap = {
 } as const;
 
 
-const ForLabelSorted = {
-  sortPopular: 'sortPopular',
-  sortPrice: 'sortPrice',
+const SortingType = {
+  rating: 'Rating',
+  price: 'Price',
 } as const;
 
-
-const SortMap = {
-  [ForLabelSorted.sortPopular]: 'по цене',
-  [ForLabelSorted.sortPrice]: 'по популярности'
-};
-
-const SortingAllMap = {
-  LowToHighPrice: 'По возрастанию цены',
-  HighToLowPrice: 'По убыванию цены',
-  LowToHighRating: 'По возрастанию популярности',
-  HighToLowRating: 'По убыванию популярности',
-};
-
-const SortingMap = {
-  up: 'По возрастанию',
-  down: 'По убыванию'
+const SortingTypeLabel = {
+  [SortingType.price]: 'по цене',
+  [SortingType.rating]: 'по популярности'
 } as const;
+
+const SortingDirection = {
+  up: 'LowToHigh',
+  down: 'HighToLow'
+} as const;
+
+const SortingDirectionLabel = {
+  [SortingDirection.up]: 'По возрастанию',
+  [SortingDirection.down]: 'По убыванию'
+};
 
 const SettingValidation = {
   UserNameMin: 2,
@@ -170,9 +167,9 @@ export {
   FilterCategoryMap,
   FilterTypeMap,
   FilterLevelMap,
-  SortMap,
-  SortingMap,
-  ForLabelSorted,
-  SettingValidation,
-  SortingAllMap
+  SortingType,
+  SortingTypeLabel,
+  SortingDirection,
+  SortingDirectionLabel,
+  SettingValidation
 };
