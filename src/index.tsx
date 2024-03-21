@@ -1,6 +1,4 @@
 import ReactDOM from 'react-dom/client';
-// import { HistoryRouter } from './project/components/history-router/history-router';
-// import { browserHistory } from './src-browser-history';
 import React from 'react';
 import { App } from './project/components/app/app';
 

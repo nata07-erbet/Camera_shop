@@ -1,0 +1,8 @@
+.slider-controls:active {
+  pointer-events: all;
+}
+
+.product-similar__slider .product-card {
+  width: 90%;
+  margin: 0;
+}

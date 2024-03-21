@@ -1,52 +1,77 @@
-function Sorting () {
+import {
+  SortMap,
+  SortingMap,
+  ForLabelSorted,
+} from '../../const/const';
+
+export type TCurrentSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
+export type TActiveSort= 'up' | 'down';
+
+const SORT: TCurrentSort [] = ['sortPopular', 'sortPrice' ];
+
+type SortingProps = {
+  currentSort: TCurrentSort;
+  activeSort: TActiveSort;
+  onSort: (sort: TCurrentSort) => void;
+  onSortToggle : (type: TActiveSort) => void;
+};
+
+function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProps) {
+
+
+  const handleSortingClick = (type: TCurrentSort) => {
+    onSort(type);
+  };
+
+  const handleClickToggle = (key: TActiveSort) => {
+    onSortToggle(key);
+  };
+
   return(
     <div className="catalog-sort" data-testid="sort">
       <form action="#">
         <div className="catalog-sort__inner">
           <p className="title title--h5">Сортировать:</p>
           <div className="catalog-sort__type">
-            <div className="catalog-sort__btn-text">
-              <input
-                type="radio"
-                id="sortPrice"
-                name="sort"
-                defaultChecked
-              />
-              <label htmlFor="sortPrice">по цене</label>
-            </div>
-            <div className="catalog-sort__btn-text">
-              <input type="radio" id="sortPopular" name="sort" />
-              <label htmlFor="sortPopular">по популярности</label>
-            </div>
+            {SORT .map((sort) => (
+              <div className="catalog-sort__btn-text" key={sort}>
+                <input
+                  type="radio"
+                  id={sort}
+                  name="sort"
+                  onChange={() => handleSortingClick(sort)}
+                  checked ={sort === currentSort}
+                />
+                <label htmlFor={ForLabelSorted[sort]}>{SortMap[sort]}</label>
+              </div>
+            ))}
           </div>
           <div className="catalog-sort__order">
-            <div className="catalog-sort__btn catalog-sort__btn--up">
-              <input
-                type="radio"
-                id="up"
-                name="sort-icon"
-                defaultChecked
-                aria-label="По возрастанию"
-              />
-              <label htmlFor="up">
-                <svg width={16} height={14} aria-hidden="true">
-                  <use xlinkHref="#icon-sort" />
-                </svg>
-              </label>
-            </div>
-            <div className="catalog-sort__btn catalog-sort__btn--down">
-              <input
-                type="radio"
-                id="down"
-                name="sort-icon"
-                aria-label="По убыванию"
-              />
-              <label htmlFor="down">
-                <svg width={16} height={14} aria-hidden="true">
-                  <use xlinkHref="#icon-sort" />
-                </svg>
-              </label>
-            </div>
+            {(
+              Object.entries(SortingMap) as [
+                TActiveSort,
+              (typeof SortingMap)[TActiveSort]
+            ][]
+            ).map(([key, value]) => (
+              <div
+                className={`catalog-sort__btn catalog-sort__btn--${key}`}
+                key={key}
+              >
+                <input
+                  type="radio"
+                  id={key}
+                  name="sort-icon"
+                  checked={key === activeSort}
+                  aria-label={value}
+                  onChange={() => handleClickToggle(key)}
+                />
+                <label htmlFor={key}>
+                  <svg width={16} height={14} aria-hidden="true">
+                    <use xlinkHref="#icon-sort" />
+                  </svg>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
       </form>

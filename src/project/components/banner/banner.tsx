@@ -5,16 +5,15 @@ import { AppRoute } from '../../const/const';
 type BannerProps = {
   banner: TBanner;
 }
-// отбражается только 1 картинка?
+
 function Banner ({banner}: BannerProps) {
-  const isRetina = true;
 
   return (
     <div className="banner" key={banner.id}>
       <picture>
         <source
           type="image/webp"
-          srcSet={isRetina ? banner.previewImgWebp2x : banner.previewImgWebp}
+          srcSet={banner.previewImgWebp2x}
         />
         <img
           src={banner.previewImg}

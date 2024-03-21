@@ -1,11 +1,11 @@
 import { withHistory } from '../../utils/mock-component/mock-component';
 import { render, screen } from '@testing-library/react';
-import { PopUp } from './pop-up';
+import { PopUpMain } from './index';
 
-describe('component: PopUp', () => {
+describe('component: PopUpMain', () => {
   it('should render correctly', () => {
     const expectedData = 'modal-window';
-    const preparedComponent = withHistory(<PopUp />);
+    const preparedComponent = withHistory(<PopUpMain />);
 
     render(preparedComponent);
 

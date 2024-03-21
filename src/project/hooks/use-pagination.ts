@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 type TUsePaginationProps = {
   pagesAmount: number;
@@ -14,29 +14,41 @@ type TUsePaginationReturn = {
 };
 
 const DEFAULT_PAGE_NUM = 1;
-const MAX_VISIBLE_LINKS_AMOUNT = 3;
+const MAX_PAGES_IN_RANGE = 3;
 
-const usePagination = ({ pagesAmount, initPage }: TUsePaginationProps): TUsePaginationReturn => {
-  const [currentPage, setCurrentPage] = React.useState(initPage || DEFAULT_PAGE_NUM);
-  const calculateRange = React.useCallback((page: number) => {
-    const range = Array.from({ length: pagesAmount }, (_, i) => i + 1);
-    const start = Math.min(page - 1, pagesAmount - MAX_VISIBLE_LINKS_AMOUNT);
-    const end = Math.min(start + MAX_VISIBLE_LINKS_AMOUNT, pagesAmount);
-    return range.slice(start, end);
-  }, [pagesAmount]);
+const usePagination = ({ pagesAmount, initPage = DEFAULT_PAGE_NUM }: TUsePaginationProps): TUsePaginationReturn => {
+  const [currentPage, setCurrentPage] = useState(initPage);
+  const ranges: number[][] = useMemo(() =>
+    Array.from({ length: pagesAmount }, (_, i) => i + 1).reduce((acc, page, idx) => {
+      const rangeIdx = Math.floor(idx / MAX_PAGES_IN_RANGE);
+      if (!acc[rangeIdx]) {
+        acc[rangeIdx] = [];
+      }
+      acc[rangeIdx].push(page);
+      return acc;
+    },
+    [] as number[][]), [pagesAmount]
+  );
+  const initRangeIdx = ranges.findIndex((range) => range.includes(initPage));
+  if (initRangeIdx === -1) {
+    throw new Error('Initial page is out of range');
+  }
 
-  const [currentRange, setCurrentRange] = React.useState(calculateRange(currentPage));
-
+  const [currentRangeIdx, setCurrentRangeIdx] = useState(initRangeIdx);
+  const currentRange = ranges[currentRangeIdx];
   const previousPage = currentRange[0] > 1 ? currentRange[0] - 1 : null;
   const nextPage = currentRange[currentRange.length - 1] < pagesAmount ? currentRange[currentRange.length - 1] + 1 : null;
 
-  const setPage = React.useCallback((page: number) => {
+  const setPage = useCallback((page: number) => {
     setCurrentPage(page);
 
-    if ([previousPage, nextPage].includes(page)) {
-      setCurrentRange(calculateRange(page));
+    if ([previousPage].includes(page)) {
+      setCurrentRangeIdx((prev) => prev - 1);
+    } else if ([nextPage].includes(page)) {
+      setCurrentRangeIdx((prev) => prev + 1);
     }
-  }, [calculateRange, nextPage, previousPage]);
+
+  }, [nextPage, previousPage]);
 
   return {
     currentPage,

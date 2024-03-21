@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { TProduct} from '../../types/index';
-import { PopUp, PopUpProps } from './pop-up';
+import { PopUpMain, PopUpMainProps } from './popup-main';
 
-type AddProductBasketPopProps = PopUpProps &{
+type AddProductBasketPopProps = PopUpMainProps &{
   product: TProduct;
 };
 
@@ -15,7 +15,7 @@ function PopupAddBasket ({product, ...props}: AddProductBasketPopProps) {
   };
 
   return (
-    <PopUp {...props}>
+    <PopUpMain {...props}>
       <p className="title title--h4">Добавить товар в корзину</p>
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
@@ -61,7 +61,7 @@ function PopupAddBasket ({product, ...props}: AddProductBasketPopProps) {
                 Добавить в корзину
         </button>
       </div>
-    </PopUp>
+    </PopUpMain>
   );
 }
 

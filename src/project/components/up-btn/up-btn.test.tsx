@@ -7,7 +7,7 @@ describe('component: Sorting', () => {
     const expectedTestId = 'up';
 
     const preparedComponent = withHistory(
-      <UpBtn onScrollTop={function () {}} />
+      <UpBtn onScrollTop={vi.fn()} />
     );
 
     render(preparedComponent);

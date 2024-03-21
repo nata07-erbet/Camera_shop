@@ -1,8 +1,7 @@
-import { TRating } from '../../types';
 import { RatingMap } from '../../const/const';
 
 type RatingProps = {
-  rating: TRating;
+  rating: number;
   reviewCount?: number;
 };
 

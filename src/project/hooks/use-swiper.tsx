@@ -9,15 +9,11 @@ function useSwiper() {
     },
     pagination: {
       clickable: true,
+      bulletActiveClass: 'visually-hidden',
     },
     navigation: true,
-
-    // renderBullet: function (index: number, className: string) {
-    //   return `<span class="${ className }">${ index + 1 }</span>`;
-    // },
   });
 
   return swiper;
 }
-
 export { useSwiper };

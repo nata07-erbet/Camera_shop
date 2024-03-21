@@ -9,7 +9,7 @@ describe('component: productsMocks', () => {
     const preparedComponent = withHistory(
       <ProductCardList
         products={productsMocks}
-        onClickButton={function (): void {}}
+        onClickButton={vi.fn()}
       />
     );
 

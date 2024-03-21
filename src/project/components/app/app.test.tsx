@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { renderWithRouter } from '../../utils/testUtils';
+import { renderWithRouter } from '../../utils/test-utils';
 import { AppRoute } from '../../const/const';
 import { generatePath } from 'react-router';
 
