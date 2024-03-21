@@ -19,7 +19,7 @@ type FilterProps = {
   onTypeChange: (key: TFilterType) => void;
 };
 
-function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeChange}: FilterProps) {
+function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeChange, onLevelChange }: FilterProps) {
 
   const [ isReset, setIsReset ] = useState(false);
 
@@ -38,7 +38,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
   };
 
   const handleTypeLevel = (key: TFilterLevel) => {
-    setCurrentLevelItem(key);
+    onLevelChange(key);
   };
 
   const handleButtonClick = () => {
@@ -80,7 +80,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
               <label>
                 <input
                   type="checkbox"
-                  checked={ key === currentCategoryItem && !isReset}
+                  checked={ key === categoryItem && !isReset}
                   name={key}
                   onChange={() => handleCategoryChange(key)}
                 />
@@ -105,7 +105,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
               <label>
                 <input
                   type="checkbox"
-                  checked={key === currentTypeItem && !isReset }
+                  checked={key === typeItem && !isReset }
                   name={key}
                   onChange={() => handleTypeChange(key)}
                   disabled={isDisabled()}
@@ -128,7 +128,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
               <label>
                 <input
                   type="checkbox"
-                  checked={key === currentLevelItem && !isReset }
+                  checked={key === levelItem && !isReset }
                   name={key}
                   onChange={() => handleTypeLevel(key)}
                 />

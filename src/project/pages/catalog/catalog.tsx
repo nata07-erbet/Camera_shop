@@ -15,6 +15,11 @@ import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
 import { sorting } from '../../utils/utils';
 import { TCurrentSort, TActiveSort } from '../../components/sorting/sorting';
+import {
+  TFilterCategory,
+  TFilterType,
+  TFilterLevel
+} from '../../types/index';
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -86,12 +91,7 @@ function Catalog() {
 
   const handleTypeLevel = (key: TFilterLevel) => {
     setCurrentLevelItem(key);
-  };
-
-  const handleButtonClick = () => {
-    setIsReset((prevState) => !prevState);
-  };
-  
+  }
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const pagesAmount = getTotalPageCount(products.length);
 
@@ -133,9 +133,12 @@ function Catalog() {
               <div className="page-content__columns">
                 <div className="catalog__aside">
                   <Filter
-                    categoryFilter={categoryItem}
-                    {typeItem}
-                    {levelItem}
+                    categoryItem={currentCategoryItem}
+                    typeItem={currentTypeItem}
+                    levelItem={currentLevelItem}
+                    onCategoryChange={handleCategoryChange}
+                    onTypeChange={handleTypeChange}
+                    onLevelChange={handleTypeLevel}
                    />
                 </div>
                 <div className="catalog__content">
