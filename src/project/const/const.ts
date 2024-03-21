@@ -111,8 +111,8 @@ const SortingType = {
 } as const;
 
 const SortingTypeLabel = {
-  [SortingType.price]: 'по цене',
-  [SortingType.rating]: 'по популярности'
+  [SortingType.rating]: 'по популярности',
+  [SortingType.price]: 'по цене'
 } as const;
 
 const SortingDirection = {

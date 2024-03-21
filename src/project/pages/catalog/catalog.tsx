@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner, TSortingAll } from '../../types/index';
+import { TProduct, TBanner, TSortingKey  } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -14,12 +14,30 @@ import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
 import { sorting } from '../../utils/utils';
-import { TCurrentSort, TActiveSort } from '../../components/sorting/sorting';
+
 import {
   TFilterCategory,
   TFilterType,
   TFilterLevel
 } from '../../types/index';
+
+const getSortedProducts = (products: TProduct[], label: TSortingKey) => {
+
+  switch(label) {
+    case 'LowToHighRating':
+      return sorting.LowToHighRating(products);
+
+    case 'HighToLowRating':
+      return sorting.HighToLowRating(products);
+
+    case 'HighToLowPrice':
+      return sorting.HighToLowPrice(products);
+
+    case 'LowToHighPrice':
+    default:
+      return sorting.LowToHighPrice(products);
+  }
+};
 
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -28,13 +46,12 @@ function Catalog() {
   const [productsToShow, setProductsToShow] = useState<TProduct[]>([]);
   const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
 
-  const [ currentSortItem, setCurrentSortItem ] = useState<TCurrentSort>();
-  const [ activeSortItem, setActiveSortItem ] = useState<TActiveSort >();
-  const [currentActiveSortItem, setCurrentActiveSortItem] = useState<TSortingAll>();
+  const [ currentSortItem, setCurrentSortItem ] = useState<TSortingKey | null>(null);
 
-  const [ currentCategoryItem, setCurrentCategoryItem ] = useState<TFilterCategory>();
-  const [ currentTypeItem, setCurrentTypeItem ] = useState<TFilterType>();
-  const [ currentLevelItem, setCurrentLevelItem ] = useState<TFilterLevel>();
+
+  const [ currentCategoryItem, setCurrentCategoryItem ] = useState<TFilterCategory | null>(null);
+  const [ currentTypeItem, setCurrentTypeItem ] = useState<TFilterType | null>(null);
+  const [ currentLevelItem, setCurrentLevelItem ] = useState<TFilterLevel | null>(null);
 
 
   useEffect(() => {
@@ -49,37 +66,11 @@ function Catalog() {
   }, []);
 
 
-  const getSortedOffers = (label: TSortingAll) => {
-    if(!productsToShow) {
-      return null;
-    }
-    switch(label) {
-
-      case 'LowToHighRating':
-        return sorting.LowToHighRating(productsToShow);
-
-      case 'HighToLowRating':
-        return sorting.HighToLowRating(productsToShow);
-
-      case 'HighToLowPrice':
-        return sorting.HighToLowPrice(productsToShow);
-
-      case 'LowToHighPrice':
-      default:
-        return sorting.LowToHighPrice(productsToShow);
-    }
-  };
-
-
-  const handleSortButton = (sort: TCurrentSort) => {
+  const handleSortButton = (sort: TSortingKey) => {
     setCurrentSortItem(sort);
   };
-  const handleSortButtonToggle = (key: TActiveSort) => {
-    setActiveSortItem (key);
-  };
+  const sortedProducts = getSortedProducts(productsToShow, currentSortItem);
 
-  // const sortedProducts = getSortedOffers(currentSortItem, activeSortItem);
-  // console.log(sortedProducts);
 
   const handleCategoryChange = (key: TFilterCategory) => {
     setCurrentCategoryItem(key);
@@ -91,7 +82,8 @@ function Catalog() {
 
   const handleTypeLevel = (key: TFilterLevel) => {
     setCurrentLevelItem(key);
-  }
+  };
+
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
   const pagesAmount = getTotalPageCount(products.length);
 
@@ -139,17 +131,14 @@ function Catalog() {
                     onCategoryChange={handleCategoryChange}
                     onTypeChange={handleTypeChange}
                     onLevelChange={handleTypeLevel}
-                   />
+                  />
                 </div>
                 <div className="catalog__content">
                   <Sorting
-                    currentSort={currentSortItem}
-                    activeSort={activeSortItem}
                     onSort={handleSortButton}
-                    onSortToggle={handleSortButtonToggle}
                   />
                   <ProductCardList
-                    products={productsToShow}
+                    products={sortedProducts}
                     onClickButton={handleClickButton}
                   />
                   {showPagination && (

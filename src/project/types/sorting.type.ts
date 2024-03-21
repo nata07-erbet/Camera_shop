@@ -1,5 +1,10 @@
-import { SortingAllMap } from '../const/const';
+import {
+  SortingType,
+  SortingDirection,
+} from '../const/const';
 
-type TSortingAll = keyof typeof SortingAllMap;
+type TSortingType=(typeof SortingType) [keyof typeof SortingType];
+type TSortingDirection = (typeof SortingDirection) [keyof typeof SortingDirection];
+type TSortingKey = `${TSortingDirection}${TSortingType}`
 
-export type { TSortingAll };
+export type { TSortingType, TSortingDirection, TSortingKey };

@@ -1,30 +1,32 @@
+import { useState } from 'react';
 import {
-  SortMap,
-  SortingMap,
-  ForLabelSorted,
+  SortingTypeLabel,
+  SortingDirectionLabel,
+  SortingDirection,
 } from '../../const/const';
+import { TSortingType, TSortingDirection, TSortingKey } from '../../types';
 
-export type TCurrentSort = (typeof ForLabelSorted)[keyof typeof ForLabelSorted];
-export type TActiveSort= 'up' | 'down';
-
-const SORT: TCurrentSort [] = ['sortPopular', 'sortPrice' ];
+const SORT_TYPES: TSortingType[] = ['Rating', 'Price'];
 
 type SortingProps = {
-  currentSort: TCurrentSort;
-  activeSort: TActiveSort;
-  onSort: (sort: TCurrentSort) => void;
-  onSortToggle : (type: TActiveSort) => void;
+  onSort: (key: TSortingKey) => void;
 };
 
-function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProps) {
+const DEFAULT_DIRECTION: TSortingDirection = 'LowToHigh';
+const DEFAULT_TYPE: TSortingType = 'Price';
 
+function Sorting ({ onSort }: SortingProps) {
+  const [currentType, setCurrentType] = useState<TSortingType | null>(null);
+  const [currentDirection, setCurrentDirection] = useState<TSortingDirection | null>(null);
 
-  const handleSortingClick = (type: TCurrentSort) => {
-    onSort(type);
+  const handleTypeChange = (type: TSortingType) => {
+    setCurrentType(type);
+    onSort(`${currentDirection ?? DEFAULT_DIRECTION}${type}`);
   };
 
-  const handleClickToggle = (key: TActiveSort) => {
-    onSortToggle(key);
+  const handleDirectionChange = (direction: TSortingDirection) => {
+    setCurrentDirection(direction);
+    onSort(`${direction}${currentType ?? DEFAULT_TYPE}`);
   };
 
   return(
@@ -33,26 +35,21 @@ function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProp
         <div className="catalog-sort__inner">
           <p className="title title--h5">Сортировать:</p>
           <div className="catalog-sort__type">
-            {SORT .map((sort) => (
-              <div className="catalog-sort__btn-text" key={sort}>
+            {SORT_TYPES.map((type) => (
+              <div className="catalog-sort__btn-text" key={type}>
                 <input
                   type="radio"
-                  id={sort}
+                  id={type}
                   name="sort"
-                  onChange={() => handleSortingClick(sort)}
-                  checked ={sort === currentSort}
+                  onChange={() => handleTypeChange(type)}
+                  checked ={type === currentType}
                 />
-                <label htmlFor={ForLabelSorted[sort]}>{SortMap[sort]}</label>
+                <label htmlFor={type}>{SortingTypeLabel[type]}</label>
               </div>
             ))}
           </div>
           <div className="catalog-sort__order">
-            {(
-              Object.entries(SortingMap) as [
-                TActiveSort,
-              (typeof SortingMap)[TActiveSort]
-            ][]
-            ).map(([key, value]) => (
+            {(Object.entries(SortingDirection) as [string, TSortingDirection][]).map(([key, value]) => (
               <div
                 className={`catalog-sort__btn catalog-sort__btn--${key}`}
                 key={key}
@@ -61,9 +58,9 @@ function Sorting ({ currentSort, activeSort, onSort, onSortToggle }: SortingProp
                   type="radio"
                   id={key}
                   name="sort-icon"
-                  checked={key === activeSort}
-                  aria-label={value}
-                  onChange={() => handleClickToggle(key)}
+                  checked={value === currentDirection}
+                  aria-label={SortingDirectionLabel[value]}
+                  onChange={() => handleDirectionChange(value)}
                 />
                 <label htmlFor={key}>
                   <svg width={16} height={14} aria-hidden="true">
