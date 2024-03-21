@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { TPostRewiew } from '../../types';
 import { api } from '../../services';
-import {  SettingValidation } from '../../const/const'
+import { SettingValidation } from '../../const/const';
 
 type IPopupAddRewiew = PopUpMainProps & {
   productId: number;
@@ -50,7 +50,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
       .then(onSubmit)
       .catch((err) => setError('root', err));
   };
-  console.log(errors);
+
   return(
     <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
@@ -170,14 +170,10 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   placeholder="Основные преимущества товара"
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
-                    minLength: {
-                      value: SettingValidation.UserTextMin,
+                    pattern: {
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
                       message: 'userPlus must contain from 10 to 160 letters'
                     },
-                    maxLength: {
-                      value: SettingValidation.UserTextMin,
-                      message: 'userPlus must contain from 10 to 160 letters'
-                    }
                   })}
                   data-testid="positiveElement"
                 />
@@ -207,7 +203,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
                     pattern: {
-                      value: /^\[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
                       message: 'userMinus must contain from 10 to 160 letters'
                     }
                   })}
@@ -237,7 +233,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('comment', {
                     required: 'Поделитесь своим опытом покупки',
                     pattern: {
-                      value: /^\w{10,160}$/,
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
                       message: 'Comment must contain from 10 to 160 letters'
                     }
                   })
