@@ -12,11 +12,12 @@ import {
 } from '../../types/index';
 
 type FilterProps = {
-  categoryItem: TFilterCategory;
-  typeItem: TFilterType;
-  levelItem: TFilterLevel;
+  categoryItem: TFilterCategory | null;
+  typeItem: TFilterType | null;
+  levelItem: TFilterLevel | null;
   onCategoryChange: (key: TFilterCategory) => void;
   onTypeChange: (key: TFilterType) => void;
+  onLevelChange:()
 };
 
 function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeChange, onLevelChange }: FilterProps) {
@@ -24,21 +25,21 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
   const [ isReset, setIsReset ] = useState(false);
 
   const isDisabled = () => {
-    if(categoryItem === 'videocamera') {
+    if(categoryItem === 'Видеокамера') {
       return true;
     }
   };
 
-  const handleCategoryChange = (key: TFilterCategory) => {
-    onCategoryChange(key);
+  const handleCategoryChange = (category: TFilterCategory) => {
+    onCategoryChange(category);
   };
 
-  const handleTypeChange = (key: TFilterType) => {
-    onTypeChange(key);
+  const handleTypeChange = (type: TFilterType) => {
+    onTypeChange(type);
   };
 
-  const handleTypeLevel = (key: TFilterLevel) => {
-    onLevelChange(key);
+  const handleTypeLevel = (level: TFilterLevel) => {
+    onLevelChange(level);
   };
 
   const handleButtonClick = () => {
@@ -72,8 +73,8 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Категория</legend>
           {(
             Object.entries(FilterCategoryMap) as [
-              TFilterCategory,
-              (typeof FilterCategoryMap)[TFilterCategory]
+              string,
+              TFilterCategory
             ][]
           ).map(([key, value]) => (
             <div className="custom-checkbox catalog-filter__item" key={key}>
@@ -82,7 +83,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
                   type="checkbox"
                   checked={ key === categoryItem && !isReset}
                   name={key}
-                  onChange={() => handleCategoryChange(key)}
+                  onChange={() => handleCategoryChange(value)}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">
@@ -97,8 +98,8 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Тип камеры</legend>
           {(
             Object.entries(FilterTypeMap) as [
-              TFilterType,
-              (typeof FilterTypeMap)[TFilterType]
+              string,
+              TFilterType
             ][]
           ).map(([key, value]) => (
             <div className="custom-checkbox catalog-filter__item" key={key}>
@@ -107,7 +108,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
                   type="checkbox"
                   checked={key === typeItem && !isReset }
                   name={key}
-                  onChange={() => handleTypeChange(key)}
+                  onChange={() => handleTypeChange(value)}
                   disabled={isDisabled()}
                 />
                 <span className="custom-checkbox__icon" />
@@ -120,8 +121,8 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Уровень</legend>
           {(
             Object.entries(FilterLevelMap) as [
-              TFilterLevel ,
-              (typeof FilterLevelMap)[TFilterLevel ]
+              string,s
+              TFilterLevel
             ][]
           ).map(([key, value]) => (
             <div className="custom-checkbox catalog-filter__item" key={key}>
@@ -130,7 +131,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
                   type="checkbox"
                   checked={key === levelItem && !isReset }
                   name={key}
-                  onChange={() => handleTypeLevel(key)}
+                  onChange={() => handleTypeLevel(value)}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>

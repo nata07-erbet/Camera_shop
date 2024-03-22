@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner, TSortingKey  } from '../../types/index';
+import { TProduct, TBanner, TSortingKey } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
@@ -18,11 +18,11 @@ import { sorting } from '../../utils/utils';
 import {
   TFilterCategory,
   TFilterType,
-  TFilterLevel
+  TFilterLevel,
+  TFilterData
 } from '../../types/index';
 
-const getSortedProducts = (products: TProduct[], label: TSortingKey) => {
-
+const sortProducts = (products: TProduct[], label: TSortingKey) => {
   switch(label) {
     case 'LowToHighRating':
       return sorting.LowToHighRating(products);
@@ -69,19 +69,17 @@ function Catalog() {
   const handleSortButton = (sort: TSortingKey) => {
     setCurrentSortItem(sort);
   };
-  const sortedProducts = getSortedProducts(productsToShow, currentSortItem);
 
-
-  const handleCategoryChange = (key: TFilterCategory) => {
-    setCurrentCategoryItem(key);
+  const handleCategoryChange = (category: TFilterCategory) => {
+    setCurrentCategoryItem(category);
   };
 
-  const handleTypeChange = (key: TFilterType) => {
-    setCurrentTypeItem(key);
+  const handleTypeChange = (type: TFilterType) => {
+    setCurrentTypeItem(type);
   };
 
-  const handleTypeLevel = (key: TFilterLevel) => {
-    setCurrentLevelItem(key);
+  const handleTypeLevel = (level: TFilterLevel) => {
+    setCurrentLevelItem(level);
   };
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
@@ -108,6 +106,17 @@ function Catalog() {
     },
     [products]
   );
+
+  const filterProducts = (category: TFilterCategory, prods: TProduct[]) => {
+    prods.filter((prod) => prod.category === category);
+  };
+
+  const result = currentCategoryItem ? filterProducts(currentCategoryItem, products) : products;
+  console.log(result);
+
+  const filteredProducts = result;
+
+  const currentProducts = currentSortItem ? sortProducts(filteredProducts, currentSortItem) : products;
 
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;
@@ -138,7 +147,7 @@ function Catalog() {
                     onSort={handleSortButton}
                   />
                   <ProductCardList
-                    products={sortedProducts}
+                    products={currentProducts}
                     onClickButton={handleClickButton}
                   />
                   {showPagination && (
