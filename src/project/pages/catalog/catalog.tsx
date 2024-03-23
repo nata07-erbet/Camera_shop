@@ -22,6 +22,7 @@ import {
   TFilterData
 } from '../../types/index';
 
+
 const sortProducts = (products: TProduct[], label: TSortingKey) => {
   switch(label) {
     case 'LowToHighRating':
@@ -70,16 +71,8 @@ function Catalog() {
     setCurrentSortItem(sort);
   };
 
-  const handleCategoryChange = (category: TFilterCategory) => {
-    setCurrentCategoryItem(category);
-  };
-
-  const handleTypeChange = (type: TFilterType) => {
-    setCurrentTypeItem(type);
-  };
-
-  const handleTypeLevel = (level: TFilterLevel) => {
-    setCurrentLevelItem(level);
+  const handleFilterChange = (data: TFilterData) => {
+    console.log('data');
   };
 
   const showPagination = products.length > PRODUCT_VIEW_COUNT;
@@ -133,14 +126,7 @@ function Catalog() {
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
                 <div className="catalog__aside">
-                  <Filter
-                    categoryItem={currentCategoryItem}
-                    typeItem={currentTypeItem}
-                    levelItem={currentLevelItem}
-                    onCategoryChange={handleCategoryChange}
-                    onTypeChange={handleTypeChange}
-                    onLevelChange={handleTypeLevel}
-                  />
+                  <Filter onChange={() => handleFilterChange(data)} />
                 </div>
                 <div className="catalog__content">
                   <Sorting

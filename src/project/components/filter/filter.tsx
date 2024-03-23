@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   FilterCategoryMap,
   FilterTypeMap,
@@ -8,42 +8,71 @@ import {
 import {
   TFilterCategory,
   TFilterType,
-  TFilterLevel
+  TFilterLevel,
+  TFilterData
 } from '../../types/index';
 
-type FilterProps = {
-  categoryItem: TFilterCategory | null;
-  typeItem: TFilterType | null;
-  levelItem: TFilterLevel | null;
-  onCategoryChange: (key: TFilterCategory) => void;
-  onTypeChange: (key: TFilterType) => void;
-  onLevelChange:()
+const INITIAL_FILTER_DATA: TFilterData = {
+  category: null,
+  types: [],
+  levels: []
 };
 
-function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeChange, onLevelChange }: FilterProps) {
+const AvaliableFilterTypes: Record<TFilterCategory, TFilterType[]> = {
+  [FilterCategoryMap.photocamera]: [FilterTypeMap.collection , FilterTypeMap.digital, FilterTypeMap.film, FilterTypeMap.snapshot],
+  [FilterCategoryMap.videocamera]: [FilterTypeMap.collection , FilterTypeMap.digital]
+};
 
-  const [ isReset, setIsReset ] = useState(false);
+const checkIfTypeAvailable = (category: TFilterCategory, type: TFilterType) => {
+  AvaliableFilterTypes[category].includes(type);
+};
 
-  const isDisabled = () => {
-    if(categoryItem === 'Видеокамера') {
-      return true;
-    }
-  };
+type FilterProps = {
+ onChange: (data: TFilterData) => void;
+};
+
+function Filter ({ onChange }: FilterProps) {
+  const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA);
 
   const handleCategoryChange = (category: TFilterCategory) => {
-    onCategoryChange(category);
+    const newData: TFilterData = {
+      ...filterData,
+      category,
+      types: filterData.types.filter((type) => checkIfTypeAvailable(category, type))
+    };
+
+    setFilterData(newData);
+    onChange(newData);
   };
 
-  const handleTypeChange = (type: TFilterType) => {
-    onTypeChange(type);
+  const handleTypeChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = evt.target;
+    const type = FilterTypeMap[value as keyof typeof FilterTypeMap];
+
+    const newData = {
+      ...filterData,
+      types: checked ? [...filterData.types, type] : filterData.types.filter((el) => el !== type)
+    };
+
+    setFilterData(newData);
+    onChange(newData);
   };
 
-  const handleTypeLevel = (level: TFilterLevel) => {
-    onLevelChange(level);
+  const handleTypeLevel = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = evt.target;
+    const type = FilterLevelMap[value as keyof typeof FilterLevelMap];
+    const newData = {
+      ...filterData,
+      levels: checked ? [...filterData.levels, type] : filterData.levels.filter((el) => el !== type),
+    };
+
+    setFilterData(newData);
+    onChange(newData);
   };
 
-  const handleButtonClick = () => {
-    setIsReset((prevState) => !prevState);
+  const handleResetClick = () => {
+    setFilterData(INITIAL_FILTER_DATA);
+    onChange(INITIAL_FILTER_DATA);
   };
 
   return(
@@ -73,16 +102,17 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Категория</legend>
           {(
             Object.entries(FilterCategoryMap) as [
-              string,
+              keyof typeof FilterCategoryMap,
               TFilterCategory
             ][]
           ).map(([key, value]) => (
             <div className="custom-checkbox catalog-filter__item" key={key}>
               <label>
                 <input
-                  type="checkbox"
-                  checked={ key === categoryItem && !isReset}
-                  name={key}
+                  type="radio"
+                  name="category"
+                  value={key}
+                  checked={filterData.category === value}
                   onChange={() => handleCategoryChange(value)}
                 />
                 <span className="custom-checkbox__icon" />
@@ -98,7 +128,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Тип камеры</legend>
           {(
             Object.entries(FilterTypeMap) as [
-              string,
+              keyof typeof FilterTypeMap,
               TFilterType
             ][]
           ).map(([key, value]) => (
@@ -106,10 +136,11 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
               <label>
                 <input
                   type="checkbox"
-                  checked={key === typeItem && !isReset }
-                  name={key}
-                  onChange={() => handleTypeChange(value)}
-                  disabled={isDisabled()}
+                  name="type"
+                  value={key}
+                  checked={filterData.types.includes(value)}
+                  onChange={handleTypeChange}
+                  disabled={Boolean(filterData.category && checkIfTypeAvailable(filterData.category, value))}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>
@@ -121,7 +152,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
           <legend className="title title--h5">Уровень</legend>
           {(
             Object.entries(FilterLevelMap) as [
-              string,s
+              keyof typeof FilterLevelMap,
               TFilterLevel
             ][]
           ).map(([key, value]) => (
@@ -129,9 +160,10 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
               <label>
                 <input
                   type="checkbox"
-                  checked={key === levelItem && !isReset }
+                  checked={filterData.levels.includes(value) }
                   name={key}
-                  onChange={() => handleTypeLevel(value)}
+                  value={key}
+                  onChange={handleTypeLevel}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>
@@ -142,7 +174,7 @@ function Filter ({ categoryItem, typeItem, levelItem, onCategoryChange, onTypeCh
         <button
           className="btn catalog-filter__reset-btn"
           type="reset"
-          onClick={handleButtonClick}
+          onClick={handleResetClick}
         >
           Сбросить фильтры
         </button>
