@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
@@ -49,6 +50,22 @@ function Catalog() {
   const [currentSorting, setCurrentSorting] = useState<TSortingKey | null>(null);
   const [filters, setFilters] = useState<TFilterData | null>(null);
 
+  const { pathname } = useLocation();
+  const [ searchParams ] = useSearchParams();
+  const navigate = useNavigate();
+
+  const generatePathSort = (sort: string): string => {
+    searchParams.set('sort', sort);
+
+    return `${pathname}?${searchParams.toString()}`;
+  };
+
+  const generatePathToFilter = (filter: string): string => {
+    searchParams.set('filter', filter);
+
+    return `${pathname}${searchParams.toString()}`;
+  };
+
   const filteredProducts = useMemo(() => {
     const result = filters ? filterProducts(products, filters) : products;
     return result;
@@ -86,6 +103,8 @@ function Catalog() {
 
   const handleSortChange = (sort: TSortingKey) => {
     setCurrentSorting(sort);
+
+    navigate(generatePathSort(sort));
   };
 
   const handleClickButton = (productId: TProduct['id']) => {
@@ -107,9 +126,8 @@ function Catalog() {
   const handleFiltersChange = useCallback(
     (filterData: TFilterData) => {
       setFilters(filterData);
-    },
-    []
-  );
+      generatePathToFilter(filterData);
+    },[generatePathToFilter]);
 
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;

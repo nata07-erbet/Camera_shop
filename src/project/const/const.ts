@@ -11,7 +11,7 @@ const START_SEARCH_TERM = 3;
 const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
-  Main: '/',
+  Main: '/:type?/:direction?',
   AnyProduct: '/product',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
