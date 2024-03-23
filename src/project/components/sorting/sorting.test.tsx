@@ -8,10 +8,7 @@ describe('component: Sorting', () => {
 
     const preparedComponent = withHistory(
       <Sorting
-        currentSort={'sortPopular'}
-        activeSort={'down'}
-        onSort={vi.fn()}
-        onSortToggle ={vi.fn()}
+        onSort ={vi.fn()}
       />);
 
     render(preparedComponent);

@@ -8,39 +8,37 @@ import {
 import {
   TFilterCategory,
   TFilterType,
-  TFilterLevel,
-  TFilterData
+  TFilterLevel
 } from '../../types/index';
 
-const INITIAL_FILTER_DATA: TFilterData = {
-  category: null,
-  types: [],
-  levels: []
+type TFilterData = {
+  category: TFilterCategory | null;
+  levels: TFilterLevel[];
+  types: TFilterType[];
+}
+
+const INITIAL_FILTER_DATA: TFilterData = { category: null, levels: [], types: [] };
+
+const AvailableTypes: Record<TFilterCategory, TFilterType[]> = {
+  [FilterCategoryMap.photocamera]: [FilterTypeMap.collection, FilterTypeMap.digital, FilterTypeMap.film, FilterTypeMap.snapshot],
+  [FilterCategoryMap.videocamera]: [FilterTypeMap.collection, FilterTypeMap.digital],
 };
 
-const AvaliableFilterTypes: Record<TFilterCategory, TFilterType[]> = {
-  [FilterCategoryMap.photocamera]: [FilterTypeMap.collection , FilterTypeMap.digital, FilterTypeMap.film, FilterTypeMap.snapshot],
-  [FilterCategoryMap.videocamera]: [FilterTypeMap.collection , FilterTypeMap.digital]
-};
-
-const checkIfTypeAvailable = (category: TFilterCategory, type: TFilterType) => {
-  AvaliableFilterTypes[category].includes(type);
-};
+const checkIfTypeAvailable = (category: TFilterCategory, type: TFilterType) => AvailableTypes[category].includes(type);
 
 type FilterProps = {
- onChange: (data: TFilterData) => void;
+  onChange: (data: TFilterData) => void;
 };
 
 function Filter ({ onChange }: FilterProps) {
-  const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA);
+  const [filterData, setFilterData] = useState<TFilterData>(INITIAL_FILTER_DATA);
 
   const handleCategoryChange = (category: TFilterCategory) => {
     const newData: TFilterData = {
       ...filterData,
       category,
-      types: filterData.types.filter((type) => checkIfTypeAvailable(category, type))
+      types: filterData.types.filter((type) => checkIfTypeAvailable(category, type)),
     };
-
     setFilterData(newData);
     onChange(newData);
   };
@@ -48,24 +46,21 @@ function Filter ({ onChange }: FilterProps) {
   const handleTypeChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = evt.target;
     const type = FilterTypeMap[value as keyof typeof FilterTypeMap];
-
-    const newData = {
+    const newData: TFilterData = {
       ...filterData,
-      types: checked ? [...filterData.types, type] : filterData.types.filter((el) => el !== type)
+      types: checked ? [...filterData.types, type] : filterData.types.filter((el) => el !== type),
     };
-
     setFilterData(newData);
     onChange(newData);
   };
 
-  const handleTypeLevel = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleLevelChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = evt.target;
     const type = FilterLevelMap[value as keyof typeof FilterLevelMap];
-    const newData = {
+    const newData: TFilterData = {
       ...filterData,
       levels: checked ? [...filterData.levels, type] : filterData.levels.filter((el) => el !== type),
     };
-
     setFilterData(newData);
     onChange(newData);
   };
@@ -140,7 +135,7 @@ function Filter ({ onChange }: FilterProps) {
                   value={key}
                   checked={filterData.types.includes(value)}
                   onChange={handleTypeChange}
-                  disabled={Boolean(filterData.category && checkIfTypeAvailable(filterData.category, value))}
+                  disabled={Boolean(filterData.category && !checkIfTypeAvailable(filterData.category, value))}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>
@@ -160,10 +155,10 @@ function Filter ({ onChange }: FilterProps) {
               <label>
                 <input
                   type="checkbox"
-                  checked={filterData.levels.includes(value) }
+                  checked={filterData.levels.includes(value)}
                   name={key}
                   value={key}
-                  onChange={handleTypeLevel}
+                  onChange={handleLevelChange}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>

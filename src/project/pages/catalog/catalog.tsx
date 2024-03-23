@@ -2,14 +2,14 @@ import { useState, useCallback, useMemo } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SliderSwiper } from '../../components/slider-swiper/slider-swiper';
-import { TProduct, TBanner, TSortingKey, TFilterData} from '../../types/index';
+import { TProduct, TBanner, TFilterData, TSortingKey } from '../../types/index';
 import { ProductCardList } from '../../components/product-card-list/product-card-list';
 import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
 import { PopupAddBasket } from '../../components/pop-up/index';
-import { PRODUCT_VIEW_COUNT, ReqPath, DEFAULT_PAGE_NUM } from '../../const/const';
+import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
 import { api } from '../../services';
@@ -38,15 +38,40 @@ const sortProducts = (products: TProduct[], label: TSortingKey) => {
   }
 };
 
+const DEFAULT_PAGE_NUM = 1;
+
 function Catalog() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
-  const [ isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
+  const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_NUM);
+  const [currentSorting, setCurrentSorting] = useState<TSortingKey | null>(null);
+  const [filters, setFilters] = useState<TFilterData | null>(null);
 
-  const [ currentSortItem, setCurrentSortItem ] = useState<TSortingKey | null>(null);
-  const [ filters, setFilters ] = useState<TFilterData>();
+  const filteredProducts = useMemo(() => {
+    const result = filters ? filterProducts(products, filters) : products;
+    return result;
+  }, [filters, products]);
+
+  const pagesAmount = getTotalPageCount(filteredProducts.length);
+
+  const currentProducts = useMemo(() => {
+    let result = filteredProducts;
+    if (currentSorting) {
+      result = sortProducts(result, currentSorting);
+    }
+    return result.slice(
+      (currentPage - 1) * PRODUCT_VIEW_COUNT,
+      currentPage * PRODUCT_VIEW_COUNT
+    );
+  }, [currentPage, currentSorting, filteredProducts]);
+
+  useEffect(() => {
+    if (pagesAmount < currentPage) {
+      setCurrentPage(DEFAULT_PAGE_NUM);
+    }
+  }, [currentPage, pagesAmount]);
 
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
@@ -58,35 +83,10 @@ function Catalog() {
       .then((response) => setBanners(response.data));
   }, []);
 
-  const pagesAmount = getTotalPageCount(products.length);
-  
-  const filteredProducts = useMemo(() => {
-    const result = filters ? filterProducts(products, filters) : products;
-    return result.slice(
-      (currentPage - 1) * PRODUCT_VIEW_COUNT,
-      currentPage * PRODUCT_VIEW_COUNT);
-  }, [currentPage, filters, products]);
 
-  const currentProducts = useMemo(() => {
-    let result = filteredProducts;
-
-    if(currentSortItem) {
-      result = sortProducts(result, currentSortItem);
-    }
-    return result;
-  }, [filteredProducts, currentSortItem]);
-
-  const handleFilterChange = useCallback(
-    (filterData: TFilterData) => {
-      setFilters(filterData);
-    },[]);
-
-  const handleSortButton = (sort: TSortingKey) => {
-    setCurrentSortItem(sort);
+  const handleSortChange = (sort: TSortingKey) => {
+    setCurrentSorting(sort);
   };
-
-  const showPagination = products.length > PRODUCT_VIEW_COUNT;
-
 
   const handleClickButton = (productId: TProduct['id']) => {
     setIsModalAddProductShow((prevState) => !prevState);
@@ -97,16 +97,18 @@ function Catalog() {
     setIsModalAddProductShow((prevState) => !prevState);
   };
 
-  const handlePageClick = useCallback(
+  const handlePageChange = useCallback(
     (page: number) => {
-      setProducts(
-        products.slice(
-          (page - 1) * PRODUCT_VIEW_COUNT,
-          page * PRODUCT_VIEW_COUNT
-        )
-      );
+      setCurrentPage(page);
     },
-    [products]
+    []
+  );
+
+  const handleFiltersChange = useCallback(
+    (filterData: TFilterData) => {
+      setFilters(filterData);
+    },
+    []
   );
 
   const buyingProduct = products.find((product) => product.id === selectedId);
@@ -124,22 +126,23 @@ function Catalog() {
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
                 <div className="catalog__aside">
-                  <Filter onChange={handleFilterChange} />
+                  <Filter
+                    onChange={handleFiltersChange}
+                  />
                 </div>
                 <div className="catalog__content">
                   <Sorting
-                    onSort={handleSortButton}
+                    onSort={handleSortChange}
                   />
                   <ProductCardList
                     products={currentProducts}
                     onClickButton={handleClickButton}
                   />
-                  {showPagination && (
-                    <Pagination
-                      onPageClick={handlePageClick}
-                      pagesAmount={pagesAmount}
-                    />
-                  )}
+                  <Pagination
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                    pagesAmount={pagesAmount}
+                  />
                 </div>
               </div>
             </div>

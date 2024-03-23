@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { TPostRewiew } from '../../types';
 import { api } from '../../services';
-import { SettingValidation } from '../../const/const';
+import { SettingValidation } from '../../const/const'
 
 type IPopupAddRewiew = PopUpMainProps & {
   productId: number;
@@ -171,7 +171,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
                     pattern: {
-                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
                       message: 'userPlus must contain from 10 to 160 letters'
                     },
                   })}
@@ -203,7 +203,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
                     pattern: {
-                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
                       message: 'userMinus must contain from 10 to 160 letters'
                     }
                   })}
@@ -233,7 +233,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('comment', {
                     required: 'Поделитесь своим опытом покупки',
                     pattern: {
-                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
                       message: 'Comment must contain from 10 to 160 letters'
                     }
                   })

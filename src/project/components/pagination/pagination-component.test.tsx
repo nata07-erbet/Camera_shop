@@ -8,6 +8,7 @@ describe('Component: NotFoundScreen', () => {
     const expectedText = 'pagination-component';
     const prepareComponent = withHistory(
       <Pagination
+        currentPage={1}
         pagesAmount={INITAL_PAGE_BY_PANGINATION}
         onPageClick={vi.fn()}
       />

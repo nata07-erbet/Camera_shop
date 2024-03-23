@@ -5,7 +5,7 @@ import { Filter } from './filter';
 describe('component: FilterListCards', () => {
   it('should render correctly', () => {
     const expectedText = 'Фильтр';
-    const preparedComponent = withHistory(<Filter />);
+    const preparedComponent = withHistory(<Filter onChange={vi.fn()} />);
 
     render(preparedComponent);
 

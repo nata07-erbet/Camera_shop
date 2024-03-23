@@ -1,18 +1,14 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { PanginationButton} from '../../const/const';
-import { usePagination } from '../../hooks/use-pagination';
+import { TUsePaginationProps, usePagination } from '../../hooks/use-pagination';
 
-interface PaginationProps {
-  pagesAmount: number;
-  onPageClick: (page: number) => void;
-}
+type PaginationProps = TUsePaginationProps
 
-const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
+const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
   const { pathname } = useLocation();
   const [search] = useSearchParams();
-  const initPage = Number(search.get('page'));
-  const { currentPage, currentRange, setPage, previousPage, nextPage } = usePagination({ initPage: initPage || undefined, pagesAmount});
+  const { currentRange, setPage, previousPage, nextPage } = usePagination({ currentPage, pagesAmount, ...rest});
 
   const generatePath = (pageNum: number): string => {
     search.set('page', pageNum.toString());
@@ -21,7 +17,6 @@ const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
 
   const handlePageClick = (page: number) => {
     setPage(page);
-    onPageClick(page);
   };
 
   const handlePreviousClick = () => {
@@ -35,6 +30,10 @@ const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
       handlePageClick(nextPage);
     }
   };
+
+  if (pagesAmount <= 1) {
+    return null;
+  }
 
   return(
     <div className="pagination" data-testid='pagination-component'>
