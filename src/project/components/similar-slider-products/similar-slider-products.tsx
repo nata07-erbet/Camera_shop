@@ -6,7 +6,7 @@ import './similar-slider-products.css';
 import { Navigation } from 'swiper/modules';
 import { TProduct } from '../../types/index';
 import { SIMILAR_VIEW_COUNT } from '../../const/const';
-import { ProductCard } from '../../components/product-card/product-card';
+import { ProductCard } from '../product-card/product-card';
 
 type SimilarSliderProductsProps = {
   similarProducts: TProduct[];

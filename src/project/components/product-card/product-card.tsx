@@ -1,5 +1,5 @@
-import { TProduct } from '../../types/';
-import { Rating } from '../../components/rating/rating';
+import { TProduct } from '../../types';
+import { Rating } from '../rating/rating';
 import { Link} from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../../const/const';
