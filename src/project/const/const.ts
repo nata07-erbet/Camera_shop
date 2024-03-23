@@ -4,6 +4,8 @@ const SIMILAR_VIEW_COUNT = 3;
 const MOCK_START = 1;
 const MOCK_END = 40;
 
+const DEFAULT_PAGE_NUM = 1;
+
 const REWIEWS_COUNT = 3;
 
 const START_SEARCH_TERM = 3;
@@ -143,6 +145,7 @@ export {
   SIMILAR_VIEW_COUNT,
   MOCK_START,
   MOCK_END,
+  DEFAULT_PAGE_NUM,
   REWIEWS_COUNT,
   START_SEARCH_TERM,
   AppRoute,
