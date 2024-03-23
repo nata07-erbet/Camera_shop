@@ -112,6 +112,7 @@ const SortingType = {
   price: 'Price',
 } as const;
 
+<<<<<<< HEAD
 const SortingTypeLabel = {
   [SortingType.rating]: 'по популярности',
   [SortingType.price]: 'по цене'
@@ -122,6 +123,19 @@ const SortingDirection = {
   down: 'HighToLow'
 } as const;
 
+=======
+
+const SortingTypeLabel = {
+  [SortingType.price]: 'по цене',
+  [SortingType.rating]: 'по популярности'
+};
+
+const SortingDirection = {
+  up: 'LowToHigh',
+  down: 'HighToLow'
+} as const;
+
+>>>>>>> 7155c6c (fix after rewiew)
 const SortingDirectionLabel = {
   [SortingDirection.up]: 'По возрастанию',
   [SortingDirection.down]: 'По убыванию'
@@ -170,9 +184,17 @@ export {
   FilterCategoryMap,
   FilterTypeMap,
   FilterLevelMap,
+<<<<<<< HEAD
   SortingType,
   SortingTypeLabel,
   SortingDirection,
   SortingDirectionLabel,
   SettingValidation
+=======
+  SortingTypeLabel,
+  SortingDirection,
+  SortingDirectionLabel,
+  SortingType,
+  SettingValidation,
+>>>>>>> 7155c6c (fix after rewiew)
 };

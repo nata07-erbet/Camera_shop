@@ -1,8 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 type TUsePaginationProps = {
+  currentPage: number;
   pagesAmount: number;
-  initPage?: number;
+  onPageChange: (page: number) => void;
 };
 
 type TUsePaginationReturn = {
@@ -13,11 +15,10 @@ type TUsePaginationReturn = {
   nextPage: number | null;
 };
 
-const DEFAULT_PAGE_NUM = 1;
 const MAX_PAGES_IN_RANGE = 3;
 
-const usePagination = ({ pagesAmount, initPage = DEFAULT_PAGE_NUM }: TUsePaginationProps): TUsePaginationReturn => {
-  const [currentPage, setCurrentPage] = useState(initPage);
+const usePagination = ({ pagesAmount, currentPage, onPageChange }: TUsePaginationProps): TUsePaginationReturn => {
+  const [search, setSearchParams] = useSearchParams();
   const ranges: number[][] = useMemo(() =>
     Array.from({ length: pagesAmount }, (_, i) => i + 1).reduce((acc, page, idx) => {
       const rangeIdx = Math.floor(idx / MAX_PAGES_IN_RANGE);
@@ -29,18 +30,19 @@ const usePagination = ({ pagesAmount, initPage = DEFAULT_PAGE_NUM }: TUsePaginat
     },
     [] as number[][]), [pagesAmount]
   );
-  const initRangeIdx = ranges.findIndex((range) => range.includes(initPage));
+
+  let initRangeIdx = ranges.findIndex((range) => range.includes(currentPage));
   if (initRangeIdx === -1) {
-    throw new Error('Initial page is out of range');
+    initRangeIdx = 0;
   }
 
   const [currentRangeIdx, setCurrentRangeIdx] = useState(initRangeIdx);
   const currentRange = ranges[currentRangeIdx];
-  const previousPage = currentRange[0] > 1 ? currentRange[0] - 1 : null;
-  const nextPage = currentRange[currentRange.length - 1] < pagesAmount ? currentRange[currentRange.length - 1] + 1 : null;
+  const previousPage = (currentRange && currentRange[0] > 1) ? currentRange[0] - 1 : null;
+  const nextPage = (currentRange && currentRange[currentRange.length - 1] < pagesAmount) ? currentRange[currentRange.length - 1] + 1 : null;
 
   const setPage = useCallback((page: number) => {
-    setCurrentPage(page);
+    onPageChange(page);
 
     if ([previousPage].includes(page)) {
       setCurrentRangeIdx((prev) => prev - 1);
@@ -48,7 +50,20 @@ const usePagination = ({ pagesAmount, initPage = DEFAULT_PAGE_NUM }: TUsePaginat
       setCurrentRangeIdx((prev) => prev + 1);
     }
 
-  }, [nextPage, previousPage]);
+  }, [nextPage, onPageChange, previousPage]);
+
+  useEffect(() => {
+    if (!currentPage) {
+      return;
+    }
+
+    if (currentPage === 1) {
+      search.delete('page');
+    } else {
+      search.set('page', currentPage.toString());
+    }
+    setSearchParams(search);
+  }, [currentPage, search, setSearchParams]);
 
   return {
     currentPage,
@@ -60,3 +75,4 @@ const usePagination = ({ pagesAmount, initPage = DEFAULT_PAGE_NUM }: TUsePaginat
 };
 
 export { usePagination };
+export type { TUsePaginationProps };

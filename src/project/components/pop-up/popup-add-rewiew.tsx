@@ -5,7 +5,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { TPostRewiew } from '../../types';
 import { api } from '../../services';
+<<<<<<< HEAD
 import { SettingValidation } from '../../const/const';
+=======
+import { SettingValidation } from '../../const/const'
+>>>>>>> 7155c6c (fix after rewiew)
 
 type IPopupAddRewiew = PopUpMainProps & {
   productId: number;
@@ -171,7 +175,11 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userPlus', {
                     required: 'Основные преимущества товара',
                     pattern: {
+<<<<<<< HEAD
                       value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
                       message: 'userPlus must contain from 10 to 160 letters'
                     },
                   })}
@@ -203,7 +211,11 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('userMinus', {
                     required: 'Главные недостатки товара',
                     pattern: {
+<<<<<<< HEAD
                       value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
                       message: 'userMinus must contain from 10 to 160 letters'
                     }
                   })}
@@ -233,7 +245,11 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
                   {...register('comment', {
                     required: 'Поделитесь своим опытом покупки',
                     pattern: {
+<<<<<<< HEAD
                       value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
                       message: 'Comment must contain from 10 to 160 letters'
                     }
                   })

@@ -12,7 +12,11 @@ type SortingProps = {
   onSort: (key: TSortingKey) => void;
 };
 
+<<<<<<< HEAD
 const DEFAULT_DIRECTION: TSortingDirection = 'LowToHigh';
+=======
+const DEAFULT_DIRECTION: TSortingDirection = 'LowToHigh';
+>>>>>>> 7155c6c (fix after rewiew)
 const DEFAULT_TYPE: TSortingType = 'Price';
 
 function Sorting ({ onSort }: SortingProps) {
@@ -21,7 +25,11 @@ function Sorting ({ onSort }: SortingProps) {
 
   const handleTypeChange = (type: TSortingType) => {
     setCurrentType(type);
+<<<<<<< HEAD
     onSort(`${currentDirection ?? DEFAULT_DIRECTION}${type}`);
+=======
+    onSort(`${currentDirection ?? DEAFULT_DIRECTION}${type}`);
+>>>>>>> 7155c6c (fix after rewiew)
   };
 
   const handleDirectionChange = (direction: TSortingDirection) => {
