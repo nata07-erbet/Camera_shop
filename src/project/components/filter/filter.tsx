@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   FilterCategoryMap,
   FilterTypeMap,
@@ -8,7 +9,8 @@ import {
 import {
   TFilterCategory,
   TFilterType,
-  TFilterLevel
+  TFilterLevel,
+  TFilterPrice
 } from '../../types/index';
 
 type TFilterData = {
@@ -16,6 +18,13 @@ type TFilterData = {
   levels: TFilterLevel[];
   types: TFilterType[];
 }
+
+const checkInputMaxValue = (min: number, value: RegExp) => {
+  if(min === 0) {
+    value = /^[1-9][0-9]?|100000$/;
+  }
+  return value;
+};
 
 const INITIAL_FILTER_DATA: TFilterData = { category: null, levels: [], types: [] };
 
@@ -30,8 +39,20 @@ type FilterProps = {
   onChange: (data: TFilterData) => void;
 };
 
+type FormInputs = {
+  minPrice: number;
+  maxPrice: number;
+};
+
 function Filter ({ onChange }: FilterProps) {
-  const [filterData, setFilterData] = useState<TFilterData>(INITIAL_FILTER_DATA);
+  const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA);
+
+  const {
+    register,
+    formState: { errors },
+    watch,
+    handleSubmit,
+  } = useForm<FormInputs>({mode: 'all'});
 
   const handleCategoryChange = (category: TFilterCategory) => {
     const newData: TFilterData = {
@@ -70,26 +91,63 @@ function Filter ({ onChange }: FilterProps) {
     onChange(INITIAL_FILTER_DATA);
   };
 
+  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+
+    const formData: TFilterPrice = {
+      priceMin: data.minPrice,
+      priceMax: data.maxPrice
+    };
+
+    console.log(formData);
+  };
+
+  const minPriceValue = watch('minPrice');
+  const maxPriceValue = watch('maxPrice');
+
   return(
     <div className="catalog-filter">
-      <form action="#">
+      <form
+        action="#"
+        onSubmit={(evt) => handleSubmit(handleFormSubmit)(evt)} // что за дичь?
+      >
         <h2 className="visually-hidden">Фильтр</h2>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Цена,₽</legend>
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от" />
+                <input
+                  type="number"
+                  placeholder="от"
+                  {
+                    ...register('minPrice', {
+                      pattern: {
+                        value: /^[0-9]{1,7}/,
+                        message: `${minPriceValue} быть больше или равно нулю`
+                      },
+                    })
+                  }
+                />
               </label>
+              {errors.minPrice && (
+                <p className='min-price-error'>{minPriceValue} быть больше или равно нулю</p>
+              ) }
             </div>
             <div className="custom-input">
               <label>
                 <input
                   type="number"
-                  name="priceUp"
                   placeholder="до"
+                  {
+                    ...register('maxPrice', {
+                      validate: (value) => value > 0
+                    })
+                  }
                 />
               </label>
+              {errors.maxPrice && (
+                <p className='max-price-error'>{maxPriceValue} быть больше нуля</p>
+              )}
             </div>
           </div>
         </fieldset>

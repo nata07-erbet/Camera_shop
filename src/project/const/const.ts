@@ -86,6 +86,11 @@ const DATA_MAX = 160;
 
 const ERROR_MESSAGE = 'Нужно оценить товар';
 
+const FilterPriceMap = {
+  priceMin: 'от',
+  priceMax: 'до'
+}as const;
+
 const FilterCategoryMap = {
   photocamera: 'Фотоаппарат',
   videocamera: 'Видеокамера'
@@ -168,6 +173,7 @@ export {
   FilterCategoryMap,
   FilterTypeMap,
   FilterLevelMap,
+  FilterPriceMap,
   SortingTypeLabel,
   SortingDirection,
   SortingDirectionLabel,
