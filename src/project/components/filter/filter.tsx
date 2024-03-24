@@ -1,5 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   FilterCategoryMap,
   FilterTypeMap,
@@ -17,13 +20,6 @@ type TFilterData = {
   category: TFilterCategory | null;
   levels: TFilterLevel[];
   types: TFilterType[];
-}
-
-const checkInputMaxValue = (min: number, value: RegExp) => {
-  if(min === 0) {
-    value = /^[1-9][0-9]?|100000$/;
-  }
-  return value;
 };
 
 const INITIAL_FILTER_DATA: TFilterData = { category: null, levels: [], types: [] };
@@ -91,18 +87,14 @@ function Filter ({ onChange }: FilterProps) {
     onChange(INITIAL_FILTER_DATA);
   };
 
-  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
-
-    const formData: TFilterPrice = {
-      priceMin: data.minPrice,
-      priceMax: data.maxPrice
-    };
-
-    console.log(formData);
+  const handleFormSubmit: SubmitHandler<FormInputs> = (evt) => {
+    evt.preventDefault();
   };
 
-  const minPriceValue = watch('minPrice');
-  const maxPriceValue = watch('maxPrice');
+  const minCurrentPriceValue = watch('minPrice');
+  const maxCurrentPriceValue = watch('maxPrice');
+
+  const errorMinPrice = () => toast('введенная цена быть больше или равно нулю');
 
   return(
     <div className="catalog-filter">
@@ -123,14 +115,14 @@ function Filter ({ onChange }: FilterProps) {
                     ...register('minPrice', {
                       pattern: {
                         value: /^[0-9]{1,7}/,
-                        message: `${minPriceValue} быть больше или равно нулю`
+                        message: `${minCurrentPriceValue} быть больше или равно нулю`
                       },
                     })
                   }
                 />
               </label>
               {errors.minPrice && (
-                <p className='min-price-error'>{minPriceValue} быть больше или равно нулю</p>
+                <p className='min-price-error'>{minCurrentPriceValue} быть больше или равно нулю</p>
               ) }
             </div>
             <div className="custom-input">
@@ -146,7 +138,7 @@ function Filter ({ onChange }: FilterProps) {
                 />
               </label>
               {errors.maxPrice && (
-                <p className='max-price-error'>{maxPriceValue} быть больше нуля</p>
+                <p className='max-price-error'>{maxCurrentPriceValue} быть больше нуля</p>
               )}
             </div>
           </div>
