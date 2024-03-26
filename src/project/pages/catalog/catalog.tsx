@@ -49,6 +49,8 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_NUM);
   const [currentSorting, setCurrentSorting] = useState<TSortingKey | null>(null);
   const [filters, setFilters] = useState<TFilterData | null>(null);
+  const [ minPrice, setMinPrice ] = useState<TProduct['price'] | null>();
+  const [ maxPrice, setMaxPrice ] = useState<TProduct['price'] | null>();
 
   const { pathname } = useLocation();
   const [ searchParams ] = useSearchParams();
@@ -62,9 +64,9 @@ function Catalog() {
 
   const generatePathToFilter = (filter: string): string => {
     searchParams.set('filter', filter);
-
     return `${pathname}${searchParams.toString()}`;
   };
+
 
   const filteredProducts = useMemo(() => {
     const result = filters ? filterProducts(products, filters) : products;
@@ -129,6 +131,26 @@ function Catalog() {
       generatePathToFilter(filterData);
     },[generatePathToFilter]);
 
+
+  const minPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().reverse().shift();
+  const maxPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().shift();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if(isMounted) {
+      setMinPrice(minPriceCatalog);
+      setMaxPrice(maxPriceCatalog);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+
+  },[maxPriceCatalog, minPriceCatalog]
+  );
+
+
   const buyingProduct = products.find((product) => product.id === selectedId);
   const isActiveMainPage = true;
 
@@ -145,6 +167,8 @@ function Catalog() {
               <div className="page-content__columns">
                 <div className="catalog__aside">
                   <Filter
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
                     onChange={handleFiltersChange}
                   />
                 </div>

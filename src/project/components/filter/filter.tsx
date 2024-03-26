@@ -1,7 +1,5 @@
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import {
   FilterCategoryMap,
@@ -13,7 +11,6 @@ import {
   TFilterCategory,
   TFilterType,
   TFilterLevel,
-  TFilterPrice
 } from '../../types/index';
 
 type TFilterData = {
@@ -33,6 +30,8 @@ const checkIfTypeAvailable = (category: TFilterCategory, type: TFilterType) => A
 
 type FilterProps = {
   onChange: (data: TFilterData) => void;
+  minPrice: number;
+  maxPrice: number;
 };
 
 type FormInputs = {
@@ -40,7 +39,7 @@ type FormInputs = {
   maxPrice: number;
 };
 
-function Filter ({ onChange }: FilterProps) {
+function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
   const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA);
 
   const {
@@ -94,8 +93,6 @@ function Filter ({ onChange }: FilterProps) {
   const minCurrentPriceValue = watch('minPrice');
   const maxCurrentPriceValue = watch('maxPrice');
 
-  const errorMinPrice = () => toast('введенная цена быть больше или равно нулю');
-
   return(
     <div className="catalog-filter">
       <form
@@ -110,7 +107,7 @@ function Filter ({ onChange }: FilterProps) {
               <label>
                 <input
                   type="number"
-                  placeholder="от"
+                  placeholder={minPrice}
                   {
                     ...register('minPrice', {
                       pattern: {
@@ -129,7 +126,7 @@ function Filter ({ onChange }: FilterProps) {
               <label>
                 <input
                   type="number"
-                  placeholder="до"
+                  placeholder={maxPrice}
                   {
                     ...register('maxPrice', {
                       validate: (value) => value > 0

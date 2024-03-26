@@ -24,7 +24,7 @@ const createApi = (): AxiosInstance => {
         toast.warn(detailMessage.message);
       }
     }
-  )
+  );
   return api;
 };
 
