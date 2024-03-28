@@ -47,6 +47,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
     formState: { errors },
     watch,
     handleSubmit,
+    setValue
   } = useForm<FormInputs>({mode: 'all'});
 
   const handleCategoryChange = (category: TFilterCategory) => {
@@ -86,6 +87,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
     onChange(INITIAL_FILTER_DATA);
   };
 
+
   const handleFormSubmit: SubmitHandler<FormInputs> = (evt) => {
     evt.preventDefault();
   };
@@ -95,7 +97,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
   const maxCurrentPriceValue = watch('maxPrice');
 
   const isMinPrice = minCurrentPriceValue < minPrice ? minPrice : minCurrentPriceValue;
-  const isMaxPrice = maxCurrentPriceValue > maxPrice ? maxPrice : maxCurrentPriceValue
+  const isMaxPrice = maxCurrentPriceValue > maxPrice ? maxPrice : maxCurrentPriceValue;
 
   return(
     <div className="catalog-filter">
@@ -111,14 +113,15 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
               <label>
                 <input
                   type="number"
-                  placeholder={minPrice}
-                  value={isMinPrice}
+                  placeholder={`${minPrice}`}
                   {
                     ...register('minPrice', {
                       pattern: {
                         value: /^[0-9]{1,7}/,
                         message: `${minCurrentPriceValue} быть больше или равно нулю`
                       },
+                      validate: isMinPrice
+                      setV
                     })
                   }
                 />
@@ -131,8 +134,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
               <label>
                 <input
                   type="number"
-                  placeholder={maxPrice}
-                  value={isMaxPrice}
+                  placeholder={`${maxPrice}`}
                   {
                     ...register('maxPrice', {
                       validate: (value) => value > 0

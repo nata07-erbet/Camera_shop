@@ -86,6 +86,7 @@ function Catalog() {
     );
   }, [currentPage, currentSorting, filteredProducts]);
 
+
   useEffect(() => {
     if (pagesAmount < currentPage) {
       setCurrentPage(DEFAULT_PAGE_NUM);
@@ -134,6 +135,8 @@ function Catalog() {
 
   const minPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().reverse().shift();
   const maxPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().shift();
+
+  console.log(minPriceCatalog);
 
   useEffect(() => {
     let isMounted = true;
