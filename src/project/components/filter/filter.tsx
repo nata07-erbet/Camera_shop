@@ -40,7 +40,7 @@ type FormInputs = {
 };
 
 function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
-  const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA);
+  const [ filterData, setFilterData ] = useState<TFilterData>(INITIAL_FILTER_DATA)
 
   const {
     register,
@@ -90,8 +90,12 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
     evt.preventDefault();
   };
 
+
   const minCurrentPriceValue = watch('minPrice');
   const maxCurrentPriceValue = watch('maxPrice');
+
+  const isMinPrice = minCurrentPriceValue < minPrice ? minPrice : minCurrentPriceValue;
+  const isMaxPrice = maxCurrentPriceValue > maxPrice ? maxPrice : maxCurrentPriceValue
 
   return(
     <div className="catalog-filter">
@@ -108,6 +112,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
                 <input
                   type="number"
                   placeholder={minPrice}
+                  value={isMinPrice}
                   {
                     ...register('minPrice', {
                       pattern: {
@@ -127,6 +132,7 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
                 <input
                   type="number"
                   placeholder={maxPrice}
+                  value={isMaxPrice}
                   {
                     ...register('maxPrice', {
                       validate: (value) => value > 0
