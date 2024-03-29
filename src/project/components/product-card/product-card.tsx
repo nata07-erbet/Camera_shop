@@ -7,8 +7,10 @@ import { AppRoute } from '../../const/const';
 type ProductCardProps = {
   product: TProduct;
   onClickButton?: (id: TProduct['id']) => void | undefined;
+  onChangeDisabled?: () => void | undefined;
+  disabledState: boolean;
 }
-function ProductCard ({ product, onClickButton }: ProductCardProps) {
+function ProductCard ({ product, onClickButton, onChangeDisabled, disabledState }: ProductCardProps) {
 
   const {
     id,
@@ -29,6 +31,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
 
   const handleButtonClickBuy = () => {
     onClickButton?.(id);
+    onChangeDisabled?.();
   };
 
   return (
@@ -60,6 +63,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
           className="btn btn--purple product-card__btn"
           type="button"
           onClick={handleButtonClickBuy}
+          disabled={disabledState === true}
         >
           Купить
         </button>

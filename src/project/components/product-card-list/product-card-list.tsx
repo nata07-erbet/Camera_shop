@@ -4,9 +4,11 @@ import { TProduct } from '../../types/index';
 type ProductCardListProps = {
   products: TProduct[];
   onClickButton: (id: TProduct['id']) => void;
+  onChangeDisabled: () => void;
+  disabledState: boolean;
 }
 
-function ProductCardList ({ products, onClickButton }: ProductCardListProps) {
+function ProductCardList ({ products, onClickButton, onChangeDisabled, disabledState }: ProductCardListProps) {
   return (
     <div className="cards catalog__cards" data-testid="product-container">
       {products
@@ -15,6 +17,8 @@ function ProductCardList ({ products, onClickButton }: ProductCardListProps) {
             key={product.id}
             product={product}
             onClickButton={onClickButton}
+            onChangeDisabled={onChangeDisabled}
+            disabledState={disabledState}
           />))}
     </div>
   );

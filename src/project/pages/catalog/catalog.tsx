@@ -9,7 +9,7 @@ import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
-import { PopupAddBasket } from '../../components/pop-up/index';
+import { PopupAddBasket, PopupBasketSuccess } from '../../components/pop-up/index';
 import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
@@ -46,11 +46,13 @@ function Catalog() {
   const [banners, setBanners] = useState<TBanner[]>([]);
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
   const [isModalAddProductShow, setIsModalAddProductShow] = useState<boolean>(false);
+  const [isModalBasketSuccessShow, setIsModalBasketSuccessShow] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_NUM);
   const [currentSorting, setCurrentSorting] = useState<TSortingKey | null>(null);
   const [filters, setFilters] = useState<TFilterData | null>(null);
   const [ minPrice, setMinPrice ] = useState<TProduct['price'] | null>();
   const [ maxPrice, setMaxPrice ] = useState<TProduct['price'] | null>();
+  const [isBuyed, setIsBuyed] = useState(false);
 
   const { pathname } = useLocation();
   const [ searchParams ] = useSearchParams();
@@ -117,6 +119,21 @@ function Catalog() {
 
   const handleModalAddProductShowClose = () => {
     setIsModalAddProductShow((prevState) => !prevState);
+    setIsBuyed((prev) => !prev);
+  };
+
+  const handleModalBasketSuccessClose = () => {
+    setIsModalBasketSuccessShow(false);
+    setIsBuyed((prev) => !prev);
+  };
+
+  const handlePopUpAddBasketSuccessShow = () => {
+    setIsModalBasketSuccessShow(true);
+    setIsModalAddProductShow(false);
+  };
+
+  const handleClickButtonClose = () => {
+    setIsModalBasketSuccessShow(false);
   };
 
   const handlePageChange = useCallback(
@@ -132,6 +149,9 @@ function Catalog() {
       generatePathToFilter(filterData);
     },[generatePathToFilter]);
 
+  const handleDisabledButton = () => {
+    setIsBuyed(true);
+  };
 
   const minPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().reverse().shift();
   const maxPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().shift();
@@ -182,6 +202,8 @@ function Catalog() {
                   <ProductCardList
                     products={currentProducts}
                     onClickButton={handleClickButton}
+                    onChangeDisabled={handleDisabledButton}
+                    disabledState={isBuyed}
                   />
                   <Pagination
                     currentPage={currentPage}
@@ -198,8 +220,14 @@ function Catalog() {
             product={buyingProduct}
             opened={isModalAddProductShow}
             onClose={handleModalAddProductShowClose}
+            onPopupAddBasketSuccessShow={handlePopUpAddBasketSuccessShow}
           />
         )}
+        <PopupBasketSuccess
+          opened={isModalBasketSuccessShow}
+          onClose={handleModalBasketSuccessClose}
+          onClickButtonClose={handleClickButtonClose}
+        />
       </main>
       <Footer />
     </>

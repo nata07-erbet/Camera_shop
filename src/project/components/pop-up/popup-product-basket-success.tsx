@@ -3,13 +3,19 @@ import { AppRoute } from '../../const/const';
 import { useNavigate } from 'react-router-dom';
 import { PopUpMain, PopUpMainProps } from './popup-main';
 
-type PopupBasketSuccessProps = PopUpMainProps;
+type PopupBasketSuccessProps = PopUpMainProps & {
+  onClickButtonClose: () => void;
+};
 
-function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
+function PopupBasketSuccess ({ onClickButtonClose, ...props }: PopupBasketSuccessProps) {
   const navigation = useNavigate();
 
   const handleClickButton = () => {
     navigation(AppRoute.Basket);
+  };
+
+  const handleClickButtonClose = () => {
+    onClickButtonClose();
   };
 
   return (
@@ -19,7 +25,11 @@ function PopupBasketSuccess ({...props}: PopupBasketSuccessProps) {
         <use xlinkHref="#icon-success" />
       </svg>
       <div className="modal__buttons">
-        <Link className="btn btn--transparent modal__btn" to={AppRoute.Main} autoFocus>
+        <Link className="btn btn--transparent modal__btn"
+          to={AppRoute.Main}
+          autoFocus
+          onClick={handleClickButtonClose}
+          >
               Продолжить покупки
         </Link>
         <button

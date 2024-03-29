@@ -120,8 +120,6 @@ function Filter ({ onChange, minPrice, maxPrice}: FilterProps) {
                         value: /^[0-9]{1,7}/,
                         message: `${minCurrentPriceValue} быть больше или равно нулю`
                       },
-                      validate: isMinPrice
-                      setV
                     })
                   }
                 />

@@ -1,17 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const/const';
 import { TProduct} from '../../types/index';
 import { PopUpMain, PopUpMainProps } from './popup-main';
 
 type AddProductBasketPopProps = PopUpMainProps &{
   product: TProduct;
+  onPopupAddBasketSuccessShow: () => void;
 };
 
-function PopupAddBasket ({product, ...props}: AddProductBasketPopProps) {
-  const navigate = useNavigate();
+function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddProductBasketPopProps) {
 
   const handleButtonClick = () => {
-    navigate(AppRoute.Basket);
+    onPopupAddBasketSuccessShow();
   };
 
   return (
