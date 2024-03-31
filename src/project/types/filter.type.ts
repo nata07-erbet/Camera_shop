@@ -21,4 +21,20 @@ type TFilterData = {
   types: TFilterType[];
 }
 
-export type { TFilterCategory, TFilterType, TFilterLevel, TFilterData, TFilterPrice };
+type TFilterFeatures = {
+  category: TFilterCategory | null;
+  levels: TFilterLevel[];
+  types: TFilterType[];
+}
+
+type TFilterPriceRange = [number, number];
+
+export type {
+  TFilterCategory,
+  TFilterType,
+  TFilterLevel,
+  TFilterData,
+  TFilterPrice,
+  TFilterFeatures,
+  TFilterPriceRange,
+};
