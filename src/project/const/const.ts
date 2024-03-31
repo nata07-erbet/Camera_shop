@@ -11,7 +11,7 @@ const START_SEARCH_TERM = 3;
 const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
-  Main: '/:type?/:direction?',
+  Main: '/',
   AnyProduct: '/product',
   Product: '/product/:productId/:tab?',
   Basket: '/basket',
@@ -111,8 +111,8 @@ const FilterLevelMap = {
 
 
 const SortingType = {
-  rating: 'Rating',
-  price: 'Price',
+  rating: 'rating',
+  price: 'price',
 } as const;
 
 
@@ -122,8 +122,8 @@ const SortingTypeLabel = {
 };
 
 const SortingDirection = {
-  up: 'LowToHigh',
-  down: 'HighToLow'
+  up: 'asc',
+  down: 'desc'
 } as const;
 
 const SortingDirectionLabel = {
