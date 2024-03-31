@@ -3,7 +3,11 @@ import { AppRoute } from '../../const/const';
 import { Logo } from '../logo/logo';
 import { Search } from '../search/search';
 
-function Header () {
+type HeaderProps = {
+  isAddedToBasket: boolean;
+};
+
+function Header ({ isAddedToBasket }: HeaderProps) {
   return (
     <header className="header" id="header">
       <div className="container">
@@ -37,7 +41,10 @@ function Header () {
         </div>
         <Link className="header__basket-link" to={AppRoute.Basket}>
           <svg width={16} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-basket" />
+            {isAddedToBasket && (
+              <span className="header__basket-count">3</span>
+            )}
+
           </svg>
         </Link>
       </div>

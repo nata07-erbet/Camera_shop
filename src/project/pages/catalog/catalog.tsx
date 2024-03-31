@@ -52,7 +52,9 @@ function Catalog() {
   const [filters, setFilters] = useState<TFilterData | null>(null);
   const [ minPrice, setMinPrice ] = useState<TProduct['price'] | null>();
   const [ maxPrice, setMaxPrice ] = useState<TProduct['price'] | null>();
-  const [isBuyed, setIsBuyed] = useState(false);
+
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+  const [isAddedSuccess, setIsAddedSuccess] = useState(false);
 
   const { pathname } = useLocation();
   const [ searchParams ] = useSearchParams();
@@ -115,25 +117,32 @@ function Catalog() {
   const handleClickButton = (productId: TProduct['id']) => {
     setIsModalAddProductShow((prevState) => !prevState);
     setSelectedId(productId);
+
   };
 
   const handleModalAddProductShowClose = () => {
     setIsModalAddProductShow((prevState) => !prevState);
-    setIsBuyed((prev) => !prev);
+    // setIsAddedSuccess((prev) => !prev);
   };
 
-  const handleModalBasketSuccessClose = () => {
-    setIsModalBasketSuccessShow(false);
-    setIsBuyed((prev) => !prev);
-  };
 
   const handlePopUpAddBasketSuccessShow = () => {
     setIsModalBasketSuccessShow(true);
     setIsModalAddProductShow(false);
+    setIsDisabledButton(true);
   };
 
+  const handleModalBasketSuccessClose = () => {
+    setIsModalBasketSuccessShow(false);
+    setIsDisabledButton(false);
+    setIsAddedSuccess(true);
+  };
+
+  // продолжить покупки
   const handleClickButtonClose = () => {
     setIsModalBasketSuccessShow(false);
+    setIsDisabledButton(false);
+    setIsAddedSuccess(true);
   };
 
   const handlePageChange = useCallback(
@@ -156,7 +165,6 @@ function Catalog() {
   const minPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().reverse().shift();
   const maxPriceCatalog = currentProducts.map((product: TProduct) => product.price).sort().shift();
 
-  console.log(minPriceCatalog);
 
   useEffect(() => {
     let isMounted = true;
@@ -203,7 +211,8 @@ function Catalog() {
                     products={currentProducts}
                     onClickButton={handleClickButton}
                     onChangeDisabled={handleDisabledButton}
-                    disabledState={isBuyed}
+                    isAddedBasket={isAddedSuccess}
+                    isDisabled={isDisabledButton}
                   />
                   <Pagination
                     currentPage={currentPage}

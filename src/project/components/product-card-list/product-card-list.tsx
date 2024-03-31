@@ -5,10 +5,12 @@ type ProductCardListProps = {
   products: TProduct[];
   onClickButton: (id: TProduct['id']) => void;
   onChangeDisabled: () => void;
-  disabledState: boolean;
+
+  isAddedBasket: boolean;
+  isDisabled: boolean;
 }
 
-function ProductCardList ({ products, onClickButton, onChangeDisabled, disabledState }: ProductCardListProps) {
+function ProductCardList ({ products, onClickButton, onChangeDisabled, isAddedBasket, isDisabled }: ProductCardListProps) {
   return (
     <div className="cards catalog__cards" data-testid="product-container">
       {products
@@ -18,7 +20,8 @@ function ProductCardList ({ products, onClickButton, onChangeDisabled, disabledS
             product={product}
             onClickButton={onClickButton}
             onChangeDisabled={onChangeDisabled}
-            disabledState={disabledState}
+            isAddedBasket={isAddedBasket}
+            isDisabled={isDisabled}
           />))}
     </div>
   );

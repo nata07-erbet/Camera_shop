@@ -8,8 +8,9 @@ type AddProductBasketPopProps = PopUpMainProps &{
 
 function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddProductBasketPopProps) {
 
-  const handleButtonClick = () => {
+  const handleButtonClickAddToBasket = () => {
     onPopupAddBasketSuccessShow();
+    
   };
 
   return (
@@ -50,7 +51,7 @@ function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddPr
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={handleButtonClick}
+          onClick={handleButtonClickAddToBasket}
           autoFocus
         >
           <svg width={24} height={16} aria-hidden="true">

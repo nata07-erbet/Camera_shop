@@ -63,6 +63,7 @@ function Product() {
 
   const handleClickButtonAddbasket = () => {
     setIsAddedBasket((prevState) => !prevState);
+    onChange();
   };
 
   const handlePopupAddBasketClose = () => {
@@ -82,12 +83,21 @@ function Product() {
     setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
+  const handlePopupAddBasketSuccessShow = () => {
+    setIsAddedBasketSuccess((prevState) => !prevState);
+    setIsAddedBasket(false);
+  };
+
   const handlePopupRewiewSuccessClose = () => {
     setIsSuccessfulPopupShowed((prevState) => !prevState);
   };
 
   const handlePopupBasketSuccessClose = () => {
     setIsAddedBasketSuccess((prevState) => !prevState);
+  };
+
+  const handleClickButtonClose = () => {
+    setIsAddedBasket(false);
   };
 
   const handleScrollToTop = () => {
@@ -224,11 +234,13 @@ function Product() {
           product={currentProduct}
           opened={isAddedBasket}
           onClose={handlePopupAddBasketClose}
+          onPopupAddBasketSuccessShow={handlePopupAddBasketSuccessShow}
         />
       )}
       <PopupBasketSuccess
         opened={isAddedBasketSuccess}
         onClose={handlePopupBasketSuccessClose}
+        onClickButtonClose={handleClickButtonClose}
       />
       <PopupAddRewiew
         productId={Number(productId)}
