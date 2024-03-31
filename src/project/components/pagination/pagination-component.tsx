@@ -1,31 +1,25 @@
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { PanginationButton} from '../../const/const';
 import { TUsePaginationProps, usePagination } from '../../hooks/use-pagination';
+import { MouseEvent } from 'react';
 
 type PaginationProps = TUsePaginationProps
 
 const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
-  const { pathname } = useLocation();
-  const [search] = useSearchParams();
   const { currentRange, setPage, previousPage, nextPage } = usePagination({ currentPage, pagesAmount, ...rest});
-
-  const generatePath = (pageNum: number): string => {
-    search.set('page', pageNum.toString());
-    return `${pathname}?${search.toString()}`;
-  };
-
   const handlePageClick = (page: number) => {
     setPage(page);
   };
 
-  const handlePreviousClick = () => {
+  const handlePreviousClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
     if (previousPage) {
       handlePageClick(previousPage);
     }
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
     if (nextPage) {
       handlePageClick(nextPage);
     }
@@ -40,13 +34,12 @@ const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
       <ul className="pagination__list">
         {previousPage && (
           <li className="pagination__item">
-            <Link
+            <a
               className="pagination__link pagination__link--text"
-              to={generatePath(previousPage)}
               onClick={handlePreviousClick}
             >
               {PanginationButton.Prev}
-            </Link>
+            </a>
           </li>
         )}
         {currentRange.map((page) => (
@@ -54,7 +47,7 @@ const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
             className='pagination__item'
             key={page}
           >
-            <Link
+            <a
               className={
                 classNames(
                   'pagination__link',
@@ -63,22 +56,23 @@ const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
                   }
                 )
               }
-              to={generatePath(page)}
-              onClick={() => handlePageClick(page)}
+              onClick={(evt) => {
+                evt.preventDefault();
+                handlePageClick(page);
+              }}
             >
               {page}
-            </Link>
+            </a>
           </li>
         ))}
         {nextPage && (
           <li className="pagination__item">
-            <Link
+            <a
               className="pagination__link pagination__link--text"
-              to={generatePath(nextPage)}
               onClick={handleNextClick}
             >
               {PanginationButton.Next}
-            </Link>
+            </a>
           </li>
         )}
       </ul>
