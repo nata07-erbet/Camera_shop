@@ -6,27 +6,31 @@ import {
 } from '../../const/const';
 import { TSortingType, TSortingDirection, TSortingKey } from '../../types';
 
-const SORT_TYPES: TSortingType[] = ['Rating', 'Price'];
+const SORT_TYPES: TSortingType[] = ['rating', 'price'];
 
 type SortingProps = {
+  initSorting: TSortingKey | null;
   onSort: (key: TSortingKey) => void;
 };
 
-const DEAFULT_DIRECTION: TSortingDirection = 'LowToHigh';
-const DEFAULT_TYPE: TSortingType = 'Price';
+const DEFAULT_DIRECTION: TSortingDirection = 'asc';
+const DEFAULT_TYPE: TSortingType = 'price';
 
-function Sorting ({ onSort }: SortingProps) {
-  const [currentType, setCurrentType] = useState<TSortingType | null>(null);
-  const [currentDirection, setCurrentDirection] = useState<TSortingDirection | null>(null);
+function Sorting ({ initSorting, onSort }: SortingProps) {
+
+  const initValues = (initSorting?.split('-') as [TSortingType, TSortingDirection]) ?? [null, null];
+
+  const [currentType, setCurrentType] = useState<TSortingType | null>(initValues[0]);
+  const [currentDirection, setCurrentDirection] = useState<TSortingDirection | null>(initValues[1]);
 
   const handleTypeChange = (type: TSortingType) => {
     setCurrentType(type);
-    onSort(`${currentDirection ?? DEAFULT_DIRECTION}${type}`);
+    onSort(`${type}-${currentDirection ?? DEFAULT_DIRECTION}`);
   };
 
   const handleDirectionChange = (direction: TSortingDirection) => {
     setCurrentDirection(direction);
-    onSort(`${direction}${currentType ?? DEFAULT_TYPE}`);
+    onSort(`${currentType ?? DEFAULT_TYPE}-${direction}`);
   };
 
   return(

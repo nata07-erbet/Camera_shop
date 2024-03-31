@@ -4,6 +4,6 @@ type TSortingType = (typeof SortingType)[keyof typeof SortingType];
 
 type TSortingDirection = (typeof SortingDirection)[keyof typeof SortingDirection];
 
-type TSortingKey = `${TSortingDirection}${TSortingType}`;
+type TSortingKey = `${TSortingType}-${TSortingDirection}`;
 
 export type { TSortingType, TSortingDirection, TSortingKey };
