@@ -63,7 +63,6 @@ function Product() {
 
   const handleClickButtonAddbasket = () => {
     setIsAddedBasket((prevState) => !prevState);
-    onChange();
   };
 
   const handlePopupAddBasketClose = () => {
@@ -122,7 +121,7 @@ function Product() {
 
   return (
     <div className="wrapper">
-      <Header/>
+      <Header isAddedToBasket/>
       <main data-testid="product-page">
         {currentProduct && (
           <div className="page-content">

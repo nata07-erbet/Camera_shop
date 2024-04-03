@@ -38,7 +38,7 @@ function SimilarSliderProducts ({similarProducts}: SimilarSliderProductsProps) {
               {similarProducts
                 .map((product) =>(
                   <SwiperSlide key={product.id}>
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product} isAddedBasket={false} isDisabled={false} />
                   </SwiperSlide>
                 ))}
             </Swiper>

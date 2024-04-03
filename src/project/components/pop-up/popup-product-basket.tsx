@@ -10,7 +10,6 @@ function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddPr
 
   const handleButtonClickAddToBasket = () => {
     onPopupAddBasketSuccessShow();
-    
   };
 
   return (

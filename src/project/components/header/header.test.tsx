@@ -6,7 +6,7 @@ import { Header } from './header';
 describe('component: Header', () => {
   it('should render correctly', () => {
     const expectedText = 'Каталог';
-    const preparedComponent = withHistory(<Header />);
+    const preparedComponent = withHistory(<Header isAddedToBasket />);
 
     render(preparedComponent);
 

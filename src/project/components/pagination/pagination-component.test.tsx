@@ -10,7 +10,7 @@ describe('Component: NotFoundScreen', () => {
       <Pagination
         currentPage={1}
         pagesAmount={INITAL_PAGE_BY_PANGINATION}
-        onPageClick={vi.fn()}
+        onPageChange={vi.fn()}
       />
     );
 

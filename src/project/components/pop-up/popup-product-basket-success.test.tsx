@@ -5,7 +5,7 @@ import { PopupBasketSuccess } from './index';
 describe('component: PopupBasketSuccess', () => {
   it('should render correctly', () => {
     const expectedText = 'Товар успешно добавлен в корзину';
-    const preparedComponent = withHistory(<PopupBasketSuccess />);
+    const preparedComponent = withHistory(<PopupBasketSuccess onClickButtonClose={vi.fn()} />);
 
     render(preparedComponent);
 

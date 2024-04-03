@@ -18,7 +18,7 @@ function Basket() {
 
   return (
     <>
-      <Header />
+      <Header isAddedToBasket={false}/>
       <main data-testid="basket-page">
         <div className="page-content">
           <BreadCrumbs isActiveBasketPage={activeBasketPage} />

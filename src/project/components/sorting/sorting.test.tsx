@@ -8,7 +8,8 @@ describe('component: Sorting', () => {
 
     const preparedComponent = withHistory(
       <Sorting
-        onSort ={vi.fn()}
+        onSort={vi.fn()}
+        initSorting={null}
       />);
 
     render(preparedComponent);

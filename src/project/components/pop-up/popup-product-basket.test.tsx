@@ -7,7 +7,10 @@ describe('component: PopupAddBasket', () => {
   it('should render correctly', () => {
     const expectedText = 'Добавить товар в корзину';
     const preparedComponent = withHistory(
-      <PopupAddBasket product={productsMocks[0]} />
+      <PopupAddBasket
+        product={productsMocks[0]}
+        onPopupAddBasketSuccessShow={vi.fn()}
+      />
     );
 
     render(preparedComponent);
