@@ -1,41 +1,132 @@
-import { useState } from 'react';
-import { PopUp, PopUpProps } from './pop-up';
-import { RatingRewiew } from '../../components/rating/rating-rewiew';
+import { Fragment } from 'react';
+import { PopUpMain, PopUpMainProps } from './index';
+import { RatingMap, ReqPath } from '../../const/const';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import classNames from 'classnames';
+import { TPostRewiew } from '../../types';
+import { api } from '../../services';
+<<<<<<< HEAD
+import { SettingValidation } from '../../const/const';
+=======
+import { SettingValidation } from '../../const/const'
+>>>>>>> 7155c6c (fix after rewiew)
 
-type PopupAddRewiew = PopUpProps & {
-  onSubmit: () => void;}
+type IPopupAddRewiew = PopUpMainProps & {
+  productId: number;
+  onSubmit: () => void;
+}
+
+type FormInputs = {
+  rate: string;
+  name: string;
+  userPlus: string;
+  userMinus: string;
+  comment: string;
+}
+
+function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
 
 
-function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
-  const [isRatingValid, setRatingValid] = useState(false);
+  const {
+    register,
+    formState:{ errors },
+    handleSubmit,
+    watch,
+    setError,
+  } = useForm<FormInputs>({
+    mode: 'all'
+  });
 
-  const validateForm = () => isRatingValid;
-  const validateRating = (value: string) => setRatingValid(Boolean(value && value.match(/^[1-5]$/)));
+  const ratingValue = watch('rate');
 
-  const handleFormSubmit = () => {
-    const isValid = validateForm();
 
-    if(isValid) {
-      onSubmit();
-    }
-    onSubmit();
+  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+    const formData: TPostRewiew = {
+      cameraId: productId,
+      userName: data.name,
+      advantage: data.userPlus,
+      disadvantage: data.userMinus,
+      review: data.comment,
+      rating: +data.rate
+    };
+
+    api.post(ReqPath.postRewiews, formData)
+      .then(onSubmit)
+      .catch((err) => setError('root', err));
   };
 
   return(
-    <PopUp {...props}>
+    <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
         <form
+          action="#"
           method="post"
-          onSubmit={handleFormSubmit}
-
+          onSubmit={(evt) => handleSubmit(handleFormSubmit)(evt)}
         >
           <div className="form-review__rate">
-            <RatingRewiew
-              onChange = {validateRating}
-              error = {!isRatingValid && '  Проставьте рейтинг'}
-            />
-            <div className="custom-input form-review__item">
+            <fieldset className={
+              classNames(
+                'rate',
+                'form-review__item',
+                {'is-invalid': !!errors.rate}
+              )
+            }
+            >
+              <legend className="rate__caption">
+               Рейтинг
+                <svg width={9} height={9} aria-hidden="true">
+                  <use xlinkHref="#icon-snowflake" />
+                </svg>
+              </legend>
+              <div className="rate__bar">
+                <div className="rate__group">
+                  {Object
+                    .entries(RatingMap)
+                    .reverse()
+                    .map(([key, value]) => (
+                      <Fragment key={key}>
+                        <input
+                          key={key}
+                          className="visually-hidden"
+                          id={`star-${key}`}
+                          type="radio"
+                          value={key}
+                          {
+                            ...register('rate', {
+                              required: 'Нужно проставить рейтинг',
+                              pattern: {
+                                value: /^[1-5]$/,
+                                message: 'Rate must contain from 1 to 5 stars'
+                              }
+                            })
+                          }
+                        />
+                        <label
+                          className="rate__label"
+                          htmlFor={`star-${key}`}
+                          title={value}
+                        />
+                      </Fragment>
+                    ))}
+                </div>
+                <div className="rate__progress">
+                  <span className="rate__stars">{ratingValue}</span> <span>/</span>{' '}
+                  <span className="rate__all-stars">5</span>
+                </div>
+              </div>
+              {errors.rate && (
+                <p className="rate__message">Нужно оценить товар</p>
+              )}
+            </fieldset>
+            <div className={
+              classNames(
+                'custom-input',
+                'form-review__item',
+                { 'is-invalid': errors.name}
+              )
+            }
+            >
               <label>
                 <span className="custom-input__label">
                       Ваше имя
@@ -46,16 +137,31 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 <input
                   type="text"
                   placeholder="Введите ваше имя"
-                  minLength={2}
-                  maxLength={15}
-                  required
-                  autoFocus
                   data-testid="nameElement"
+                  autoFocus
+                  {...register('name', {
+                    required: 'Введите ваше имя',
+                    minLength: {
+                      value: SettingValidation.UserNameMin,
+                      message: 'Name must contain from 3 to 10 letters'
+                    },
+                    maxLength: {
+                      value: SettingValidation.UserNameMax,
+                      message: 'Name must contain from 3 to 10 letters'
+                    }
+                  })}
                 />
               </label>
-              <p className="custom-input__error">Нужно указать имя</p>
+              { errors.name && (
+                <p className="custom-input__error">Нужно указать имя</p>
+              )}
             </div>
-            <div className="custom-input form-review__item">
+            <div className={classNames(
+              'custom-input',
+              'form-review__item',
+              {'is-invalid' : errors.userPlus}
+            )}
+            >
               <label>
                 <span className="custom-input__label">
                       Достоинства
@@ -65,17 +171,33 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
-                  name="user-plus"
                   placeholder="Основные преимущества товара"
-                  minLength={10}
-                  maxLength={160}
-                  required
+                  {...register('userPlus', {
+                    required: 'Основные преимущества товара',
+                    pattern: {
+<<<<<<< HEAD
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
+                      message: 'userPlus must contain from 10 to 160 letters'
+                    },
+                  })}
                   data-testid="positiveElement"
                 />
               </label>
-              <p className="custom-input__error">Нужно указать достоинства</p>
+              {errors.userPlus && (
+                <p className="custom-input__error">Нужно указать достоинства</p>
+              )}
             </div>
-            <div className="custom-input form-review__item">
+            <div className={
+              classNames(
+                'custom-input',
+                'form-review__item',
+                {'is-invalid': errors.userMinus}
+              )
+            }
+            >
               <label>
                 <span className="custom-input__label">
                       Недостатки
@@ -85,17 +207,31 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 </span>
                 <input
                   type="text"
-                  name="user-minus"
                   placeholder="Главные недостатки товара"
-                  minLength={10}
-                  maxLength={160}
-                  required
+                  {...register('userMinus', {
+                    required: 'Главные недостатки товара',
+                    pattern: {
+<<<<<<< HEAD
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
+                      message: 'userMinus must contain from 10 to 160 letters'
+                    }
+                  })}
                   data-testid="negativeElement"
                 />
               </label>
-              <p className="custom-input__error">Нужно указать недостатки</p>
+              {errors.userMinus && (
+                <p className="custom-input__error">Нужно указать недостатки</p>
+              )}
             </div>
-            <div className="custom-textarea form-review__item">
+            <div className={classNames(
+              'custom-textarea',
+              'form-review__item',
+              {'is-invalid' : errors.comment}
+            )}
+            >
               <label>
                 <span className="custom-textarea__label">
                       Комментарий
@@ -104,19 +240,33 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                   </svg>
                 </span>
                 <textarea
-                  name="user-comment"
-                  minLength={10}
-                  maxLength={160}
                   placeholder="Поделитесь своим опытом покупки"
-                  defaultValue={''}
                   data-testid="commentElement"
+                  {...register('comment', {
+                    required: 'Поделитесь своим опытом покупки',
+                    pattern: {
+<<<<<<< HEAD
+                      value:  /^[а-яА-ЯёЁa-zA-Z0-9\s]{10,160}$/,
+=======
+                      value: /^[а-яА-ЯёЁa-zA-Z0-9]{10,160}$/,
+>>>>>>> 7155c6c (fix after rewiew)
+                      message: 'Comment must contain from 10 to 160 letters'
+                    }
+                  })
+                  }
                 />
               </label>
-              <div className="custom-textarea__error">
-                  Нужно добавить комментарий
-              </div>
+              {errors.comment && (
+                <div className="custom-textarea__error">
+                 Нужно добавить комментарий
+                </div>
+              )}
+
             </div>
           </div>
+          {errors.root && (
+            <p className="custom-input__error custom-input__error--root" style={{ color: 'red', fontSize: 12, maxWidth: 400 }}>При отправке произошла ошибка: {errors.root.message}</p>
+          )}
           <button
             className="btn btn--purple form-review__btn"
             type="submit"
@@ -124,11 +274,8 @@ function PopupAddRewiew ({ onSubmit, ...props }: PopupAddRewiew) {
                 Отправить отзыв
           </button>
         </form>
-
       </div>
-
-    </PopUp>
-
+    </PopUpMain>
   );
 }
 

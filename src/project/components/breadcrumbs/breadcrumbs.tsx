@@ -1,4 +1,4 @@
-import { TProduct } from '../../types/';
+import { TProduct } from '../../types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { PagesMap } from '../../const/const';

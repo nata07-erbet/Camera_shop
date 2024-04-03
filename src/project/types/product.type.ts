@@ -1,7 +1,3 @@
-type TRating = {
-  rating: 0 | 1 | 2 | 3 | 4 | 5 ;
-}
-
 type TProductPreview = {
   id: number;
   name: string;
@@ -10,7 +6,7 @@ type TProductPreview = {
   previewImgWebp: string;
   price: number;
   previewImgWebp2x: string;
-  rating: TRating;
+  rating: number;
   reviewCount: number;
 }
 
@@ -24,4 +20,4 @@ type TProduct = TProductPreview & {
 
 type TBanner = Omit <TProductPreview , 'price' | 'rating' | 'reviewCount' >;
 
-export type { TProduct, TBanner, TRating };
+export type { TProduct, TBanner };

@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './slider-swiper.css';
 
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
@@ -22,13 +23,10 @@ const params: SwiperProps = {
   pagination:{
     type: 'bullets',
     clickable: true,
-    renderBullet(index, el) {
-      return `<span class="${ el }">${ index + 1 }</span>`;
-    }
   },
   navigation: true,
   modules:[Autoplay, Pagination, Navigation],
-  className: 'mySwiper',
+  className: 'my-swiper',
 };
 
 function SliderSwiper({banners}: SliderSwiperProps){

@@ -1,8 +1,8 @@
-import { PopUp, PopUpProps } from './pop-up';
+import { PopUpMain, PopUpMainProps } from './popup-main';
 
-function PopupRewiewError({ ...props }: PopUpProps) {
+function PopupRewiewError({ ...props }: PopUpMainProps) {
   return (
-    <PopUp {...props}>
+    <PopUpMain {...props}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
         <form method="post">
@@ -164,7 +164,7 @@ function PopupRewiewError({ ...props }: PopUpProps) {
           </button>
         </form>
       </div>
-    </PopUp>
+    </PopUpMain>
   );
 }
 

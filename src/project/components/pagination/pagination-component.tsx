@@ -1,43 +1,39 @@
-import { Link, useLocation,} from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { PanginationButton} from '../../const/const';
-import { usePagination } from '../../hooks/use-pagination';
+import { TUsePaginationProps, usePagination } from '../../hooks/use-pagination';
 
-interface PaginationProps {
-  pagesAmount: number;
-  onPageClick: (page: number) => void;
-}
+type PaginationProps = TUsePaginationProps
 
-const Pagination = ({ pagesAmount, onPageClick }: PaginationProps) => {
-  const { pathname, search } = useLocation();
-  const params = new URLSearchParams(search);
-  const initPage = params.get('page');
-  const { currentPage, currentRange, setPage, previousPage, nextPage } = usePagination({ initPage: initPage ? Number(initPage) : undefined, pagesAmount});
+const Pagination = ({ currentPage, pagesAmount, ...rest }: PaginationProps) => {
+  const { pathname } = useLocation();
+  const [search] = useSearchParams();
+  const { currentRange, setPage, previousPage, nextPage } = usePagination({ currentPage, pagesAmount, ...rest});
 
   const generatePath = (pageNum: number): string => {
-    params.set('page', pageNum.toString());
-    return `${pathname}?${params.toString()}`;
-  };
-
-  const handlePreviousClick = () => {
-    if (previousPage) {
-      setPage(previousPage);
-      onPageClick(previousPage);
-    }
-
+    search.set('page', pageNum.toString());
+    return `${pathname}?${search.toString()}`;
   };
 
   const handlePageClick = (page: number) => {
     setPage(page);
-    onPageClick(page);
+  };
+
+  const handlePreviousClick = () => {
+    if (previousPage) {
+      handlePageClick(previousPage);
+    }
   };
 
   const handleNextClick = () => {
     if (nextPage) {
-      setPage(nextPage);
-      onPageClick(nextPage);
+      handlePageClick(nextPage);
     }
   };
+
+  if (pagesAmount <= 1) {
+    return null;
+  }
 
   return(
     <div className="pagination" data-testid='pagination-component'>

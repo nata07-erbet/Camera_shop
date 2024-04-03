@@ -1,9 +1,8 @@
-/* eslint-disable no-alert */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap } from '../../const/const';
+import { AppRoute, AppRouteTab, DEFAULT_TAB, TabsMap, ReqPath} from '../../const/const';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
@@ -15,35 +14,40 @@ import { Rewiews } from '../../components/rewiews/rewiews';
 import {
   PopupBasketSuccess,
   PopupAddRewiew,
-  PopRewiewSuccess,
+  PopupRewiewSuccess,
   PopupAddBasket,
 } from '../../components/pop-up/index';
-
-type ProductProps = {
-  products: TProduct[];
-  similarProducts: TProduct[];
-  rewiews: TGetRewiew[];
-};
+import { api } from '../../services';
 
 type TTab = (typeof AppRouteTab)[keyof typeof AppRouteTab];
 const TABS: TTab[] = ['characteristic', 'description'];
 
-function Product({ products, similarProducts, rewiews }: ProductProps) {
-  const navigate = useNavigate();
+function Product() {
+  const [currentProduct, setCurrentProduct] = useState<TProduct | null>(null);
+  const [similarProducts, setSimilarProducts ] = useState<TProduct[]>([]);
+  const [rewiews, setRewiews] = useState<TGetRewiew[]>([]);
+  const { productId, tab: savedTab } = useParams<{ productId: string; tab: TTab }>();
 
-  const { productId } = useParams<{ productId: string }>();
-  const { tab: savedTab } = useParams<{ tab: TTab }>();
+  useEffect(() => {
+    if (productId) {
+      api.get<TProduct>(`${ReqPath.getProducts}/${productId}`)
+        .then((resolve) => setCurrentProduct(resolve.data));
+
+      api.get<TGetRewiew[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getRewiews}`)
+        .then((resolve) => setRewiews(resolve.data));
+
+      api.get<TProduct[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getSimilar}`)
+        .then((resolve) => setSimilarProducts(resolve.data));
+    }
+  }, [productId]);
+
+  const navigate = useNavigate();
 
   const [currentTab, setCurrentTab] = useState<TTab>(savedTab || DEFAULT_TAB);
   const [isAddedBasket, setIsAddedBasket] = useState(false);
   const [isAddedBasketSuccess, setIsAddedBasketSuccess] = useState(false);
-  const [isAddRewiewPopUpShowed, setIsRewiewPopUpShowed] = useState(false);
+  const [isAddRewiewPopUpMainShowed, setIsRewiewPopUpMainShowed] = useState(false);
   const [isSuccessfulPopupShowed, setIsSuccessfulPopupShowed] = useState(false);
-
-  const isRetina = true;
-  const currentProduct = products.find(
-    (product) => product.id === Number(productId)
-  );
 
   const isActive = currentTab === DEFAULT_TAB;
 
@@ -57,21 +61,6 @@ function Product({ products, similarProducts, rewiews }: ProductProps) {
     disabled: !isActive,
   });
 
-  if (!currentProduct) {
-    return null;
-  }
-
-  const {
-    name,
-    previewImgWebp,
-    previewImgWebp2x,
-    previewImg,
-    previewImg2x,
-    price,
-    rating,
-    reviewCount,
-  } = currentProduct;
-
   const handleClickButtonAddbasket = () => {
     setIsAddedBasket((prevState) => !prevState);
   };
@@ -81,19 +70,19 @@ function Product({ products, similarProducts, rewiews }: ProductProps) {
   };
 
   const handleButtonAddRewiewClick = () => {
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+    setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
-  const handleSubmitForm = () => {
-    setIsSuccessfulPopupShowed((prevState) => !prevState);
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+  const handleFormSubmit = () => {
+    setIsSuccessfulPopupShowed(true);
+    setIsRewiewPopUpMainShowed(false);
   };
 
   const handlePopupAddRewiewClose = () => {
-    setIsRewiewPopUpShowed((prevState) => !prevState);
+    setIsRewiewPopUpMainShowed((prevState) => !prevState);
   };
 
-  const handlePopRewiewSuccessClose = () => {
+  const handlePopupRewiewSuccessClose = () => {
     setIsSuccessfulPopupShowed((prevState) => !prevState);
   };
 
@@ -122,141 +111,137 @@ function Product({ products, similarProducts, rewiews }: ProductProps) {
   };
 
   return (
-    <>
-      <Header />
+    <div className="wrapper">
+      <Header/>
       <main data-testid="product-page">
-        <div className="page-content">
-          <BreadCrumbs currentProduct={currentProduct} />
-          <div className="page-content__section">
-            <section className="product">
-              <div className="container">
-                <div className="product__img">
-                  <picture>
-                    <source
-                      type="image/webp"
-                      srcSet={
-                        isRetina ? `/${previewImgWebp}` : `/${previewImgWebp2x}`
-                      }
-                    />
-                    <img
-                      src={previewImg}
-                      srcSet={previewImg2x}
-                      width={560}
-                      height={480}
-                      alt={name}
-                    />
-                  </picture>
-                </div>
-                <div className="product__content">
-                  <h1 className="title title--h3">{name}</h1>
-                  <Rating rating={rating} reviewCount={reviewCount} />
-                  <p className="product__price">
-                    <span className="visually-hidden">Цена:</span>
-                    {price}₽;
-                  </p>
-                  <button
-                    className="btn btn--purple"
-                    type="button"
-                    onClick={handleClickButtonAddbasket}
-                  >
-                    <svg width={24} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-add-basket" />
-                    </svg>
-                    Добавить в корзину
-                  </button>
-                  <div className="tabs product__tabs">
-                    <div className="tabs__controls product__tabs-controls">
-                      {TABS.map((tab) => (
-                        <button
-                          key={tab}
-                          className={classNames('tabs__control', {
-                            'is-active': tab === currentTab,
-                          })}
-                          type="button"
-                          onClick={() => handleClickTab(tab)}
-                        >
-                          {TabsMap[tab]}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="tabs__content">
-                      <div className={tabClassNoAct}>
-                        <ul className="product__tabs-list">
-                          <li className="item-list">
-                            <span className="item-list__title">Артикул:</span>
-                            <p className="item-list__text"> DA4IU67AD5</p>
-                          </li>
-                          <li className="item-list">
-                            <span className="item-list__title">Категория:</span>
-                            <p className="item-list__text">Видеокамера</p>
-                          </li>
-                          <li className="item-list">
-                            <span className="item-list__title">
-                              Тип камеры:
-                            </span>
-                            <p className="item-list__text">Коллекционная</p>
-                          </li>
-                          <li className="item-list">
-                            <span className="item-list__title">Уровень:</span>
-                            <p className="item-list__text">Любительский</p>
-                          </li>
-                        </ul>
+        {currentProduct && (
+          <div className="page-content">
+            <BreadCrumbs currentProduct={currentProduct} />
+            <div className="page-content__section">
+              <section className="product">
+                <div className="container">
+                  <div className="product__img">
+                    <picture>
+                      <source
+                        type="image/webp"
+                        srcSet={`/${currentProduct.previewImgWebp}`}
+                      />
+                      <img
+                        src={currentProduct.previewImg}
+                        srcSet={currentProduct.previewImg2x}
+                        width={560}
+                        height={480}
+                        alt={currentProduct.name}
+                      />
+                    </picture>
+                  </div>
+                  <div className="product__content">
+                    <h1 className="title title--h3" data-testid='product-name'>{currentProduct.name}</h1>
+                    <Rating rating={currentProduct.rating} reviewCount={currentProduct.reviewCount} />
+                    <p className="product__price">
+                      <span className="visually-hidden">Цена:</span>
+                      {currentProduct.price.toLocaleString()}₽
+                    </p>
+                    <button
+                      className="btn btn--purple"
+                      type="button"
+                      onClick={handleClickButtonAddbasket}
+                    >
+                      <svg width={24} height={16} aria-hidden="true">
+                        <use xlinkHref="#icon-add-basket" />
+                      </svg>
+                      Добавить в корзину
+                    </button>
+                    <div className="tabs product__tabs">
+                      <div className="tabs__controls product__tabs-controls">
+                        {TABS.map((tab) => (
+                          <button
+                            key={tab}
+                            className={classNames('tabs__control', {
+                              'is-active': tab === currentTab,
+                            })}
+                            type="button"
+                            onClick={() => handleClickTab(tab)}
+                          >
+                            {TabsMap[tab]}
+                          </button>
+                        ))}
                       </div>
-                      <div className={tabClassAct}>
-                        <div className="product__tabs-text">
-                          <p>
-                            Немецкий концерн BRW разработал видеокамеру Das Auge
-                            IV в&nbsp;начале 80-х годов, однако она до&nbsp;сих
-                            пор пользуется популярностью среди коллекционеров
-                            и&nbsp;яростных почитателей старинной техники.
-                          </p>
-                          <p>
-                            Вы&nbsp;тоже можете прикоснуться к&nbsp;волшебству
-                            аналоговой съёмки, заказав этот чудо-аппарат. Кто
-                            знает, может с&nbsp;Das Auge IV&nbsp;начнётся ваш
-                            путь к&nbsp;наградам всех престижных кинофестивалей.
-                          </p>
+
+                      <div className="tabs__content">
+                        <div className={tabClassAct}>
+                          <ul className="product__tabs-list">
+                            <li className="item-list">
+                              <span className="item-list__title">Артикул:</span>
+                              <p className="item-list__text">{currentProduct.vendorCode}</p>
+                            </li>
+                            <li className="item-list">
+                              <span className="item-list__title">Категория:</span>
+                              <p className="item-list__text">{currentProduct.category}</p>
+                            </li>
+                            <li className="item-list">
+                              <span className="item-list__title">
+                                Тип камеры:
+                              </span>
+                              <p className="item-list__text">{currentProduct.type}</p>
+                            </li>
+                            <li className="item-list">
+                              <span className="item-list__title">Уровень:</span>
+                              <p className="item-list__text">{currentProduct.level}</p>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className={tabClassNoAct}>
+                          <div className="product__tabs-text">
+                            <p>{currentProduct.description}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </section>
+            </div>
+            {similarProducts.length > 0 && (
+              <div className="page-content__section">
+                <SimilarSliderProducts similarProducts={similarProducts} />
               </div>
-            </section>
+            )}
+            {rewiews.length > 0 && (
+              <div className="page-content__section">
+                <Rewiews
+                  rewiews={rewiews}
+                  onButtonAddRewiewClick={handleButtonAddRewiewClick}
+                />
+              </div>
+            )}
           </div>
-          <div className="page-content__section">
-            <SimilarSliderProducts similarProducts={similarProducts} />
-          </div>
-          <div className="page-content__section">
-            <Rewiews
-              rewiews={rewiews}
-              onButtonAddRewiewClick={handleButtonAddRewiewClick}
-            />
-          </div>
-        </div>
+        )}
       </main>
       <UpBtn onScrollTop={handleScrollToTop} />
-      <PopupAddBasket
-        product={currentProduct}
-        opened={isAddedBasket}
-        onClose={handlePopupAddBasketClose}
-      />
+      {currentProduct && (
+        <PopupAddBasket
+          product={currentProduct}
+          opened={isAddedBasket}
+          onClose={handlePopupAddBasketClose}
+        />
+      )}
       <PopupBasketSuccess
         opened={isAddedBasketSuccess}
         onClose={handlePopupBasketSuccessClose}
       />
       <PopupAddRewiew
-        onSubmit={handleSubmitForm}
+        productId={Number(productId)}
+        onSubmit={handleFormSubmit}
         onClose={handlePopupAddRewiewClose}
-        opened={isAddRewiewPopUpShowed}
+        opened={isAddRewiewPopUpMainShowed}
       />
-      <PopRewiewSuccess
-        onClose={handlePopRewiewSuccessClose}
+      <PopupRewiewSuccess
+        onClose={handlePopupRewiewSuccessClose}
         opened={isSuccessfulPopupShowed}
       />
       <Footer />
-    </>
+    </div>
   );
 }
 

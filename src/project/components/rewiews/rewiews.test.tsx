@@ -10,7 +10,7 @@ describe('component: ', () => {
     const preparedComponent = withHistory(
       <Rewiews
         rewiews={getRewiewsMock}
-        onButtonAddRewiewClick={function (): void {}}
+        onButtonAddRewiewClick={vi.fn()}
       />
     );
 

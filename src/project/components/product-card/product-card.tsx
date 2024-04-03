@@ -1,18 +1,15 @@
-import { TProduct } from '../../types/';
-import { Rating } from '../../components/rating/rating';
+import { TProduct } from '../../types';
+import { Rating } from '../rating/rating';
 import { Link} from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../../const/const';
 
-
 type ProductCardProps = {
   product: TProduct;
-  onClickButton: (id: TProduct['id']) => void;
+  onClickButton?: (id: TProduct['id']) => void | undefined;
 }
-
-const isRetina = false;
-
 function ProductCard ({ product, onClickButton }: ProductCardProps) {
+
   const {
     id,
     name,
@@ -31,7 +28,7 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
   });
 
   const handleButtonClickBuy = () => {
-    onClickButton(id);
+    onClickButton?.(id);
   };
 
   return (
@@ -40,13 +37,11 @@ function ProductCard ({ product, onClickButton }: ProductCardProps) {
         <picture>
           <source
             type="image/webp"
-            srcSet={
-              isRetina ? `${previewImgWebp}` : `${previewImgWebp2x}`
-            }
+            srcSet={`/${previewImgWebp}, /${previewImgWebp2x} 2x`}
           />
           <img
-            src={previewImg}
-            srcSet={previewImg2x}
+            src={`/${previewImg}`}
+            srcSet={`/${previewImg2x} 2x`}
             width={280}
             height={240}
             alt={name}

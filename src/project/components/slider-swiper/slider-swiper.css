@@ -1,0 +1,21 @@
+.my-swiper .swiper-pagination {
+  position: absolute;
+  bottom: 20px;
+  left: -40px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 12px;
+}
+
+.my-swiper .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(244, 244, 252, 1);
+  margin: 0 !important;
+  opacity: 1;
+}
+
+.my-swiper .swiper-pagination-bullet-active {
+  background-color: rgba(117, 117, 226, 1);
+  opacity: 1;
+}
