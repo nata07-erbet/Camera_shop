@@ -138,7 +138,7 @@ function Catalog() {
 
   const handleModalAddProductSuccessShowClose = () => {
     setIsModalAddProductShow(false);
-    setIsModalAddProductSuccessShow(true);
+    setIsModalAddProductSuccessShow(false);
   };
 
   const handleClickButtonClose = () => {
