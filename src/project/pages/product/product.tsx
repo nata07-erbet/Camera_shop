@@ -121,7 +121,7 @@ function Product() {
 
   return (
     <div className="wrapper">
-      <Header isAddedToBasket/>
+      <Header/>
       <main data-testid="product-page">
         {currentProduct && (
           <div className="page-content">

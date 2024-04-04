@@ -20,4 +20,10 @@ type TProduct = TProductPreview & {
 
 type TBanner = Omit <TProductPreview , 'price' | 'rating' | 'reviewCount' >;
 
-export type { TProduct, TBanner };
+type TProductBasket = {
+  count: number;
+  id: number;
+  product: TProduct;
+}
+
+export type { TProduct, TBanner, TProductBasket };

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { ReqPath } from '../../const/const';
 import { api } from '../../services';
 
+
 function Basket() {
   const activeBasketPage = true;
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -16,16 +17,18 @@ function Basket() {
       .then((response) => setProducts(response.data));
   },[]);
 
+  const addedProducts: TProduct[] = products.filter((product) => product.id === 1);
+
   return (
     <>
-      <Header isAddedToBasket={false}/>
+      <Header/>
       <main data-testid="basket-page">
         <div className="page-content">
           <BreadCrumbs isActiveBasketPage={activeBasketPage} />
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
-              <BasketList products={products} />
+              <BasketList products={addedProducts} />
               <div className="basket__summary">
                 <div className="basket__promo">
                   <p className="title title--h4">

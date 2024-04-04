@@ -211,7 +211,7 @@ function Catalog() {
 
   return (
     <>
-      <Header isAddedToBasket={false}/>
+      <Header/>
       <main data-testid="main-page">
         <SliderSwiper banners={banners} />
         <div className="page-content">

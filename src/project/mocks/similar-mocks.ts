@@ -149,4 +149,4 @@ const similarJSON = `[
 
 const similarMocks = JSON.parse(similarJSON) as TProduct[];
 
-export { similarMocks};
+export { similarMocks };

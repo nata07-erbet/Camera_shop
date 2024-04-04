@@ -5,7 +5,7 @@ const MOCK_START = 1;
 const MOCK_END = 40;
 
 const REWIEWS_COUNT = 3;
-
+const DEFAULT_NULL = 0;
 const START_SEARCH_TERM = 3;
 
 const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
@@ -169,6 +169,7 @@ export {
   INITAL_RATING,
   INITAL_COUNT_COMMENTS,
   API_URL,
+  DEFAULT_NULL,
   ReqPath,
   FilterCategoryMap,
   FilterTypeMap,

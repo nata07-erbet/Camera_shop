@@ -1,13 +1,10 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { Logo } from '../logo/logo';
 import { Search } from '../search/search';
+import { BasketButton } from '../basket-button/basket-button';
 
-type HeaderProps = {
-  isAddedToBasket: boolean;
-};
-
-function Header ({ isAddedToBasket }: HeaderProps) {
+function Header () {
   return (
     <header className="header" id="header">
       <div className="container">
@@ -39,14 +36,7 @@ function Header ({ isAddedToBasket }: HeaderProps) {
         <div className="form-search">
           <Search />
         </div>
-        <Link className="header__basket-link" to={AppRoute.Basket}>
-          <svg width={16} height={16} aria-hidden="true">
-            {isAddedToBasket && (
-              <span className="header__basket-count">3</span>
-            )}
-
-          </svg>
-        </Link>
+        <BasketButton />
       </div>
     </header>
   );
