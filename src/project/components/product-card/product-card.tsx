@@ -9,9 +9,8 @@ type ProductCardProps = {
   onClickButton?: (id: TProduct['id']) => void | undefined;
   onChangeDisabled?: (id: TProduct['id']) => void | undefined;
   isAddedBasket: boolean;
-  isDisabled: boolean;
 }
-function ProductCard ({ product, onClickButton, onChangeDisabled, isAddedBasket, isDisabled }: ProductCardProps) {
+function ProductCard ({ product, onClickButton, onChangeDisabled, isAddedBasket }: ProductCardProps) {
 
   const {
     id,
@@ -64,7 +63,7 @@ function ProductCard ({ product, onClickButton, onChangeDisabled, isAddedBasket,
           className="btn btn--purple product-card__btn"
           type="button"
           onClick={handleButtonClickBuy}
-          disabled={isDisabled}
+          disabled={isAddedBasket}
         >
           {isAddedBasket ? ' В Корзине' : ' Купить'}
 

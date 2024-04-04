@@ -244,6 +244,7 @@ function Catalog() {
                     <ProductCardList
                       products={currentProducts}
                       onClickButton={handleClickButton}
+                      isAddedBasket={isModalAddProductSuccessShow}
                     />
                   )}
                   {isLoaded && (

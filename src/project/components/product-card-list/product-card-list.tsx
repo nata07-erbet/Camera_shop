@@ -4,9 +4,10 @@ import { TProduct } from '../../types/index';
 type ProductCardListProps = {
   products: TProduct[];
   onClickButton: (id: TProduct['id']) => void;
+  isAddedBasket: boolean;
 };
 
-function ProductCardList ({ products, onClickButton }: ProductCardListProps) {
+function ProductCardList ({ products, onClickButton, isAddedBasket }: ProductCardListProps) {
   return (
     <div className="cards catalog__cards" data-testid="product-container">
       {products.length ? (
@@ -15,8 +16,7 @@ function ProductCardList ({ products, onClickButton }: ProductCardListProps) {
             key={product.id}
             product={product}
             onClickButton={onClickButton}
-            isAddedBasket={false}
-            isDisabled={false}
+            isAddedBasket={isAddedBasket}
           />
         ))
       ) : (
