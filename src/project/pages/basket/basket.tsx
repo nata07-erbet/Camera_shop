@@ -12,12 +12,14 @@ function Basket() {
   const activeBasketPage = true;
   const [products, setProducts] = useState<TProduct[]>([]);
 
+  const productId = 3;
+  const addedProducts: TProduct[] = products.filter((product) => product.id === productId);
+
   useEffect(() => {
     api.get<TProduct[]>(`${ReqPath.getProducts}`)
       .then((response) => setProducts(response.data));
   },[]);
 
-  const addedProducts: TProduct[] = products.filter((product) => product.id === 1);
 
   return (
     <>

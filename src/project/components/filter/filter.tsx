@@ -16,8 +16,8 @@ import {
 } from '../../types/index';
 
 type FormInputs = {
-  priceFrom: number;
-  priceTo: number;
+  priceFrom: string;
+  priceTo: string;
 };
 
 const INITIAL_FILTER_DATA: TFilterFeatures = {
@@ -68,16 +68,16 @@ function Filter({
 
   const { setValue, register, watch, handleSubmit, reset } = useForm<FormInputs>({
     defaultValues: {
-      priceFrom: initPriceRange[0],
-      priceTo: initPriceRange[1],
+      priceFrom: initPriceRange[0] ? String(initPriceRange[0]) : undefined,
+      priceTo: initPriceRange[1] ? String(initPriceRange[1]) : undefined,
     },
     mode: 'all',
   });
 
-  const handleCategoryChange = (category: TFilterCategory) => {
+  const handleCategoryChange = (category: TFilterCategory, checked: boolean) => {
     const newData: TFilterFeatures = {
       ...filterData,
-      category,
+      category: checked ? category : null,
       types: filterData.types.filter((type) =>
         checkIfTypeAvailable(category, type)
       ),
@@ -123,37 +123,49 @@ function Filter({
     handleSubmit(() => true)(evt);
   };
 
-  const currentPriceFrom = Number(watch('priceFrom'));
-  const currentPriceTo = Number(watch('priceTo'));
+  const currentPriceFrom = watch('priceFrom');
+  const currentPriceTo = watch('priceTo');
+  const priceFromNum: TFilterPriceRange[0] = currentPriceFrom ? Number(currentPriceFrom) : null;
+  const priceToNum: TFilterPriceRange[1] = currentPriceTo ? Number(currentPriceTo) : null;
 
   const handlePriceFromChange = () => {
-    let value = currentPriceFrom;
-    if (currentPriceFrom < minPrice) {
-      value = minPrice;
-    } else if (
-      currentPriceTo &&
-      currentPriceFrom > currentPriceTo
-    ) {
-      value = currentPriceTo;
+    if (priceFromNum === null) {
+      onPricesChange([null, priceToNum]);
+      return;
     }
 
-    setValue('priceFrom', value);
-    onPricesChange([value, currentPriceTo]);
+    let value = priceFromNum;
+    if (priceFromNum < minPrice) {
+      value = minPrice;
+    } else if (
+      priceToNum &&
+      priceToNum > priceFromNum
+    ) {
+      value = priceToNum;
+    }
+
+    setValue('priceFrom', value.toString());
+    onPricesChange([value, priceToNum]);
   };
 
   const handlePriceToChange = () => {
-    let value = currentPriceTo;
-    if (currentPriceTo > maxPrice) {
-      value = maxPrice;
-    } else if (
-      currentPriceFrom &&
-      currentPriceTo < currentPriceFrom
-    ) {
-      value = currentPriceFrom;
+    if (priceToNum === null) {
+      onPricesChange([priceFromNum, null]);
+      return;
     }
 
-    setValue('priceTo', value);
-    onPricesChange([currentPriceFrom, value]);
+    let value = priceToNum;
+    if (priceToNum > maxPrice) {
+      value = maxPrice;
+    } else if (
+      priceFromNum &&
+      priceToNum < priceFromNum
+    ) {
+      value = priceFromNum;
+    }
+
+    setValue('priceTo', value.toString());
+    onPricesChange([priceFromNum, value]);
   };
 
   return (
@@ -206,11 +218,11 @@ function Filter({
             <div className="custom-checkbox catalog-filter__item" key={key}>
               <label>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="category"
                   value={key}
                   checked={filterData.category === value}
-                  onChange={() => handleCategoryChange(value)}
+                  onChange={(evt) => handleCategoryChange(value, evt.target.checked)}
                 />
                 <span className="custom-checkbox__icon" />
                 <span className="custom-checkbox__label">{value}</span>

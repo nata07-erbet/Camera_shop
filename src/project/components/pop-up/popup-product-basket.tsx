@@ -4,12 +4,15 @@ import { PopUpMain, PopUpMainProps } from './popup-main';
 type AddProductBasketPopProps = PopUpMainProps &{
   product: TProduct;
   onPopupAddBasketSuccessShow: () => void;
+  onAddToBasket : (productId: TProduct['id']) => void;
+
 };
 
-function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddProductBasketPopProps) {
+function PopupAddBasket ({product, onPopupAddBasketSuccessShow, onAddToBasket, ...props}: AddProductBasketPopProps) {
 
-  const handleButtonClickAddToBasket = () => {
+  const handleButtonClickAddToBasket = (productId: TProduct['id']) => {
     onPopupAddBasketSuccessShow();
+    onAddToBasket(productId);
   };
 
   return (
@@ -50,7 +53,7 @@ function PopupAddBasket ({product, onPopupAddBasketSuccessShow, ...props}: AddPr
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={handleButtonClickAddToBasket}
+          onClick={() => handleButtonClickAddToBasket(product.id)}
           autoFocus
         >
           <svg width={24} height={16} aria-hidden="true">
