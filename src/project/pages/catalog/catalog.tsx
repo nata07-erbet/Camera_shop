@@ -276,8 +276,8 @@ function Catalog() {
               product={buyingProduct}
               opened={isModalAddProductShow}
               onClose={handleModalAddProductShowClose}
-              onPopupAddBasketSuccessShow={ handlePopupAddBasketSuccessShow }
-            />
+              onPopupAddBasketSuccessShow={handlePopupAddBasketSuccessShow}
+              />
             <PopupBasketSuccess
               opened={isModalAddProductSuccessShow}
               onClose={handleModalAddProductSuccessShowClose}

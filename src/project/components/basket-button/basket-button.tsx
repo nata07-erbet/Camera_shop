@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
-import { DEFAULT_NULL } from '../../const/const';
 
 function BasketButton () {
 

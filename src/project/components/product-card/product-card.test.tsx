@@ -11,7 +11,6 @@ describe('component: productsMocks', () => {
         product={productsMocks[0]}
         onClickButton={vi.fn()}
         isAddedBasket={false}
-        isDisabled={false}
       />
     );
 
