@@ -26,10 +26,10 @@ const getSortUpByRating = (a: TProduct, b: TProduct) => (a.rating - b.rating);
 const getSortDownByRating = (a: TProduct, b: TProduct) => (b.rating - a.rating);
 
 const sorting: Record<TSortingKey, (products: TProduct[]) => TProduct[]> = {
-  'price-asc': (products: TProduct[]) => products.toSorted(getSortUpByPrice),
-  'price-desc': (products: TProduct[]) => products.toSorted(getSortDownByPrice),
-  'rating-asc': (products: TProduct[]) => products.toSorted(getSortUpByRating),
-  'rating-desc': (products: TProduct[]) => products.toSorted(getSortDownByRating),
+  'price-asc': (products: TProduct[]) => products.sort(getSortUpByPrice),
+  'price-desc': (products: TProduct[]) => products.sort(getSortDownByPrice),
+  'rating-asc': (products: TProduct[]) => products.sort(getSortUpByRating),
+  'rating-desc': (products: TProduct[]) => products.sort(getSortDownByRating),
 };
 
 export {
