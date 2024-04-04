@@ -18,7 +18,7 @@ import { Pagination } from '../../components/pagination/pagination-component';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { Filter } from '../../components/filter/filter';
 import { Sorting } from '../../components/sorting/sorting';
-import { PopupAddBasket } from '../../components/pop-up/index';
+import { PopupAddBasket, PopupBasketSuccess, } from '../../components/pop-up/index';
 import { PRODUCT_VIEW_COUNT, ReqPath } from '../../const/const';
 import { useEffect } from 'react';
 import { getTotalPageCount } from '../../utils/utils';
@@ -65,6 +65,8 @@ function Catalog() {
   const [selectedId, setSelectedId] = useState<TProduct['id'] | null>(null);
   const [isModalAddProductShow, setIsModalAddProductShow] =
     useState<boolean>(false);
+
+  const [ isModalAddProductSuccessShow, setIsModalAddProductSuccessShow ] = useState<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(
@@ -131,7 +133,16 @@ function Catalog() {
   };
 
   const handleModalAddProductShowClose = () => {
-    setIsModalAddProductShow((prevState) => !prevState);
+    setIsModalAddProductShow(false);
+  };
+
+  const handleModalAddProductSuccessShowClose = () => {
+    setIsModalAddProductShow(false);
+    setIsModalAddProductSuccessShow(true);
+  };
+
+  const handleClickButtonClose = () => {
+    setIsModalAddProductSuccessShow(false);
   };
 
   const handlePageChange = useCallback((page: number) => {
@@ -147,8 +158,9 @@ function Catalog() {
   }, []);
 
   const handlePopupAddBasketSuccessShow = () => {
-    
-  }
+    setIsModalAddProductSuccessShow(true);
+    setIsModalAddProductShow(false);
+  };
 
   const updateSearchParams = useCallback(
     (params: TSearchParams) => {
@@ -247,12 +259,20 @@ function Catalog() {
           </section>
         </div>
         {buyingProduct && (
-          <PopupAddBasket
-            product={buyingProduct}
-            opened={isModalAddProductShow}
-            onClose={handleModalAddProductShowClose}
-            onPopupAddBasketSuccessShow={ handlePopupAddBasketSuccessShow}
-          />
+          <>
+            <PopupAddBasket
+              product={buyingProduct}
+              opened={isModalAddProductShow}
+              onClose={handleModalAddProductShowClose}
+              onPopupAddBasketSuccessShow={ handlePopupAddBasketSuccessShow }
+            />
+            <PopupBasketSuccess
+              opened={isModalAddProductSuccessShow}
+              onClose={handleModalAddProductSuccessShowClose}
+              onClickButtonClose={handleClickButtonClose}
+            />
+          </>
+
         )}
       </main>
       <Footer />
