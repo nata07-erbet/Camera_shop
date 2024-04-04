@@ -17,9 +17,7 @@ const DEFAULT_DIRECTION: TSortingDirection = 'asc';
 const DEFAULT_TYPE: TSortingType = 'price';
 
 function Sorting ({ initSorting, onSort }: SortingProps) {
-
   const initValues = (initSorting?.split('-') as [TSortingType, TSortingDirection]) ?? [null, null];
-
   const [currentType, setCurrentType] = useState<TSortingType | null>(initValues[0]);
   const [currentDirection, setCurrentDirection] = useState<TSortingDirection | null>(initValues[1]);
 

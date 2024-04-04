@@ -24,7 +24,6 @@ function ProductCardList ({ products, onClickButton, isAddedBasket }: ProductCar
       )}
     </div>
   );
-
 }
 
 export { ProductCardList };
