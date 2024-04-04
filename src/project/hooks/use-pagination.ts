@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 type TUsePaginationProps = {
   currentPage: number;
@@ -18,7 +17,6 @@ type TUsePaginationReturn = {
 const MAX_PAGES_IN_RANGE = 3;
 
 const usePagination = ({ pagesAmount, currentPage, onPageChange }: TUsePaginationProps): TUsePaginationReturn => {
-  const [search, setSearchParams] = useSearchParams();
   const ranges: number[][] = useMemo(() =>
     Array.from({ length: pagesAmount }, (_, i) => i + 1).reduce((acc, page, idx) => {
       const rangeIdx = Math.floor(idx / MAX_PAGES_IN_RANGE);
@@ -31,13 +29,9 @@ const usePagination = ({ pagesAmount, currentPage, onPageChange }: TUsePaginatio
     [] as number[][]), [pagesAmount]
   );
 
-  let initRangeIdx = ranges.findIndex((range) => range.includes(currentPage));
-  if (initRangeIdx === -1) {
-    initRangeIdx = 0;
-  }
-
+  const initRangeIdx = ranges.findIndex((range) => range.includes(currentPage));
   const [currentRangeIdx, setCurrentRangeIdx] = useState(initRangeIdx);
-  const currentRange = ranges[currentRangeIdx];
+  const currentRange = ranges[currentRangeIdx] ?? ranges[0];
   const previousPage = (currentRange && currentRange[0] > 1) ? currentRange[0] - 1 : null;
   const nextPage = (currentRange && currentRange[currentRange.length - 1] < pagesAmount) ? currentRange[currentRange.length - 1] + 1 : null;
 
@@ -53,17 +47,13 @@ const usePagination = ({ pagesAmount, currentPage, onPageChange }: TUsePaginatio
   }, [nextPage, onPageChange, previousPage]);
 
   useEffect(() => {
-    if (!currentPage) {
-      return;
+    if (initRangeIdx === -1) {
+      const newRangeIdx = 0;
+      const newPage = ranges[0][0];
+      onPageChange(newPage);
+      setCurrentRangeIdx(newRangeIdx);
     }
-
-    if (currentPage === 1) {
-      search.delete('page');
-    } else {
-      search.set('page', currentPage.toString());
-    }
-    setSearchParams(search);
-  }, [currentPage, search, setSearchParams]);
+  }, [currentRange, initRangeIdx, onPageChange, ranges]);
 
   return {
     currentPage,

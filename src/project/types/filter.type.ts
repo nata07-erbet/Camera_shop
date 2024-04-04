@@ -14,6 +14,6 @@ type TFilterFeatures = {
   types: TFilterType[];
 }
 
-type TFilterPriceRange = [number, number];
+type TFilterPriceRange = [number | null, number | null];
 
 export type { TFilterCategory, TFilterType, TFilterLevel, TFilterFeatures, TFilterPriceRange };

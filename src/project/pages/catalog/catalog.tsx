@@ -52,8 +52,8 @@ const sortProducts = (products: TProduct[], label: TSortingKey) =>
 type TSearchParams = Partial<TFilterFeatures> & {
   page?: number;
   sort?: TSortingKey;
-  priceFrom?: number;
-  priceTo?: number;
+  priceFrom?: TFilterPriceRange[0];
+  priceTo?: TFilterPriceRange[1];
 };
 
 const DEFAULT_PAGE_NUM = 1;
@@ -157,6 +157,11 @@ function Catalog() {
     setFilters(filterData);
   }, []);
 
+  const handleFiltersReset = useCallback(() => {
+    setFilters(null);
+    setSearchParams();
+  }, [setSearchParams]);
+
   const handlePopupAddBasketSuccessShow = () => {
     setIsModalAddProductSuccessShow(true);
     setIsModalAddProductShow(false);
@@ -177,6 +182,8 @@ function Catalog() {
             value.forEach((el) => prev.append(key, el));
           } else if (value) {
             prev.set(key, value.toString());
+          } else if (prev.has(key)) {
+            prev.delete(key);
           }
         });
         return prev;
@@ -193,12 +200,16 @@ function Catalog() {
 
   useEffect(() => {
     const params: TSearchParams = {
-      ...(filters ?? {}),
+      page: currentPage,
       priceFrom: priceRange[0],
       priceTo: priceRange[1],
-      page: currentPage,
       sort: currentSorting ?? undefined,
     };
+
+    if (filters) {
+      Object.assign(params, filters);
+    }
+
     updateSearchParams(params);
   }, [currentPage, currentSorting, filters, priceRange, updateSearchParams]);
 
@@ -232,7 +243,7 @@ function Catalog() {
                     maxPrice={maxPrice}
                     onFeaturesChange={handleFiltersChange}
                     onPricesChange={handlePriceChange}
-                    onReset={() => updateSearchParams({})}
+                    onReset={handleFiltersReset}
                   />
                 </div>
                 <div className="catalog__content">
