@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import { TProduct, TProductLocalStorage } from '../../types';
-import { setLocalStorage, getLocalStorage } from '../../utils/local-storige';
+import { ChangeEvent, useState } from 'react';
+import { TProduct } from '../../types';
+
 import {
-  KEY_PRODUCTS_INTO_BASKET,
   MAX_PRODUCTS_IN_BASKET,
   MIN_PRODUCTS_IN_BASKET } from '../../const/const';
 
 type BasketComponentProps = {
   product: TProduct;
+  onButtonDeleteProduct: () => void;
 };
 
-function BasketComponent ({product}: BasketComponentProps) {
-  const [ counter, setCounter ] = useState<number>(1);
+function BasketComponent ({product, onButtonDeleteProduct}: BasketComponentProps) {
+  const [ value, setValue ] = useState(MIN_PRODUCTS_IN_BASKET.toString());
+  const [ counter, setCounter ] = useState<number>(Number(value));
 
-
-  setLocalStorage(KEY_PRODUCTS_INTO_BASKET, product);
-
+  const handleChangeCount = (evt: ChangeEvent<HTMLInputElement>) => {
+    setValue(evt.target.value);
+  };
 
   const handleClickCountBack = () => {
     if (counter > MIN_PRODUCTS_IN_BASKET) {
@@ -32,6 +33,11 @@ function BasketComponent ({product}: BasketComponentProps) {
       return MAX_PRODUCTS_IN_BASKET;
     }
   };
+
+  const handleButtonDeleteProduct = () => {
+    onButtonDeleteProduct();
+  };
+
 
   return (
     <li className="basket-item" key={product.id}>
@@ -82,11 +88,12 @@ function BasketComponent ({product}: BasketComponentProps) {
         <input
           type="number"
           id={`counter${counter}`}
-          value={counter}
+          value={value}
           defaultValue={MIN_PRODUCTS_IN_BASKET}
           min={MIN_PRODUCTS_IN_BASKET }
           max={MAX_PRODUCTS_IN_BASKET}
           aria-label="количество товара"
+          onChange={handleChangeCount}
         />
         <button
           className="btn-icon btn-icon--next"
@@ -105,6 +112,7 @@ function BasketComponent ({product}: BasketComponentProps) {
         className="cross-btn"
         type="button"
         aria-label="Удалить товар"
+        onClick={handleButtonDeleteProduct}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />

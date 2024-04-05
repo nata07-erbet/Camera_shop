@@ -2,11 +2,21 @@ import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { BasketList } from '../../components/basket-list/basket-list';
-
+import { PopupRemove } from '../../components/pop-up/popup-remove-item';
+import { useState } from 'react';
 
 function Basket() {
   const activeBasketPage = true;
 
+  const [ isModalPopupRemoveShow, setIsModalPopupRemoveShow ] = useState(false);
+
+  const handleButtonDeleteProduct = () => {
+    // логика удаления карточки  товара
+  };
+
+  const handleModalPopupRemoveShowClose = () => {
+    setIsModalPopupRemoveShow((prevState) => !prevState);
+  }
   return (
     <>
       <Header/>
@@ -16,7 +26,9 @@ function Basket() {
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
-              <BasketList />
+              <BasketList
+                onButtonDeleteProduct={handleButtonDeleteProduct}
+              />
               <div className="basket__summary">
                 <div className="basket__promo">
                   <p className="title title--h4">
@@ -73,6 +85,10 @@ function Basket() {
           </section>
         </div>
       </main>
+      <PopupRemove
+        opened={isModalPopupRemoveShow}
+        onClose={handleModalPopupRemoveShowClose}
+       />
       <Footer />
     </>
   );

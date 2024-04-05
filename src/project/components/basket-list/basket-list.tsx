@@ -1,10 +1,13 @@
 import { BasketComponent } from '../../components/basket-component/basket-component';
 import { basketProductsMock } from '../../mocks/basket-mock';
 
+type BasketListProps = {
+  onButtonDeleteProduct: () => void;
+};
 
 const MAX_BASKET = 3;
 
-function BasketList () {
+function BasketList ({onButtonDeleteProduct}: BasketListProps) {
 
   return (
 
@@ -17,7 +20,8 @@ function BasketList () {
               <BasketComponent
                 product={product}
                 key={product.id}
-              />
+                onButtonDeleteProduct={onButtonDeleteProduct}
+                />
             ))
         ) : (
           <div><strong>Корзина пуcта. Выберите товар для оформления заказа.</strong></div>
