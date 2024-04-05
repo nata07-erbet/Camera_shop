@@ -74,9 +74,9 @@ const RatingMap = {
   '1': 'Ужасно'
 } as const;
 
-const INITAL_PAGE_BY_PANGINATION = 1;
-const INITAL_RATING = 3;
-const INITAL_COUNT_COMMENTS = 5;
+const INITIAL_PAGE_BY_PAGINATION = 1;
+const INITIAL_RATING = 3;
+const INITIAL_COUNT_COMMENTS = 5;
 
 const NAME_MIN = 3;
 const NAME_MAX = 10;
@@ -153,7 +153,7 @@ export {
   START_SEARCH_TERM,
   AppRoute,
   PanginationStep,
-  INITAL_PAGE_BY_PANGINATION,
+  INITIAL_PAGE_BY_PAGINATION,
   NAME_MIN,
   NAME_MAX,
   DATA_MIN,
@@ -166,8 +166,8 @@ export {
   PanginationButton,
   PanginationsMap,
   ERROR_MESSAGE,
-  INITAL_RATING,
-  INITAL_COUNT_COMMENTS,
+  INITIAL_RATING,
+  INITIAL_COUNT_COMMENTS,
   API_URL,
   DEFAULT_NULL,
   ReqPath,

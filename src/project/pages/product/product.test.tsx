@@ -4,8 +4,9 @@ import { withHistory } from '../../utils/mock-component/mock-component';
 import { Product } from './product';
 import { ReqPath } from '../../const/const';
 import { TGetRewiew, TProduct } from '../../types';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { productsMocks } from '../../mocks/products-mock';
+import { api } from '../../services';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<object>('react-router-dom');
@@ -15,12 +16,30 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-vi.mock('axios');
+vi.mock('../../services', async () => {
+  const actual = await vi.importActual<object>('../../services');
+  return {
+    ...actual,
+    api: {
+      ...(actual as { api: object }).api,
+      get: vi.fn(),}
+  };
+});
 
 describe('Component: Product', () => {
   beforeEach(() => {
-    (axios.get as Mock).mockImplementation((path: string) => {
-      if (path.includes(`${ReqPath.getProducts}/1`)) {
+    (api.get as Mock).mockImplementation((path: string) => {
+      if (path === ReqPath.getProducts) {
+        return Promise.resolve<AxiosResponse<TProduct[]>>({
+          data: productsMocks,
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config: {}
+        });
+      }
+
+      if (path === `${ReqPath.getProducts}/1`) {
         return Promise.resolve<AxiosResponse<TProduct>>({
           data: productsMocks[0],
           status: 200,
@@ -30,7 +49,7 @@ describe('Component: Product', () => {
         });
       }
 
-      if (path.includes(`${ReqPath.getProducts}/1${ReqPath.getRewiews}`)) {
+      if (path === `${ReqPath.getProducts}/1${ReqPath.getRewiews}`) {
         return Promise.resolve<AxiosResponse<TGetRewiew[]>>({
           data: [],
           status: 200,
@@ -40,7 +59,7 @@ describe('Component: Product', () => {
         });
       }
 
-      if (path.includes(`${ReqPath.getProducts}/1${ReqPath.getSimilar}`)) {
+      if (path === `${ReqPath.getProducts}/1${ReqPath.getSimilar}`) {
         return Promise.resolve<AxiosResponse<TProduct[]>>({
           data: [],
           status: 200,
@@ -54,7 +73,6 @@ describe('Component: Product', () => {
 
   it('should render correctly', async () => {
     render(withHistory(<Product/>));
-
     await waitFor(() => expect(screen.getByTestId('product-name')).toBeInTheDocument());
   });
 });

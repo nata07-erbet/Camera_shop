@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { withHistory } from '../../utils/mock-component/mock-component';
-import { INITAL_PAGE_BY_PANGINATION } from '../../const/const';
 import { Pagination } from './pagination-component';
 
 describe('Component: NotFoundScreen', () => {
@@ -9,7 +8,7 @@ describe('Component: NotFoundScreen', () => {
     const prepareComponent = withHistory(
       <Pagination
         currentPage={1}
-        pagesAmount={INITAL_PAGE_BY_PANGINATION}
+        pagesAmount={2}
         onPageChange={vi.fn()}
       />
     );
@@ -17,5 +16,20 @@ describe('Component: NotFoundScreen', () => {
     render(prepareComponent);
 
     expect(screen.getByTestId(expectedText)).toBeInTheDocument();
+  });
+
+  it('should not render if pagesAmount <= 1', () => {
+    const expectedText = 'pagination-component';
+    const prepareComponent = withHistory(
+      <Pagination
+        currentPage={1}
+        pagesAmount={1}
+        onPageChange={vi.fn()}
+      />
+    );
+
+    render(prepareComponent);
+
+    expect(screen.queryByTestId(expectedText)).not.toBeInTheDocument();
   });
 });

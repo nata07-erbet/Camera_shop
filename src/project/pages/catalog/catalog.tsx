@@ -159,6 +159,7 @@ function Catalog() {
 
   const handleFiltersReset = useCallback(() => {
     setFilters(null);
+    setPriceRange([null, null]);
     setSearchParams();
   }, [setSearchParams]);
 
@@ -277,7 +278,7 @@ function Catalog() {
               opened={isModalAddProductShow}
               onClose={handleModalAddProductShowClose}
               onPopupAddBasketSuccessShow={handlePopupAddBasketSuccessShow}
-              />
+            />
             <PopupBasketSuccess
               opened={isModalAddProductSuccessShow}
               onClose={handleModalAddProductSuccessShowClose}
