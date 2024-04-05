@@ -8,6 +8,13 @@ const REWIEWS_COUNT = 3;
 const DEFAULT_NULL = 0;
 const START_SEARCH_TERM = 3;
 
+const MAX_PRODUCTS_IN_BASKET = 99;
+const MIN_PRODUCTS_IN_BASKET = 1;
+
+
+const KEY_PRODUCTS_INTO_BASKET = 'myBasketProducts';
+
+
 const API_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 
 const AppRoute = {
@@ -170,6 +177,7 @@ export {
   INITAL_COUNT_COMMENTS,
   API_URL,
   DEFAULT_NULL,
+  KEY_PRODUCTS_INTO_BASKET,
   ReqPath,
   FilterCategoryMap,
   FilterTypeMap,
@@ -180,4 +188,6 @@ export {
   SortingDirectionLabel,
   SortingType,
   SettingValidation,
+  MAX_PRODUCTS_IN_BASKET,
+  MIN_PRODUCTS_IN_BASKET
 };

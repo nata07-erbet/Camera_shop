@@ -1,12 +1,36 @@
-import { TProduct } from '../../types';
+import { useState } from 'react';
+import { TProduct, TProductLocalStorage } from '../../types';
+import { setLocalStorage, getLocalStorage } from '../../utils/local-storige';
+import {
+  KEY_PRODUCTS_INTO_BASKET,
+  MAX_PRODUCTS_IN_BASKET,
+  MIN_PRODUCTS_IN_BASKET } from '../../const/const';
 
 type BasketComponentProps = {
   product: TProduct;
 };
 
 function BasketComponent ({product}: BasketComponentProps) {
+  const [ counter, setCounter ] = useState<number>(1);
+
+
+  setLocalStorage(KEY_PRODUCTS_INTO_BASKET, product);
+
+
   const handleClickCountBack = () => {
-    
+    if (counter > MIN_PRODUCTS_IN_BASKET) {
+      setCounter((prevState) => prevState - 1);
+    } else if (counter === MIN_PRODUCTS_IN_BASKET) {
+      return MIN_PRODUCTS_IN_BASKET;
+    }
+  };
+
+  const handleClickCountNext = () => {
+    if (counter < MAX_PRODUCTS_IN_BASKET) {
+      setCounter((prevState) => prevState + 1);
+    } else {
+      return MAX_PRODUCTS_IN_BASKET;
+    }
   };
 
   return (
@@ -57,16 +81,17 @@ function BasketComponent ({product}: BasketComponentProps) {
         <label className="visually-hidden" htmlFor="counter1" />
         <input
           type="number"
-          id="counter1"
-          value={3}
-          defaultValue={1}
-          min={1}
-          max={99}
+          id={`counter${counter}`}
+          value={counter}
+          defaultValue={MIN_PRODUCTS_IN_BASKET}
+          min={MIN_PRODUCTS_IN_BASKET }
+          max={MAX_PRODUCTS_IN_BASKET}
           aria-label="количество товара"
         />
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
+          onClick={handleClickCountNext}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow" />

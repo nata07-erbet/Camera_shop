@@ -1,24 +1,28 @@
-import { TProduct } from '../../types';
 import { BasketComponent } from '../../components/basket-component/basket-component';
+import { basketProductsMock } from '../../mocks/basket-mock';
 
-type BasketListProps = {
-  products: TProduct[];
-};
 
 const MAX_BASKET = 3;
 
-function BasketList ({products}: BasketListProps) {
+function BasketList () {
 
   return (
+
     <ul className="basket__list" data-testid="basket-list">
-      {products
-        .slice(0, MAX_BASKET)
-        .map((product) =>(
-        <BasketComponent
-          product={product}
-          key={product.id}
-        />
-        ))}
+      {basketProductsMock.length > 0
+        ? (
+          basketProductsMock
+            .slice(0, MAX_BASKET)
+            .map((product) =>(
+              <BasketComponent
+                product={product}
+                key={product.id}
+              />
+            ))
+        ) : (
+          <div><strong>Корзина пуcта. Выберите товар для оформления заказа.</strong></div>
+        )}
+
     </ul>
   );
 }

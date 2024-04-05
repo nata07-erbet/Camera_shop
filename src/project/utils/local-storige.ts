@@ -1,6 +1,6 @@
-import { TProductBasket } from '../types/product.type';
+import { TProductLocalStorage } from '../types/product.type';
 
-function setLocalStorage (key: string, data: TProductBasket) {
+function setLocalStorage (key: string, data: TProductLocalStorage) {
   return localStorage.setItem(key, JSON.stringify(data));
 }
 
