@@ -159,6 +159,7 @@ function Catalog() {
 
   const handleFiltersReset = useCallback(() => {
     setFilters(null);
+    setPriceRange([null, null]);
     setSearchParams();
   }, [setSearchParams]);
 

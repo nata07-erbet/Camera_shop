@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { INITIAL_PAGE_BY_PAGINATION } from '../const/const';
 
 type TUsePaginationProps = {
   currentPage: number;
@@ -49,7 +50,7 @@ const usePagination = ({ pagesAmount, currentPage, onPageChange }: TUsePaginatio
   useEffect(() => {
     if (initRangeIdx === -1) {
       const newRangeIdx = 0;
-      const newPage = ranges[0][0];
+      const newPage = INITIAL_PAGE_BY_PAGINATION;
       onPageChange(newPage);
       setCurrentRangeIdx(newRangeIdx);
     }
