@@ -1,4 +1,4 @@
-import { TProduct } from '../types/index';
+import { TProductLocalStorage } from '../types/index';
 
 const mocksByJSON = `[
   {
@@ -15,7 +15,8 @@ const mocksByJSON = `[
     "previewImgWebp": "img/content/das-auge.webp",
     "previewImgWebp2x": "img/content/das-auge@2x.webp",
     "rating": 4,
-    "reviewCount": 68
+    "reviewCount": 68,
+    "count": 2
   },
   {
     "id": 2,
@@ -30,8 +31,9 @@ const mocksByJSON = `[
     "previewImg2x": "img/content/fast-shot@2x.jpg",
     "previewImgWebp": "img/content/fast-shot.webp",
     "previewImgWebp2x": "img/content/fast-shot@2x.webp",
-    "rating": 4,
-    "reviewCount": 22
+    "rating": 3,
+    "reviewCount": 22,
+    "count": 6
   },
   {
     "id": 3,
@@ -47,7 +49,8 @@ const mocksByJSON = `[
     "previewImgWebp": "img/content/instaprinter.webp",
     "previewImgWebp2x": "img/content/instaprinter@2x.webp",
     "rating": 3,
-    "reviewCount": 11
+    "reviewCount": 11,
+    "count": 4
   },
   {
     "id": 4,
@@ -63,9 +66,10 @@ const mocksByJSON = `[
     "previewImgWebp": "img/content/orlenok.webp",
     "previewImgWebp2x": "img/content/orlenok@2x.webp",
     "rating": 3,
-    "reviewCount": 14
+    "reviewCount": 14,
+    "count": 2
   }
 ]`;
 
-const basketProductsMock = JSON.parse(mocksByJSON) as TProduct[];
+const basketProductsMock = JSON.parse(mocksByJSON) as TProductLocalStorage[];
 export { basketProductsMock };

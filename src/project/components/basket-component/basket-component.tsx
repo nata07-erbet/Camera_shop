@@ -1,34 +1,34 @@
 import { ChangeEvent, useState } from 'react';
-import { TProduct } from '../../types';
+import { TProductLocalStorage } from '../../types';
 
 import {
   MAX_PRODUCTS_IN_BASKET,
   MIN_PRODUCTS_IN_BASKET } from '../../const/const';
 
 type BasketComponentProps = {
-  product: TProduct;
+  product: TProductLocalStorage;
   onButtonDeleteProduct: () => void;
 };
 
 function BasketComponent ({product, onButtonDeleteProduct}: BasketComponentProps) {
-  const [ value, setValue ] = useState(MIN_PRODUCTS_IN_BASKET.toString());
-  const [ counter, setCounter ] = useState<number>(Number(value));
+  const [ value, setValue ] = useState<number>(product.count);
 
   const handleChangeCount = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValue(evt.target.value);
+    const count = evt.target.value.replace(/^0/, '');
+    setValue(Number(count));
   };
 
   const handleClickCountBack = () => {
-    if (counter > MIN_PRODUCTS_IN_BASKET) {
-      setCounter((prevState) => prevState - 1);
-    } else if (counter === MIN_PRODUCTS_IN_BASKET) {
+    if (value > MIN_PRODUCTS_IN_BASKET) {
+      setValue((prevState) => prevState - 1);
+    } else if (value === MIN_PRODUCTS_IN_BASKET) {
       return MIN_PRODUCTS_IN_BASKET;
     }
   };
 
   const handleClickCountNext = () => {
-    if (counter < MAX_PRODUCTS_IN_BASKET) {
-      setCounter((prevState) => prevState + 1);
+    if (value < MAX_PRODUCTS_IN_BASKET) {
+      setValue((prevState) => prevState + 1);
     } else {
       return MAX_PRODUCTS_IN_BASKET;
     }
@@ -87,7 +87,7 @@ function BasketComponent ({product, onButtonDeleteProduct}: BasketComponentProps
         <label className="visually-hidden" htmlFor="counter1" />
         <input
           type="number"
-          id={`counter${counter}`}
+          id={`counter${value}`}
           value={value}
           defaultValue={MIN_PRODUCTS_IN_BASKET}
           min={MIN_PRODUCTS_IN_BASKET }
@@ -106,7 +106,7 @@ function BasketComponent ({product, onButtonDeleteProduct}: BasketComponentProps
         </button>
       </div>
       <div className="basket-item__total-price">
-        <span className="visually-hidden">Общая цена:</span>{product.price * 3 }₽
+        <span className="visually-hidden">Общая цена:</span>{product.price * value }₽
       </div>
       <button
         className="cross-btn"

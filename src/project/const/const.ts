@@ -21,6 +21,7 @@ const AppRoute = {
   AddRewiew: '/add-rewiew',
   AddRewiewSuccess: '/add-rewiew-success',
   AddRewiewError: '/add-rewiew-error',
+  AddCoupons: '/coupons'
 } as const;
 
 const ReqPath = {
@@ -77,6 +78,9 @@ const RatingMap = {
 const INITIAL_PAGE_BY_PAGINATION = 1;
 const INITIAL_RATING = 3;
 const INITIAL_COUNT_COMMENTS = 5;
+
+const MAX_PRODUCTS_IN_BASKET = 90;
+const MIN_PRODUCTS_IN_BASKET = 1;
 
 const NAME_MIN = 3;
 const NAME_MAX = 10;
@@ -180,4 +184,6 @@ export {
   SortingDirectionLabel,
   SortingType,
   SettingValidation,
+  MAX_PRODUCTS_IN_BASKET,
+  MIN_PRODUCTS_IN_BASKET
 };

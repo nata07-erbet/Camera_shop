@@ -1,6 +1,17 @@
 import { PopUpMain } from '../pop-up/popup-main';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
 
-function PopupRemove ({...props}) {
+type PopupRemoveProps = {
+  onClickDeleteFromBasket: () => void;
+};
+
+function PopupRemove ({onClickDeleteFromBasket, ...props}: PopupRemoveProps) {
+
+  const handleClickDeleteFromBasket = () => {
+    onClickDeleteFromBasket();
+  };
+
   return (
     <PopUpMain {...props}>
       <p className="title title--h4">Удалить этот товар?</p>
@@ -36,15 +47,16 @@ function PopupRemove ({...props}) {
         <button
           className="btn btn--purple modal__btn modal__btn--half-width"
           type="button"
+          onClick={handleClickDeleteFromBasket}
         >
           Удалить
         </button>
-        <a
+        <Link
           className="btn btn--transparent modal__btn modal__btn--half-width"
-          href="#"
+          to={AppRoute.Main}
         >
           Продолжить покупки
-        </a>
+        </Link>
       </div>
       <button className="cross-btn" type="button" aria-label="Закрыть попап">
         <svg width={10} height={10} aria-hidden="true">
