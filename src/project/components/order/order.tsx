@@ -15,14 +15,7 @@ function Order ({onSubmit}: OrderProps){
     acc + currentValue.price * currentValue.count, 0);
 
   const [ discount, setDiscount ] = useState(17);
-  const styleDiscount = classNames(
-    'basket__summary-value--bonus',
-    {'basket__summary-value': discount === 0}
-  );
-
-  type FormInputs = {
-    promo: TCoupon
-  };
+  const [stylePromo, setStylePromo ] = useState('');
 
   const {
     register,
@@ -31,20 +24,52 @@ function Order ({onSubmit}: OrderProps){
     watch,
     setError
   } = useForm<FormInputs>({
-    mode: 'all';
+    mode: 'all'
   });
+
+  const styleDiscount = classNames(
+    'basket__summary-value--bonus',
+    {'basket__summary-value': discount === 0}
+  );
+
+  const classPromoIsValid = classNames(
+    'custom-input',
+    'is-valid'
+  );
+
+  const classPromoIsInValid = classNames(
+    'custom-input',
+    'is-invalid'
+  );
+
+  const isValidatePromo = (value: string) =>
+    (value === 'camera-333' || value === 'camera-444' || value === 'camera-555' && value !== ' ');
+
+  type FormInputs = {
+    promo: 'camera-333' | 'camera-444' | 'camera-555';
+  };
 
   const couponValue = watch('promo');
 
-  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
-    const couponData: FormInputs =  {
-      promo: data.coupon
+  const handleClickCheckCoupon = () => {
+    if(isValidatePromo(couponValue)) {
+      setStylePromo(classPromoIsValid);
+    } else {
+      setStylePromo(classPromoIsInValid);
     }
-
-    api.post(ReqPath.postCoupons, couponData)
-      .then(onSubmit);
   };
 
+
+  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+    const formData: TCoupon = {
+      coupon: data.promo
+    };
+
+
+    api.post(ReqPath.postCoupons, formData)
+      .then(onSubmit)
+      .catch((err) => setError('root', err));
+  };
   return (
     <div className="basket__summary">
       <div className="basket__promo">
@@ -55,29 +80,30 @@ function Order ({onSubmit}: OrderProps){
         <div className="basket-form">
           <form
             action="#"
-            onSubmit={handleSubmit(handleFormSubmit)(evt)}
+            onSubmit={(evt) => handleSubmit(handleFormSubmit)(evt)}
           >
-            <div className="custom-input">
+            <div className={stylePromo}>
               <label>
                 <span className="custom-input__label">Промокод</span>
                 <input
                   type="text"
                   placeholder="Введите промокод"
-                  value={1}
                   {
                     ...register('promo', {
-
+                      validate: {isValidatePromo},
                     })
                   }
                 />
               </label>
               <p className="custom-input__error">Промокод неверный</p>
-              <p className="custom-input__success">
-                          Промокод принят!
-              </p>
+              <p className="custom-input__success">Промокод принят!</p>
             </div>
-            <button className="btn" type="submit">
-                        Применить
+            <button
+              className="btn"
+              type="submit"
+              onClick={handleClickCheckCoupon}
+              >
+                Применить
             </button>
           </form>
         </div>
