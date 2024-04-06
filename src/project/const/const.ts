@@ -21,7 +21,6 @@ const AppRoute = {
   AddRewiew: '/add-rewiew',
   AddRewiewSuccess: '/add-rewiew-success',
   AddRewiewError: '/add-rewiew-error',
-  AddCoupons: '/coupons'
 } as const;
 
 const ReqPath = {
@@ -30,6 +29,7 @@ const ReqPath = {
   getRewiews: '/reviews',
   getSimilar: '/similar',
   postRewiews: '/reviews',
+  postCoupons: '/coupons'
 };
 
 const AppRouteTab = {

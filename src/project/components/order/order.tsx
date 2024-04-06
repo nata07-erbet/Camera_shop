@@ -2,21 +2,47 @@ import { useState } from 'react';
 import { basketProductsMock } from '../../mocks/basket-mock';
 import classNames from 'classnames';
 import { api } from '../../services';
-import { AppRoute } from '../../const/const'
+import { ReqPath } from '../../const/const';
+import { TCoupon } from '../../types/coupon.type';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-function Order (){
+type OrderProps = {
+  onSubmit: () => void;
+};
+
+function Order ({onSubmit}: OrderProps){
   const summary = basketProductsMock.reduce((acc: number, currentValue) =>
     acc + currentValue.price * currentValue.count, 0);
-  const [ discount, setDiscount ] = useState(17);
 
+  const [ discount, setDiscount ] = useState(17);
   const styleDiscount = classNames(
     'basket__summary-value--bonus',
     {'basket__summary-value': discount === 0}
   );
 
-  const handleFormSubmit = (data) => {
-    
-    api.post(AppRoute.AddCoupons, data);
+  type FormInputs = {
+    promo: TCoupon
+  };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+    setError
+  } = useForm<FormInputs>({
+    mode: 'all';
+  });
+
+  const couponValue = watch('promo');
+
+  const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
+    const couponData: FormInputs =  {
+      promo: data.coupon
+    }
+
+    api.post(ReqPath.postCoupons, couponData)
+      .then(onSubmit);
   };
 
   return (
@@ -29,15 +55,20 @@ function Order (){
         <div className="basket-form">
           <form
             action="#"
-            onSubmit={handleFormSubmit}
-            >
+            onSubmit={handleSubmit(handleFormSubmit)(evt)}
+          >
             <div className="custom-input">
               <label>
                 <span className="custom-input__label">Промокод</span>
                 <input
                   type="text"
-                  name="promo"
                   placeholder="Введите промокод"
+                  value={1}
+                  {
+                    ...register('promo', {
+
+                    })
+                  }
                 />
               </label>
               <p className="custom-input__error">Промокод неверный</p>
