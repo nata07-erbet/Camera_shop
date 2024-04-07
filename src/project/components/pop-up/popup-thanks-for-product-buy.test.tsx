@@ -5,7 +5,7 @@ import { PopupThanksForProductBuy } from './index';
 describe('component: PopupThanksForProductBuy', () => {
   it('should render correctly', () => {
     const expectedText = 'Спасибо за покупку';
-    const preparedComponent = withHistory(<PopupThanksForProductBuy />);
+    const preparedComponent = withHistory(<PopupThanksForProductBuy sendingStatus={false} />);
 
     render(preparedComponent);
 
