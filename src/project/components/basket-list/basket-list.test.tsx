@@ -7,7 +7,7 @@ describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
     const expectedText = 'basket-list';
     const prepareComponent = withHistory(
-      <BasketList />
+      <BasketList onButtonDeleteProduct={vi.fn()}/>
     );
 
     render(prepareComponent);

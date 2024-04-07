@@ -1,17 +1,21 @@
+import { useState } from 'react';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { BasketList } from '../../components/basket-list/basket-list';
 import { PopupRemove } from '../../components/pop-up/popup-remove-item';
 import { Order } from '../../components/order/order';
-
-import { useState } from 'react';
+import { PopupThanksForProductBuy } from '../../components/pop-up/popup-thanks-for-product-buy';
+import { PopupBadOrderPost } from '../../components/pop-up/popup-bad-order-post';
 
 
 function Basket() {
   const activeBasketPage = true;
 
   const [ isModalPopupRemoveShow, setIsModalPopupRemoveShow ] = useState(false);
+  const [ isPopupThanksForBuyShow, setIsPopupThanksForBuyShow ] = useState(false);
+  const [ sendingStatus, setSendingStatus] = useState(false);
+
   const handleButtonDeleteProduct = () => {
     setIsModalPopupRemoveShow(true);
   };
@@ -20,10 +24,30 @@ function Basket() {
     //логика удаления продукта
   };
 
+  // const handleClickAllDeleteFromBasket = () => {
+  //   //логика очистки корзины
+  // };
+
   const handleModalPopupRemoveShowClose = () => {
     setIsModalPopupRemoveShow(false);
   };
 
+  const handlePopupThanksForBuyShowClose = () => {
+    setIsPopupThanksForBuyShow(false);
+  };
+
+  // просто для проверки работы попапа
+  if(sendingStatus) {
+    setSendingStatus((prevState) => !prevState);
+    setIsPopupThanksForBuyShow(true);
+  } else {
+    setIsPopupThanksForBuyShow(false);
+  }
+  // useEffect(() => {
+  //   if(sendingStatus = RequestStatus.Success) {
+  //     setIsPopupThanksForBuyShow(true);
+  //   }
+  // }, []);
 
 
   return (
@@ -47,6 +71,11 @@ function Basket() {
         opened={isModalPopupRemoveShow}
         onClose={handleModalPopupRemoveShowClose}
         onClickDeleteFromBasket={handleClickDeleteFromBasket}
+      />
+      <PopupThanksForProductBuy
+        opened={isPopupThanksForBuyShow}
+        onClose={handlePopupThanksForBuyShowClose}
+        sendingStatus={sendingStatus}
       />
       <Footer />
     </>

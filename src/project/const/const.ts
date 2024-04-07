@@ -29,7 +29,8 @@ const ReqPath = {
   getRewiews: '/reviews',
   getSimilar: '/similar',
   postRewiews: '/reviews',
-  postCoupons: '/coupons'
+  postCoupons: '/coupons',
+  postOrders: '/orders',
 };
 
 const AppRouteTab = {
@@ -148,6 +149,13 @@ const SettingValidation = {
   UserComment: 'Нужно добавить комментарий'
 };
 
+enum RequestStatus {
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Error = 'Error',
+  Success = 'Success'
+};
+
 export {
   PRODUCT_VIEW_COUNT,
   SIMILAR_VIEW_COUNT,
@@ -185,5 +193,6 @@ export {
   SortingType,
   SettingValidation,
   MAX_PRODUCTS_IN_BASKET,
-  MIN_PRODUCTS_IN_BASKET
+  MIN_PRODUCTS_IN_BASKET,
+  RequestStatus
 };

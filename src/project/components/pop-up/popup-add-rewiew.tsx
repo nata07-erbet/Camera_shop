@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { TPostRewiew } from '../../types';
 import { api } from '../../services';
-import { SettingValidation } from '../../const/const'
+import { SettingValidation } from '../../const/const';
 
 type IPopupAddRewiew = PopUpMainProps & {
   productId: number;
