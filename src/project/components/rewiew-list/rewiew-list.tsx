@@ -1,13 +1,13 @@
-import { TGetRewiew } from '../../types/index';
+import { TRewiew } from '../../types/index';
 import { FormattedDate } from '../../utils/utils';
 import { Rating } from '../rating/rating';
 
 type RewiewListProps = {
-  rewiews: TGetRewiew[];
+  rewiews: TRewiew[];
   rewiewCount: number;
 };
 
-const compare = (a: TGetRewiew, b: TGetRewiew) => {
+const compare = (a: TRewiew, b: TRewiew) => {
   const dateA = new Date(a.createAt);
   const dateB = new Date(b.createAt);
 

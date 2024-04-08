@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { TGetRewiew } from '../../types';
+import { TRewiew } from '../../types';
 import { RewiewList } from '../rewiew-list/rewiew-list';
 import { REWIEWS_COUNT } from '../../const/const';
 
 type RewiewsProps ={
-  rewiews: TGetRewiew[];
+  rewiews: TRewiew[];
   onButtonAddRewiewClick: () => void;
 }
 

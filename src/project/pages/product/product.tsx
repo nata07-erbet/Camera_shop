@@ -8,7 +8,7 @@ import { Footer } from '../../components/footer/footer';
 import { UpBtn } from '../../components/up-btn/up-btn';
 import { BreadCrumbs } from '../../components/breadcrumbs/breadcrumbs';
 import { SimilarSliderProducts } from '../../components/similar-slider-products/similar-slider-products';
-import { TProduct, TGetRewiew } from '../../types/index';
+import { TProduct, TRewiew } from '../../types/index';
 import { Rating } from '../../components/rating/rating';
 import { Rewiews } from '../../components/rewiews/rewiews';
 import {
@@ -25,7 +25,7 @@ const TABS: TTab[] = ['characteristic', 'description'];
 function Product() {
   const [currentProduct, setCurrentProduct] = useState<TProduct | null>(null);
   const [similarProducts, setSimilarProducts ] = useState<TProduct[]>([]);
-  const [rewiews, setRewiews] = useState<TGetRewiew[]>([]);
+  const [rewiews, setRewiews] = useState<TRewiew[]>([]);
   const { productId, tab: savedTab } = useParams<{ productId: string; tab: TTab }>();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function Product() {
       api.get<TProduct>(`${ReqPath.getProducts}/${productId}`)
         .then((resolve) => setCurrentProduct(resolve.data));
 
-      api.get<TGetRewiew[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getRewiews}`)
+      api.get<TRewiew[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getRewiews}`)
         .then((resolve) => setRewiews(resolve.data));
 
       api.get<TProduct[]>(`${ReqPath.getProducts}/${productId}${ReqPath.getSimilar}`)

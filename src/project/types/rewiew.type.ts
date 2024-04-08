@@ -1,4 +1,4 @@
-type TGetRewiew = {
+type TRewiew = {
   id: string;
   userName: string;
   advantage: string;
@@ -9,6 +9,4 @@ type TGetRewiew = {
   cameraId: number;
 }
 
-type TPostRewiew = Omit<TGetRewiew, 'id' | 'createAt'>
-
-export type { TGetRewiew, TPostRewiew };
+export type { TRewiew };

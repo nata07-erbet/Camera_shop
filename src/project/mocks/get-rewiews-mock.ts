@@ -1,4 +1,4 @@
-import { TGetRewiew } from '../types/index';
+import { TRewiew } from '../types/index';
 
 const getRewiewsJSON = `
 [
@@ -954,6 +954,6 @@ const getRewiewsJSON = `
   }
 ]`;
 
-const getRewiewsMock = JSON.parse(getRewiewsJSON) as TGetRewiew[];
+const getRewiewsMock = JSON.parse(getRewiewsJSON) as TRewiew[];
 
 export { getRewiewsMock };

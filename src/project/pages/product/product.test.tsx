@@ -3,7 +3,7 @@ import { Mock, vi } from 'vitest';
 import { withHistory } from '../../utils/mock-component/mock-component';
 import { Product } from './product';
 import { ReqPath } from '../../const/const';
-import { TGetRewiew, TProduct } from '../../types';
+import { TRewiew, TProduct } from '../../types';
 import { AxiosResponse } from 'axios';
 import { productsMocks } from '../../mocks/products-mock';
 import { api } from '../../services';
@@ -50,7 +50,7 @@ describe('Component: Product', () => {
       }
 
       if (path === `${ReqPath.getProducts}/1${ReqPath.getRewiews}`) {
-        return Promise.resolve<AxiosResponse<TGetRewiew[]>>({
+        return Promise.resolve<AxiosResponse<TRewiew[]>>({
           data: [],
           status: 200,
           statusText: 'OK',

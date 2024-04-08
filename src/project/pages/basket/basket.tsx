@@ -6,7 +6,6 @@ import { BasketList } from '../../components/basket-list/basket-list';
 import { PopupRemove } from '../../components/pop-up/popup-remove-item';
 import { Order } from '../../components/order/order';
 import { PopupThanksForProductBuy } from '../../components/pop-up/popup-thanks-for-product-buy';
-import { PopupBadOrderPost } from '../../components/pop-up/popup-bad-order-post';
 
 
 function Basket() {
@@ -40,9 +39,7 @@ function Basket() {
   if(sendingStatus) {
     setSendingStatus((prevState) => !prevState);
     setIsPopupThanksForBuyShow(true);
-  } else {
-    setIsPopupThanksForBuyShow(false);
-  }
+  };
   // useEffect(() => {
   //   if(sendingStatus = RequestStatus.Success) {
   //     setIsPopupThanksForBuyShow(true);

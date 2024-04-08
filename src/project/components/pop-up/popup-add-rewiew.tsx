@@ -3,7 +3,7 @@ import { PopUpMain, PopUpMainProps } from './index';
 import { RatingMap, ReqPath } from '../../const/const';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
-import { TPostRewiew } from '../../types';
+import { TRewiew } from '../../types';
 import { api } from '../../services';
 import { SettingValidation } from '../../const/const';
 
@@ -37,7 +37,7 @@ function PopupAddRewiew ({ productId, onSubmit, ...props }: IPopupAddRewiew) {
 
 
   const handleFormSubmit: SubmitHandler<FormInputs> = (data) => {
-    const formData: TPostRewiew = {
+    const formData: TRewiew = {
       cameraId: productId,
       userName: data.name,
       advantage: data.userPlus,
