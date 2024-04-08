@@ -3,7 +3,8 @@ const SIMILAR_VIEW_COUNT = 3;
 
 const MOCK_START = 1;
 const MOCK_END = 40;
-
+const MAX_PRODUCTS_IN_BASKET = 99;
+const MIN_PRODUCTS_IN_BASKET = 1;
 const REWIEWS_COUNT = 3;
 const DEFAULT_NULL = 0;
 const START_SEARCH_TERM = 3;
@@ -180,4 +181,6 @@ export {
   SortingDirectionLabel,
   SortingType,
   SettingValidation,
+  MAX_PRODUCTS_IN_BASKET,
+  MIN_PRODUCTS_IN_BASKET
 };
