@@ -1,4 +1,3 @@
-import { isNull } from 'util';
 import { RequestStatus } from '../const/const';
 import {
   TProduct,
@@ -39,9 +38,10 @@ const initialState: {
   reviewsSendingStatus: RequestStatus.Idle,
   coupon: null,
   couponSendingStatus: RequestStatus.Idle,
-  orders: [];
+  orders: [],
   ordersSendingStatus: RequestStatus.Idle
 };
 
+const reducer = 
 
 export { initialState };
