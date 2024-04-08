@@ -42,6 +42,8 @@ const initialState: {
   ordersSendingStatus: RequestStatus.Idle
 };
 
-const reducer = 
+const reducer = () => {
+  // код для оновления состояния
+}
 
-export { initialState };
+export { initialState, reducer };

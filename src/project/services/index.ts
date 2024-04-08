@@ -6,7 +6,7 @@ type DetailMessageType = {
   type: string;
   message: string;
 }
-const createApi = (): AxiosInstance => {
+export const createApi = (): AxiosInstance => {
   const api = axios.create({
     baseURL: API_URL,
   });
